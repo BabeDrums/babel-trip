@@ -8,6 +8,7 @@
 </style>
 
 <section class="topDecision"><div class="group menuGroup"><div class="row"><div class="label">Dizzy</div><div class="choice" data-key="dizzy"><button id="dizzyChoiceText" class="choiceTrigger" type="button" aria-expanded="false">Weekend</button><div class="choiceMenu hidden"><button class="choiceOption sel" data-v="weekend" type="button">Weekend</button><button class="choiceOption" data-v="friday" type="button">Friday</button><button class="choiceOption" data-v="none" type="button">None</button></div></div></div></div></section>
+<section class="topDecision"><div class="group menuGroup"><div class="row"><div class="label">Dinner</div><div class="seg three" data-key="dinnerMom"><button class="sel" data-v="yes">Yes</button><button data-v="no">No</button><button data-v="tbd">TBD</button></div></div><div id="dinnerChoiceRow" class="row"><div class="label">Restaurant</div><div class="seg two" data-key="restaurant"><button data-v="uno">Uno</button><button class="sel" data-v="other">Rosalie</button></div></div><div id="dinnerTimeRow" class="row"><div class="label">Reservation</div><div class="choice" data-key="dinner"><button id="dinnerChoiceText" class="choiceTrigger" type="button" aria-expanded="false">6:00 PM</button><div class="choiceMenu hidden"><button class="choiceOption sel" data-v="1080" type="button">6:00 PM</button><button class="choiceOption" data-v="1095" type="button">6:15 PM</button><button class="choiceOption" data-v="1110" type="button">6:30 PM</button></div></div></div><div class="row"><div class="label">Car</div><div class="seg two" data-key="car"><button class="sel" data-v="mom">Mom</button><button data-v="mine">Mine</button></div></div><div class="row"><div class="label">Pays</div><div class="seg two" data-key="momPaid"><button class="sel" data-v="yes">Mom</button><button data-v="no">Me</button></div></div><div class="row"><div class="label">Overnight</div><div class="seg two" data-key="overnight"><button class="sel" data-v="yes">Yes</button><button data-v="no">No</button></div></div></div></section>
 
 <section class="day">
   <div class="header"><div class="date">Wednesday, Nov 18</div></div>
@@ -39,9 +40,9 @@
       <div class="row"><div class="label">Cousin's</div><div id="cousinArrival" class="trailing">4:40 PM PT</div></div><div class="row"><div class="label">Cousin's<span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span></div><div id="cousinSettle" class="trailing">20 min</div></div></div>
 
     <div class="group menuGroup">
-      <div class="row"><div class="label">With Mom?</div><div class="seg two" data-key="dinnerMom"><button class="sel" data-v="yes">Yes</button><button data-v="no">No</button></div></div>
-      <div id="dinnerChoiceRow" class="row"><div class="label">Restaurant</div><div class="seg two" data-key="restaurant"><button data-v="uno">Uno</button><button class="sel" data-v="other">Rosalie</button></div></div>
-      <div id="dinnerTimeRow" class="row"><div class="label">Reservation</div><div class="choice" data-key="dinner"><button id="dinnerChoiceText" class="choiceTrigger" type="button" aria-expanded="false">6:00 PM</button><div class="choiceMenu hidden"><button class="choiceOption sel" data-v="1080" type="button">6:00 PM</button><button class="choiceOption" data-v="1095" type="button">6:15 PM</button><button class="choiceOption" data-v="1110" type="button">6:30 PM</button></div></div></div>
+      
+      
+      
       <div id="altPlan" class="row hidden"><div class="label">Alternative</div><div class="trailing">TBD</div></div>
     </div>
 
@@ -51,7 +52,7 @@
         <div class="row infoRow"><div class="infoLeft">20 min drive</div><div class="infoRight">5.5 mi · range TBD</div></div>
         <div class="row"><div class="label">Mom's</div><div id="momArrival1" class="trailing">5:20 PM</div></div><div class="row"><div class="label">Mom's<span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span></div><div id="momSettle" class="trailing">25 min</div></div></div>
 
-      <div class="group"><div class="row"><div class="label">Car</div><div class="seg two" data-key="car"><button class="sel" data-v="mom">Mom</button><button data-v="mine">Mine</button></div></div></div>
+      
 
       <div class="group">
         <div class="row"><div class="label">Mom's<span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span></div><div id="momDepartDinner" class="trailing">5:45 PM</div></div>
@@ -74,8 +75,8 @@
         <div class="row infoRow"><div class="infoLeft">20 min drive</div><div></div></div>
         <div class="row"><div class="label">Mom's</div><div id="momArrival2" class="trailing">8:40 PM</div></div>
         <div class="row"><div class="label">Mom<span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span></div><div class="trailing">5 min</div></div>
-        <div class="row"><div class="label">Mom paid?</div><div class="seg two" data-key="momPaid"><button class="sel" data-v="yes">Yes</button><button data-v="no">No</button></div></div>
-        <div class="row"><div class="label">Overnight?</div><div class="seg two" data-key="overnight"><button class="sel" data-v="yes">Yes</button><button data-v="no">No</button></div></div>
+        
+        
       </div>
 
       <div id="walkBranch" class="stack">
@@ -118,19 +119,19 @@
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
-  var $=function(s){return r.querySelector(s)}, $$=function(s){return Array.from(r.querySelectorAll(s))};
+  var $=function(s){return r.querySelector(s)}, $=function(s){return Array.from(r.querySelectorAll(s))};
   var state={dizzy:'weekend',dinnerMom:'yes',restaurant:'other',dinner:1080,momPaid:'yes',overnight:'yes',ticketCount:2,car:'mom'};
   function fmt(n){n=((n%1440)+1440)%1440;var h=Math.floor(n/60),m=n%60;return (((h+11)%12)+1)+':'+String(m).padStart(2,'0')+' '+(h>=12?'PM':'AM')}
-  $$('.seg').forEach(function(seg){seg.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;state[seg.dataset.key]=b.dataset.v;seg.querySelectorAll('button').forEach(function(x){x.classList.toggle('sel',x===b)});render()})});
+  $('.seg').forEach(function(seg){seg.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;state[seg.dataset.key]=b.dataset.v;seg.querySelectorAll('button').forEach(function(x){x.classList.toggle('sel',x===b)});render()})});
   function closeChoices(except){
-    $$('.choice').forEach(function(choice){
+    $('.choice').forEach(function(choice){
       if(choice===except)return;
       choice.querySelector('.choiceMenu').classList.add('hidden');
       choice.querySelector('.choiceTrigger').setAttribute('aria-expanded','false');
       choice.closest('.row').classList.remove('menuOpen');
     });
   }
-  $$('.choice').forEach(function(choice){
+  $('.choice').forEach(function(choice){
     var trigger=choice.querySelector('.choiceTrigger'),menu=choice.querySelector('.choiceMenu'),key=choice.dataset.key;
     trigger.addEventListener('click',function(e){
       e.stopPropagation();
@@ -156,15 +157,31 @@
   var pf=$('#prepFuel'),qf=$('#qsFuel'),sn=$('#snacks'),stop=$('#stopMinutes'),dep=$('#departure'),rs=$('#rudeSpend'),rs2=$('#rudeSpend2');
   [pf,qf,sn,stop,dep,rs,rs2].forEach(function(x){x.addEventListener('input',function(){if(x===rs)rs2.value=rs.value;if(x===rs2)rs.value=rs2.value;render()})});
   function render(){
-    var p=Math.max(0,Number(pf.value)||0);$('#prepFuelText').textContent='$'+p.toFixed(0);$('#dizzyChoiceText').textContent=state.dizzy==='weekend'?'Weekend':state.dizzy==='friday'?'Friday':'None';$('#dinnerChoiceText').textContent=fmt(state.dinner);$$('.choice').forEach(function(choice){var key=choice.dataset.key;choice.querySelectorAll('.choiceOption').forEach(function(b){var v=key==='dinner'?Number(b.dataset.v):b.dataset.v;b.classList.toggle('sel',state[key]===v)})});$('#ticketLabel').textContent=state.ticketCount===1?'Ticket':'Tickets';$('#prepTotal').textContent='$'+(35+p+(state.ticketCount===1?25:50)).toFixed(0);
+    var p=Math.max(0,Number(pf.value)||0);$('#prepFuelText').textContent='
+
+</body></html>+p.toFixed(0);$('#dizzyChoiceText').textContent=state.dizzy==='weekend'?'Weekend':state.dizzy==='friday'?'Friday':'None';$('#dinnerChoiceText').textContent=fmt(state.dinner);$('.choice').forEach(function(choice){var key=choice.dataset.key;choice.querySelectorAll('.choiceOption').forEach(function(b){var v=key==='dinner'?Number(b.dataset.v):b.dataset.v;b.classList.toggle('sel',state[key]===v)})});$('#ticketLabel').textContent=state.ticketCount===1?'Ticket':'Tickets';$('#prepTotal').textContent='
+
+</body></html>+(35+p+(state.ticketCount===1?25:50)).toFixed(0);
     var hm=dep.value.split(':').map(Number),d0=hm[0]*60+hm[1],qa=d0+135,stopDur=Math.max(0,Number(stop.value)||0),qd=qa+stopDur,ca=qd+190-60,dinner=state.dinner,driveToDinner=state.restaurant==='uno'?30:5,desiredCousinDepart=dinner-driveToDinner-25-20,cd=Math.max(ca+20,desiredCousinDepart),ma=cd+20,md=ma+25,da=md+driveToDinner,dd=Math.max(da,dinner)+60,ua=dd+5,acaiDur=dinner===1080?45:dinner===1095?30:15,ad=ua+acaiDur,mom2=ad+20,momDep=mom2+5,rudeA=momDep+5,rudeD=rudeA+150,cBack=rudeD+15;
     $('#departureText').textContent=fmt(d0);$('#quartzArrival').textContent=fmt(qa);$('#stopText').textContent=stopDur+' min';$('#quartzDepart').textContent=fmt(qd);$('#cousinArrival').textContent=fmt(ca)+' PT';$('#cousinSettle').textContent=(cd-ca)+' min';$('#cousinDepart').textContent=fmt(cd);$('#momArrival1').textContent=fmt(ma);$('#momSettle').textContent='25 min';$('#momDepartDinner').textContent=fmt(md);$('#dinnerArrival').textContent=fmt(da);$('#dinnerDepart').textContent=fmt(dd);$('#acaiArrival').textContent=fmt(ua);$('#acaiStay').textContent=acaiDur+' min';$('#acaiDepart').textContent=fmt(ad);$('#momArrival2').textContent=fmt(mom2);$('#momWalkDepart').textContent=fmt(momDep);$('#momDepartRude').textContent=fmt(momDep);$('#rudeArrival').textContent=fmt(rudeA);$('#rudeDepart').textContent=fmt(rudeD);$('#cousinReturn').textContent=fmt(cBack);
     $('.restaurantName').forEach(function(el){el.textContent=state.restaurant==='uno'?'Uno Tre Otto':'Rosalie'});$('#momDinnerMiles').textContent=state.restaurant==='uno'?'10 mi':'1.0 mi';$('#momDinnerMiles').previousElementSibling.textContent=state.restaurant==='uno'?'30 min drive':'5 min drive';
-    var rest=state.restaurant==='uno'?90:50;$('#restaurantCost').textContent=state.momPaid==='yes'?'Mom':'$'+rest;$('#qsFuelText').textContent='$'+Math.max(0,Number(qf.value)||0).toFixed(0);$('#snacksText').textContent='$'+Math.max(0,Number(sn.value)||0).toFixed(0);var rv=Math.max(0,Number(rs.value)||0);$('#rudeSpendText').textContent='$'+rv.toFixed(0);$('#rudeSpendText2').textContent='$'+rv.toFixed(0);
-    var dinnerYes=state.dinnerMom==='yes';$('#dinnerChoiceRow').classList.toggle('hidden',!dinnerYes);$('#dinnerTimeRow').classList.toggle('hidden',!dinnerYes);$('#altPlan').classList.toggle('hidden',dinnerYes);$('#momPlan').classList.toggle('hidden',!dinnerYes);
+    var rest=state.restaurant==='uno'?90:50;$('#restaurantCost').textContent=state.momPaid==='yes'?'Mom':'
+
+</body></html>+rest;$('#qsFuelText').textContent='
+
+</body></html>+Math.max(0,Number(qf.value)||0).toFixed(0);$('#snacksText').textContent='
+
+</body></html>+Math.max(0,Number(sn.value)||0).toFixed(0);var rv=Math.max(0,Number(rs.value)||0);$('#rudeSpendText').textContent='
+
+</body></html>+rv.toFixed(0);$('#rudeSpendText2').textContent='
+
+</body></html>+rv.toFixed(0);
+    var dinnerYes=state.dinnerMom!=='no';$('#dinnerChoiceRow').classList.toggle('hidden',!dinnerYes);$('#dinnerTimeRow').classList.toggle('hidden',!dinnerYes);$('#altPlan').classList.toggle('hidden',dinnerYes);$('#momPlan').classList.toggle('hidden',!dinnerYes);
     var stay=state.overnight==='yes';$('#walkBranch').classList.toggle('hidden',!stay);$('#driveBranch').classList.toggle('hidden',stay);
     var late=Math.max(0,da-dinner);$('#statusValue').textContent=late?'+'+late+' min':'GOOD';$('#statusValue').classList.toggle('good',late===0);$('#statusValue').classList.toggle('red',late>0);$('#dinnerArrival').classList.toggle('red',late>0);$('#rudeArrival').classList.toggle('red',rudeA>1290);
-    var base=Math.max(0,Number(qf.value)||0)+Math.max(0,Number(sn.value)||0)+rv,meal=state.momPaid==='yes'?0:rest+15;$('#travelTotal').textContent='$'+(base+meal).toFixed(0);
+    var base=Math.max(0,Number(qf.value)||0)+Math.max(0,Number(sn.value)||0)+rv,meal=state.momPaid==='yes'?0:rest+15;$('#travelTotal').textContent='
+
+</body></html>+(base+meal).toFixed(0);
   }
   render();
 })();
