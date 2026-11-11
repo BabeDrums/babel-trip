@@ -13,3 +13,9 @@ Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm publ
 - `BabeDrums/babel-truth` owns shared Babel principles, not this website's specific UI.
 
 This README documents authority only; it does not approve any new UI change.
+
+## Deployment and version verification
+- The version string in `index.html` identifies **source code**, not necessarily the version currently served by GitHub Pages.
+- A release is confirmed live only after the GitHub Pages **pages build and deployment** workflow successfully completes for the containing commit, and ideally the published page itself is checked.
+- If GitHub Actions reports `startup_failure` with no build/deploy jobs, diagnose the Pages/Actions run rather than rewriting UI code, incrementing the version, or assuming a browser cache issue.
+- A documentation-only push can request another Pages build without changing the visible website. Confirm that build's actual conclusion before claiming it deployed.
