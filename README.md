@@ -45,3 +45,11 @@ These are **working route estimates**, captured from Apple Maps screenshots on N
 - Thursday itinerary uses three matching **circular** SVG symbols: **right arrow** = departure, **down arrow** = arrival, **pause** = settle/stop/drop-off.
 - Every place row reads **icon → location → time** at the common left edge with existing 8px internal spacing. Ordinary facts, costs, decisions, and totals remain icon-free.
 - This supersedes the v1.0.6 note about icon-free arrival/place rows. Icon geometry, row/card sizing, routes, time math, costs and decision behavior are otherwise unchanged.
+
+## November 11 — Estimated fuel-range planning (v1.0.8)
+- User-provided full-tank planning estimate: **340 miles**. Preferred next refill **by 300 miles driven since a full tank**, leaving a **40-mile planning reserve**. This is a conservative stop target, not an instrumented fuel-range reading.
+- Wednesday pre-trip fuel is assumed to leave the car with a **full 340-mile estimated range** before Thursday departure. Work → Ehrenberg: **143 miles**, leaving about **197 miles**.
+- Ehrenberg fuel stop is assumed to **top the car back up to full**. The editable **$20** is the budget, not confirmation of fuel volume. If the vehicle isn't filled completely, downstream estimated ranges must be revised.
+- Ehrenberg → Cousin's: **210 miles** after the reset, about **130 miles remaining**. Cousin's → Mom's: another **5.5 miles**, about **124.5 miles remaining**, displayed as **~125 mi left**.
+- At Mom's, approximately **84.5 more miles** can be traveled before the **300-mile refill target** is reached (assuming a complete Ehrenberg refill). No additional refueling stop is inserted or assumed before that threshold. Later unverified mileage is not used for false-precision fuel projections.
+- Information rows retain their original left-side drive time, right-side leg mileage, and compact layout. "~" explicitly marks the approximate range estimate. All schedules, branches, stops, costs, controls, and icon geometry remain unchanged.
