@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f2f2f7"><title>Babel Trip</title><style>html,body{margin:0;min-height:100%;background:#f2f2f7}body{max-width:760px;margin:auto}@media(prefers-color-scheme:dark){html,body{background:#000}}</style></head><body>
+<div id="babel-trip-current"><style>
+#babel-trip-current{color-scheme:light dark;--bg:#f2f2f7;--group:#fff;--text:#111114;--secondary:#6e6e73;--separator:#d1d1d6;--blue:#007aff;--green:#34c759;--red:#ff3b30;--seg:#e5e5ea;color:var(--text);font:17px system-ui,-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;background:var(--bg);padding:18px;border-radius:28px;overflow:hidden}
+#babel-trip-current *{box-sizing:border-box}
+@media(prefers-color-scheme:dark){#babel-trip-current{--bg:#000;--group:#1c1c1e;--text:#f5f5f7;--secondary:#98989d;--separator:#38383a;--blue:#0a84ff;--green:#30d158;--red:#ff453a;--seg:#2c2c2e}}
+.topDecision{margin-bottom:18px}.day+.day{margin-top:34px}.header{padding:0 2px 11px}.date{font-size:27px;font-weight:780;letter-spacing:-.025em}.subtitle{font-size:15px;color:var(--secondary);margin-top:2px}.stack{display:flex;flex-direction:column;gap:10px}.group{background:var(--group);border-radius:14px;overflow:hidden}.row{height:56px;padding:0 16px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:18px;position:relative}.row+.row:before{content:'';position:absolute;left:16px;right:0;top:0;height:1px;background:var(--separator)}.label{font-size:17px;font-weight:500;line-height:1.2;display:flex;align-items:center}.trailing{font-size:17px;color:var(--secondary);white-space:nowrap}.totalValue{color:var(--text);font-weight:600}.blue{color:var(--blue);font-weight:560}.good{color:var(--green)!important;font-weight:560}.red{color:var(--red)!important;font-weight:560}.row > .trailing{justify-self:end;text-align:right;min-width:0}.editable,.nativeChoice{position:relative}.editable{display:inline-flex;align-items:center;justify-content:flex-end;max-width:100%}.editable input{min-width:0}.editable input,.nativeChoice select{position:absolute;inset:-10px;opacity:0;width:calc(100% + 20px);height:calc(100% + 20px)}.infoRow{font-size:13px;color:var(--secondary)}.infoLeft,.infoRight{white-space:nowrap}.infoRight{text-align:right}.seg{height:34px;display:grid;border-radius:9px;overflow:hidden;background:var(--seg);padding:2px;gap:2px}.seg.two{grid-template-columns:1fr 1fr;width:132px}.seg.three{grid-template-columns:repeat(3,1fr);width:198px}.seg button{border:0;border-radius:7px;background:transparent;color:var(--secondary);font:inherit;font-size:14px;font-weight:560;padding:0 8px}.seg button.sel{background:var(--group);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.16)}.menuGroup{overflow:visible}.choice{position:relative}.choiceTrigger{border:0;background:transparent;color:var(--blue);font:inherit;font-size:17px;font-weight:560;padding:8px 0;margin:0;white-space:nowrap}.choiceMenu{position:absolute;right:0;top:42px;z-index:80;width:198px;background:var(--seg);border-radius:12px;padding:4px;display:grid;gap:2px;box-shadow:0 12px 28px rgba(0,0,0,.18)}.choiceOption{height:38px;border:0;border-radius:9px;background:transparent;color:var(--secondary);font:inherit;font-size:14px;font-weight:560;padding:0 10px}.choiceOption.sel{background:var(--group);color:var(--text);box-shadow:0 1px 3px rgba(0,0,0,.16)}.row.menuOpen{z-index:90}.miniIcon{display:inline-flex;width:16px;height:16px;margin-left:6px;align-items:center;justify-content:center;color:var(--secondary);opacity:.55;flex:0 0 auto;transform:translateY(.15px)}.miniIcon svg{display:block;width:16px;height:16px;overflow:visible;flex:none}.miniIcon{font-family:inherit}.miniIcon circle,.miniIcon path{fill:none;stroke:currentColor;stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}.hidden{display:none!important}@media(max-width:390px){#babel-trip-current{padding:14px}.row{padding-left:15px;padding-right:15px}.row+.row:before{left:15px}}
+</style>
+
+<section class="topDecision"><div class="group menuGroup"><div class="row"><div class="label">Dizzy</div><div class="choice" data-key="dizzy"><button id="dizzyChoiceText" class="choiceTrigger" type="button" aria-expanded="false">Weekend</button><div class="choiceMenu hidden"><button class="choiceOption sel" data-v="weekend" type="button">Weekend</button><button class="choiceOption" data-v="friday" type="button">Friday</button><button class="choiceOption" data-v="none" type="button">None</button></div></div></div></div></section>
+
+<section class="day">
+  <div class="header"><div class="date">Wednesday, Nov 18</div></div>
+  <div class="stack">
+    <div class="group">
+      <div class="row"><div class="label">Haircut</div><div class="trailing">$35</div></div>
+      <div class="row"><div class="label">Fuel</div><label class="trailing blue editable"><span id="prepFuelText">$45</span><input id="prepFuel" type="number" value="45"></label></div>
+      <div class="row"><div id="ticketLabel" class="label">Tickets</div><div class="trailing">$50</div></div>
+    </div>
+    <div class="group"><div class="row"><div class="label">Total</div><div id="prepTotal" class="trailing totalValue">$130</div></div></div>
+  </div>
+</section>
+
+<section class="day">
+  <div class="header"><div class="date">Thursday, Nov 19</div></div>
+  <div class="stack">
+    <div class="group"><div class="row"><div class="label">Status</div><div id="statusValue" class="trailing good">GOOD</div></div></div>
+
+    <div class="group">
+      <div class="row"><div class="label">Arizona<span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span></div><label class="trailing blue editable"><span id="departureText">12:00 PM</span><input id="departure" type="time" value="12:00"></label></div>
+      <div class="row infoRow"><div class="infoLeft">2 hr 5 min drive</div><div></div></div>
+      <div class="row"><div class="label">Ehrenberg 76</div><div id="quartzArrival" class="trailing">2:15 PM</div></div>
+      <div class="row"><div class="label">Fuel</div><label class="trailing blue editable"><span id="qsFuelText">$20</span><input id="qsFuel" type="number" value="20"></label></div>
+      <div class="row"><div class="label">Snacks</div><label class="trailing blue editable"><span id="snacksText">$10</span><input id="snacks" type="number" value="10"></label></div><div class="row"><div class="label">Ehrenberg 76<span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span></div><label class="trailing blue editable"><span id="stopText">15 min</span><input id="stopMinutes" type="number" min="0" step="1" value="15"></label></div></div>
+
+    <div class="group">
+      <div class="row"><div class="label">Ehrenberg 76<span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span></div><div id="quartzDepart" class="trailing">2:30 PM</div></div>
+      <div class="row infoRow"><div class="infoLeft">3 hr 10 min drive</div><div class="infoRight">210 mi · range TBD</div></div>
+      <div class="row"><div class="label">Cousin's</div><div id="cousinArrival" class="trailing">4:40 PM PT</div></div><div class="row"><div class="label">Cousin's<span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span></div><div id="cousinSettle" class="trailing">20 min</div></div></div>
+
+    <div class="group menuGroup">
+      <div class="row"><div class="label">With Mom?</div><div class="seg two" data-key="dinnerMom"><button class="sel" data-v="yes">Yes</button><button data-v="no">No</button></div></div>
+      <div id="dinnerChoiceRow" class="row"><div class="label">Restaurant</div><div class="seg two" data-key="restaurant"><button data-v="uno">Uno</button><button class="sel" data-v="other">Rosalie</button></div></div>
+      <div id="dinnerTimeRow" class="row"><div class="label">Reservation</div><div class="choice" data-key="dinner"><button id="dinnerChoiceText" class="choiceTrigger" type="button" aria-expanded="false">6:00 PM</button><div class="choiceMenu hidden"><button class="choiceOption sel" data-v="1080" type="button">6:00 PM</button><button class="choiceOption" data-v="1095" type="button">6:15 PM</button><button class="choiceOption" data-v="1110" type="button">6:30 PM</button></div></div></div>
+      <div id="altPlan" class="row hidden"><div class="label">Alternative</div><div class="trailing">TBD</div></div>
+    </div>
+
+    <div id="momPlan" class="stack">
+      <div class="group">
+        <div class="row"><div class="label">Cousin's<span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span></div><div id="cousinDepart" class="trailing">5:00 PM</div></div>
+        <div class="row infoRow"><div class="infoLeft">20 min drive</div><div class="infoRight">5.5 mi · range TBD</div></div>
+        <div class="row"><div class="label">Mom's</div><div id="momArrival1" class="trailing">5:20 PM</div></div><div class="row"><div class="label">Mom's<span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span></div><div id="momSettle" class="trailing">30 min</div></div></div>
+
+      <div class="group"><div class="row"><div class="label">Car</div><div class="seg two" data-key="car"><button class="sel" data-v="mom">Mom</button><button data-v="mine">Mine</button></div></div></div>
+
+      <div class="group">
+        <div class="row"><div class="label">Mom's<span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span></div><div id="momDepartDinner" class="trailing">5:45 PM</div></div>
+        <div class="row infoRow"><div class="infoLeft">5 min drive</div><div id="momDinnerMiles" class="infoRight">1.0 mi</div></div>
+        <div class="row"><div class="label restaurantName">Rosalie</div><div id="dinnerArrival" class="trailing blue">5:50 PM</div></div>
+        <div class="row"><div class="label">Cost</div><div id="restaurantCost" class="trailing">$60</div></div>
+        <div class="row"><div class="label">Stay</div><div class="trailing">1 hr</div></div>
+      </div>
+
+      <div class="group">
+        <div class="row"><div class="label">Rosalie<span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span></div><div id="dinnerDepart" class="trailing">7:30 PM</div></div>
+        <div class="row infoRow"><div class="infoLeft">5 min drive</div><div></div></div>
+        <div class="row"><div class="label">Ubatuba Açaí</div><div id="acaiArrival" class="trailing">7:35 PM</div></div>
+        <div class="row"><div class="label">Cost</div><div class="trailing">$15</div></div>
+        <div class="row"><div class="label">Stay</div><div id="acaiStay" class="trailing">45 min</div></div>
+      </div>
+
+      <div class="group">
+        <div class="row"><div class="label">Ubatuba Açaí<span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span></div><div id="acaiDepart" class="trailing">8:20 PM</div></div>
+        <div class="row infoRow"><div class="infoLeft">20 min drive</div><div></div></div>
+        <div class="row"><div class="label">Mom's</div><div id="momArrival2" class="trailing">8:40 PM</div></div>
+        <div class="row"><div class="label">Mom<span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span></div><div class="trailing">5 min</div></div>
+        <div class="row"><div class="label">Mom paid?</div><div class="seg two" data-key="momPaid"><button class="sel" data-v="yes">Yes</button><button data-v="no">No</button></div></div>
+        <div class="row"><div class="label">Overnight?</div><div class="seg two" data-key="overnight"><button class="sel" data-v="yes">Yes</button><button data-v="no">No</button></div></div>
+      </div>
+
+      <div id="walkBranch" class="stack">
+        <div class="group">
+          <div class="row"><div class="label">Mom's<span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span></div><div id="momWalkDepart" class="trailing">8:45 PM</div></div>
+          <div class="row infoRow"><div class="infoLeft">20 min walk · 0.8 mi</div><div></div></div>
+          <div class="row"><div class="label">Rude Dogs</div><div class="trailing">TBD</div></div>
+        </div>
+        <div class="group">
+          <div class="row"><div class="label">Spend</div><label class="trailing blue editable"><span id="rudeSpendText">$0</span><input id="rudeSpend" type="number" value="0"></label></div>
+          <div class="row"><div class="label">Stay</div><div class="trailing">2 hr 30 min</div></div>
+          <div class="row"><div class="label">Rude Dogs<span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span></div><div class="trailing">TBD</div></div>
+          <div class="row infoRow"><div class="infoLeft">20 min walk · 0.8 mi</div><div></div></div>
+          <div class="row"><div class="label">Mom's</div><div class="trailing">TBD</div></div>
+        </div>
+        <div class="group"><div class="row"><div class="label">Overnight</div><div class="trailing">Mom's</div></div></div>
+      </div>
+
+      <div id="driveBranch" class="stack hidden">
+        <div class="group">
+          <div class="row"><div class="label">Mom's<span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span></div><div id="momDepartRude" class="trailing">8:45 PM</div></div>
+          <div class="row infoRow"><div class="infoLeft">15 min drive</div><div></div></div>
+          <div class="row"><div class="label">Rude Dogs</div><div id="rudeArrival" class="trailing">9:00 PM</div></div>
+        </div>
+        <div class="group">
+          <div class="row"><div class="label">Spend</div><label class="trailing blue editable"><span id="rudeSpendText2">$0</span><input id="rudeSpend2" type="number" value="0"></label></div>
+          <div class="row"><div class="label">Stay</div><div class="trailing">2 hr 30 min</div></div>
+          <div class="row"><div class="label">Rude Dogs<span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span></div><div id="rudeDepart" class="trailing">11:30 PM</div></div>
+          <div class="row infoRow"><div class="infoLeft">15 min drive</div><div></div></div>
+          <div class="row"><div class="label">Cousin's</div><div id="cousinReturn" class="trailing">11:45 PM</div></div>
+        </div>
+        <div class="group"><div class="row"><div class="label">Overnight</div><div class="trailing">Cousin's</div></div></div>
+      </div>
+    </div>
+
+    <div class="group"><div class="row"><div class="label">Total</div><div id="travelTotal" class="trailing totalValue">$30</div></div></div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
+  var $=function(s){return r.querySelector(s)}, $$=function(s){return Array.from(r.querySelectorAll(s))};
+  var state={dizzy:'weekend',dinnerMom:'yes',restaurant:'other',dinner:1080,momPaid:'yes',overnight:'yes',ticketCount:2,car:'mom'};
+  function fmt(n){n=((n%1440)+1440)%1440;var h=Math.floor(n/60),m=n%60;return (((h+11)%12)+1)+':'+String(m).padStart(2,'0')+' '+(h>=12?'PM':'AM')}
+  $$('.seg').forEach(function(seg){seg.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;state[seg.dataset.key]=b.dataset.v;seg.querySelectorAll('button').forEach(function(x){x.classList.toggle('sel',x===b)});render()})});
+  function closeChoices(except){
+    $$('.choice').forEach(function(choice){
+      if(choice===except)return;
+      choice.querySelector('.choiceMenu').classList.add('hidden');
+      choice.querySelector('.choiceTrigger').setAttribute('aria-expanded','false');
+      choice.closest('.row').classList.remove('menuOpen');
+    });
+  }
+  $$('.choice').forEach(function(choice){
+    var trigger=choice.querySelector('.choiceTrigger'),menu=choice.querySelector('.choiceMenu'),key=choice.dataset.key;
+    trigger.addEventListener('click',function(e){
+      e.stopPropagation();
+      var opening=menu.classList.contains('hidden');
+      closeChoices(choice);
+      menu.classList.toggle('hidden',!opening);
+      trigger.setAttribute('aria-expanded',opening?'true':'false');
+      choice.closest('.row').classList.toggle('menuOpen',opening);
+    });
+    choice.querySelectorAll('.choiceOption').forEach(function(button){
+      button.addEventListener('click',function(e){
+        e.stopPropagation();
+        state[key]=key==='dinner'?Number(button.dataset.v):button.dataset.v;
+        if(key==='dizzy')state.ticketCount=button.dataset.v==='none'?1:2;
+        menu.classList.add('hidden');
+        trigger.setAttribute('aria-expanded','false');
+        choice.closest('.row').classList.remove('menuOpen');
+        render();
+      });
+    });
+  });
+  r.addEventListener('click',function(e){if(!e.target.closest('.choice'))closeChoices();});
+  var pf=$('#prepFuel'),qf=$('#qsFuel'),sn=$('#snacks'),stop=$('#stopMinutes'),dep=$('#departure'),rs=$('#rudeSpend'),rs2=$('#rudeSpend2');
+  [pf,qf,sn,stop,dep,rs,rs2].forEach(function(x){x.addEventListener('input',function(){if(x===rs)rs2.value=rs.value;if(x===rs2)rs.value=rs2.value;render()})});
+  function render(){
+    var p=Math.max(0,Number(pf.value)||0);$('#prepFuelText').textContent='$'+p.toFixed(0);$('#dizzyChoiceText').textContent=state.dizzy==='weekend'?'Weekend':state.dizzy==='friday'?'Friday':'None';$('#dinnerChoiceText').textContent=fmt(state.dinner);$$('.choice').forEach(function(choice){var key=choice.dataset.key;choice.querySelectorAll('.choiceOption').forEach(function(b){var v=key==='dinner'?Number(b.dataset.v):b.dataset.v;b.classList.toggle('sel',state[key]===v)})});$('#ticketLabel').textContent=state.ticketCount===1?'Ticket':'Tickets';$('#prepTotal').textContent='$'+(35+p+(state.ticketCount===1?25:50)).toFixed(0);
+    var hm=dep.value.split(':').map(Number),d0=hm[0]*60+hm[1],qa=d0+135,stopDur=Math.max(0,Number(stop.value)||0),qd=qa+stopDur,ca=qd+190-60,dinner=state.dinner,cd=ca+20,ma=cd+20,md=ma+25,da=md+(state.restaurant==='uno'?30:5),dd=Math.max(da,dinner)+60,ua=dd+5,acaiDur=dinner===1080?45:dinner===1095?30:15,ad=ua+acaiDur,mom2=ad+20,momDep=mom2+5,rudeA=momDep+5,rudeD=rudeA+150,cBack=rudeD+15;
+    $('#departureText').textContent=fmt(d0);$('#quartzArrival').textContent=fmt(qa);$('#stopText').textContent=stopDur+' min';$('#quartzDepart').textContent=fmt(qd);$('#cousinArrival').textContent=fmt(ca)+' PT';$('#cousinSettle').textContent='20 min';$('#cousinDepart').textContent=fmt(cd);$('#momArrival1').textContent=fmt(ma);$('#momSettle').textContent='25 min';$('#momDepartDinner').textContent=fmt(md);$('#dinnerArrival').textContent=fmt(da);$('#dinnerDepart').textContent=fmt(dd);$('#acaiArrival').textContent=fmt(ua);$('#acaiStay').textContent=acaiDur+' min';$('#acaiDepart').textContent=fmt(ad);$('#momArrival2').textContent=fmt(mom2);$('#momWalkDepart').textContent=fmt(momDep);$('#momDepartRude').textContent=fmt(momDep);$('#rudeArrival').textContent=fmt(rudeA);$('#rudeDepart').textContent=fmt(rudeD);$('#cousinReturn').textContent=fmt(cBack);
+    $('#momDinnerMiles').textContent=state.restaurant==='uno'?'10 mi':'1.0 mi';$('#momDinnerMiles').previousElementSibling.textContent=state.restaurant==='uno'?'30 min drive':'5 min drive';
+    var rest=state.restaurant==='uno'?90:50;$('#restaurantCost').textContent=state.momPaid==='yes'?'Mom':';$('#qsFuelText').textContent='$'+Math.max(0,Number(qf.value)||0).toFixed(0);$('#snacksText').textContent='$'+Math.max(0,Number(sn.value)||0).toFixed(0);var rv=Math.max(0,Number(rs.value)||0);$('#rudeSpendText').textContent='$'+rv.toFixed(0);$('#rudeSpendText2').textContent='$'+rv.toFixed(0);
+    var dinnerYes=state.dinnerMom==='yes';$('#dinnerChoiceRow').classList.toggle('hidden',!dinnerYes);$('#dinnerTimeRow').classList.toggle('hidden',!dinnerYes);$('#altPlan').classList.toggle('hidden',dinnerYes);$('#momPlan').classList.toggle('hidden',!dinnerYes);
+    var stay=state.overnight==='yes';$('#walkBranch').classList.toggle('hidden',!stay);$('#driveBranch').classList.toggle('hidden',stay);
+    var late=Math.max(0,da-dinner);$('#statusValue').textContent=late?'+'+late+' min':'GOOD';$('#statusValue').classList.toggle('good',late===0);$('#statusValue').classList.toggle('red',late>0);$('#dinnerArrival').classList.toggle('red',late>0);$('#rudeArrival').classList.toggle('red',rudeA>1290);
+    var base=Math.max(0,Number(qf.value)||0)+Math.max(0,Number(sn.value)||0)+rv,meal=state.momPaid==='yes'?0:rest+15;$('#travelTotal').textContent='$'+(base+meal).toFixed(0);
+  }
+  render();
+})();
+</script></div>+rest;$('#qsFuelText').textContent='$'+Math.max(0,Number(qf.value)||0).toFixed(0);$('#snacksText').textContent='$'+Math.max(0,Number(sn.value)||0).toFixed(0);var rv=Math.max(0,Number(rs.value)||0);$('#rudeSpendText').textContent='$'+rv.toFixed(0);$('#rudeSpendText2').textContent='$'+rv.toFixed(0);
+    var dinnerYes=state.dinnerMom==='yes';$('#dinnerChoiceRow').classList.toggle('hidden',!dinnerYes);$('#dinnerTimeRow').classList.toggle('hidden',!dinnerYes);$('#altPlan').classList.toggle('hidden',dinnerYes);$('#momPlan').classList.toggle('hidden',!dinnerYes);
+    var stay=state.overnight==='yes';$('#walkBranch').classList.toggle('hidden',!stay);$('#driveBranch').classList.toggle('hidden',stay);
+    var late=Math.max(0,da-dinner);$('#statusValue').textContent=late?'+'+late+' min':'GOOD';$('#statusValue').classList.toggle('good',late===0);$('#statusValue').classList.toggle('red',late>0);$('#dinnerArrival').classList.toggle('red',late>0);$('#rudeArrival').classList.toggle('red',rudeA>1290);
+    var base=Math.max(0,Number(qf.value)||0)+Math.max(0,Number(sn.value)||0)+rv,meal=state.momPaid==='yes'?0:rest+15;$('#travelTotal').textContent='$'+(base+meal).toFixed(0);
+  }
+  render();
+})();
+</script></div>
+</body></html>
