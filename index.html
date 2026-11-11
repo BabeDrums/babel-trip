@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f2f2f7"><title>Babel Trip</title><style>html,body{margin:0;min-height:100%;background:#f2f2f7}body{max-width:760px;margin:auto;transition:max-width .12s ease}@media(prefers-color-scheme:dark){html,body{background:#000}}</style></head><body>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f2f2f7"><title>Babel Trip</title><style>html,body{margin:0;min-height:100%;background:#f2f2f7}body{max-width:760px;margin:auto}@media(prefers-color-scheme:dark){html,body{background:#000}}</style></head><body>
 <div id="babel-trip-current"><style>
 #babel-trip-current{color-scheme:light dark;--bg:#f2f2f7;--group:#fff;--text:#111114;--secondary:#6e6e73;--separator:#d1d1d6;--blue:#007aff;--green:#34c759;--red:#ff3b30;--seg:#e5e5ea;color:var(--text);font:17px system-ui,-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;background:var(--bg);padding:18px;border-radius:28px;overflow:hidden}
 #babel-trip-current *{box-sizing:border-box}
@@ -170,29 +170,4 @@
 })();
 </script></div>
 
-<style>
-#width-lab{position:fixed;z-index:9999;bottom:calc(16px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(440px,calc(100% - 32px));box-sizing:border-box;background:rgba(40,40,43,.94);color:#fff;border:1px solid #555;border-radius:18px;padding:13px 16px 12px;box-shadow:0 12px 40px #0007;backdrop-filter:blur(22px);font:14px -apple-system,BlinkMacSystemFont,system-ui,sans-serif}
-#width-lab .wl-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
-#width-lab strong{font-size:15px}#width-lab output{font-size:16px;font-variant-numeric:tabular-nums;color:#7cb7ff;font-weight:650}
-#width-lab input{width:100%;accent-color:#0a84ff;margin:0 0 9px}
-#width-lab .wl-buttons{display:flex;gap:6px}
-#width-lab button{flex:1;min-height:35px;border:0;border-radius:9px;background:#454549;color:#fff;font:600 12px -apple-system,system-ui}
-#width-lab button.active{background:#0a84ff}
-#width-lab .wl-note{font-size:11px;color:#bcbcc2;margin-top:8px;text-align:center}
-#width-lab.collapsed{width:auto;min-width:155px;padding:9px 14px}#width-lab.collapsed .wl-controls{display:none}
-#width-lab .wl-toggle{background:none;border:0;color:#bcbcc2;min-height:24px;flex:0 0 auto;font-size:12px;padding:0 3px}
-</style>
-<div id="width-lab" role="region" aria-label="Width comparison">
-<div class="wl-top"><strong>Width test</strong><output id="wl-value">760 px</output><button class="wl-toggle" id="wl-toggle" aria-label="Collapse width controls">Hide</button></div>
-<div class="wl-controls"><input id="wl-range" aria-label="Content maximum width" type="range" min="550" max="800" step="10" value="760"><div class="wl-buttons"><button data-width="560">560</button><button data-width="640">640</button><button data-width="700">700</button><button data-width="760">760</button><button data-width="800">800</button></div><div class="wl-note">Maximum width · 10 px steps · portrait may be screen-limited</div></div></div>
-<script>
-(function(){
-const range=document.getElementById('wl-range'),out=document.getElementById('wl-value'),lab=document.getElementById('width-lab');
-function setWidth(n){n=Math.max(550,Math.min(800,Math.round(Number(n)/10)*10));document.body.style.maxWidth=n+'px';range.value=n;out.textContent=n+' px';lab.querySelectorAll('[data-width]').forEach(b=>b.classList.toggle('active',Number(b.dataset.width)===n));try{localStorage.setItem('babelTripWidthTest',String(n))}catch(e){}}
-range.addEventListener('input',()=>setWidth(range.value));
-lab.querySelectorAll('[data-width]').forEach(b=>b.addEventListener('click',()=>setWidth(b.dataset.width)));
-document.getElementById('wl-toggle').addEventListener('click',function(){lab.classList.toggle('collapsed');this.textContent=lab.classList.contains('collapsed')?'Show':'Hide'});
-let saved;try{saved=localStorage.getItem('babelTripWidthTest')}catch(e){}setWidth(saved||760);
-})();
-</script>
 </body></html>
