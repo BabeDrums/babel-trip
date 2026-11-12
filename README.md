@@ -104,6 +104,12 @@ The driver explicitly confirmed that **Ehrenberg is the last preferred inexpensi
 
 ## November 11 — Reservation display and clean dinner drive facts (v1.1.7; current)
 - The Mom's → dinner travel info row uses the existing two aligned columns: **5 min drive** on the left and **1.0 mi** on the right for Rosalie; **30 min drive** left and **10 mi** right for Uno. Remove the visible **5 min buffer** string entirely, including its former right-column position.
-- The arrival-labelled dinner location row displays **the selected reservation time** (default 6:00 PM; other options 6:30 or 7:00 PM), **not** the earlier projected physical arrival. This makes the itinerary's dinner label the scheduled reservation anchor rather than a parking/arrival ETA.
+- The dinner section now includes two distinct rows: the arrival-icon restaurant row shows the calculated physical arrival time, followed by an icon-free **Reservation** row showing the selected reservation time. The five-minute target buffer remains in schedule calculations, without reintroducing visible buffer text.
 - **The 5-minute preferred arrival buffer is retained in the scheduling/back-calculation and flexibility Status.** With a 6:00 reservation and normal Rosalie route, aim to physically arrive by 5:55 while the dinner row displays 6:00. Do not remove or alter the time buffer just because it is not written in the UI.
 - All other itinerary rows, route calculations, menu options, costs and decision controls remain unchanged.
+
+## November 11 — Distinct dinner arrival and reservation (v1.1.8; current)
+- The existing restaurant arrival row (Rosalie or Uno Tre Otto, retaining its current circular down-arrow) shows the **calculated physical arrival ETA** (e.g., 5:55 PM when the reservation is 6:00 PM and the trip is on schedule).
+- Directly below it, an **icon-free Reservation row** shows the selected booking time (6:00, 6:30, or 7:00 PM), with no repeated restaurant name. Both use the same existing 56px row, type, neutral trailing color, separator and spacing vocabulary. Do not imply the read-only time is a clickable control.
+- The physical arrival row turns red when projected arrival is later than the reservation; the reservation time remains steady and neutral. If arrival is only after the preferred five-minute buffer but before the reservation, Status may be positive without marking the restaurant arrival red.
+- All back-calculated timing, Cousin/Mom visit minimums, travel facts, status, restaurant switching, costs, and downstream route behavior remain untouched. No new card, menu, or visual treatment.
