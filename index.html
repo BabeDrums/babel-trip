@@ -9,6 +9,41 @@
 
 <section class="topDecision"><div class="header"><div class="date">Decisions</div></div><div class="stack"><div class="group menuGroup"><div class="row decisionRow choice" data-key="dizzy"><button class="decisionTrigger choiceTrigger" type="button" aria-expanded="false" aria-controls="dizzyOptions"><span class="label">Dizzy</span><span class="decisionValue"><span id="dizzyChoiceText" class="decisionValueText">Weekend</span></span></button><div id="dizzyOptions" class="choiceMenu hidden" role="group" aria-label="Dizzy options"><button class="choiceOption sel" data-v="weekend" type="button" aria-pressed="true">Weekend</button><button class="choiceOption" data-v="friday" type="button" aria-pressed="false">Friday</button><button class="choiceOption" data-v="none" type="button" aria-pressed="false">None</button></div></div><div class="row decisionRow choice" data-key="dinnerMom"><button class="decisionTrigger choiceTrigger" type="button" aria-expanded="false" aria-controls="dinnerMomOptions"><span class="label">Mom</span><span class="decisionValue"><span id="dinnerMomChoiceText" class="decisionValueText">Yes</span></span></button><div id="dinnerMomOptions" class="choiceMenu hidden" role="group" aria-label="Mom options"><button class="choiceOption sel" data-v="yes" type="button" aria-pressed="true">Yes</button><button class="choiceOption" data-v="no" type="button" aria-pressed="false">No</button></div></div></div><div class="group menuGroup"><div id="dinnerChoiceRow" class="row decisionRow choice" data-key="restaurant"><button class="decisionTrigger choiceTrigger" type="button" aria-expanded="false" aria-controls="restaurantOptions"><span class="label">Restaurant</span><span class="decisionValue"><span id="restaurantChoiceText" class="decisionValueText">Rosalie</span></span></button><div id="restaurantOptions" class="choiceMenu hidden" role="group" aria-label="Restaurant options"><button class="choiceOption sel" data-v="other" type="button" aria-pressed="true">Rosalie</button><button class="choiceOption" data-v="uno" type="button" aria-pressed="false">Uno</button></div></div><div id="dinnerTimeRow" class="row decisionRow choice" data-key="dinner"><button class="decisionTrigger choiceTrigger" type="button" aria-expanded="false" aria-controls="dinnerOptions"><span class="label">Reservation</span><span class="decisionValue"><span id="dinnerChoiceText" class="decisionValueText">6:30 PM</span></span></button><div id="dinnerOptions" class="choiceMenu hidden" role="group" aria-label="Reservation options"><button class="choiceOption sel" data-v="1110" type="button" aria-pressed="true">6:30 PM</button><button class="choiceOption" data-v="1140" type="button" aria-pressed="false">7:00 PM</button><button class="choiceOption" data-v="1170" type="button" aria-pressed="false">7:30 PM</button></div></div><div class="row decisionRow choice" data-key="momPaid"><button class="decisionTrigger choiceTrigger" type="button" aria-expanded="false" aria-controls="momPaidOptions"><span class="label">Pays</span><span class="decisionValue"><span id="momPaidChoiceText" class="decisionValueText">Mom</span></span></button><div id="momPaidOptions" class="choiceMenu hidden" role="group" aria-label="Pays options"><button class="choiceOption sel" data-v="yes" type="button" aria-pressed="true">Mom</button><button class="choiceOption" data-v="no" type="button" aria-pressed="false">Me</button></div></div></div><div class="group menuGroup"><div class="row decisionRow choice" data-key="car"><button class="decisionTrigger choiceTrigger" type="button" aria-expanded="false" aria-controls="carOptions"><span class="label">Car</span><span class="decisionValue"><span id="carChoiceText" class="decisionValueText">Mom</span></span></button><div id="carOptions" class="choiceMenu hidden" role="group" aria-label="Car options"><button class="choiceOption sel" data-v="mom" type="button" aria-pressed="true">Mom</button><button class="choiceOption" data-v="mine" type="button" aria-pressed="false">Mine</button></div></div><div class="row decisionRow choice" data-key="overnight"><button class="decisionTrigger choiceTrigger" type="button" aria-expanded="false" aria-controls="overnightOptions"><span class="label">Overnight</span><span class="decisionValue"><span id="overnightChoiceText" class="decisionValueText">Mom</span></span></button><div id="overnightOptions" class="choiceMenu hidden" role="group" aria-label="Overnight options"><button class="choiceOption sel" data-v="yes" type="button" aria-pressed="true">Mom</button><button class="choiceOption" data-v="no" type="button" aria-pressed="false">Cousin</button></div></div></div></div></section>
 
+<section class="day" id="birthdayPlan">
+  <div class="header"><div class="date">Saturday, Nov 14</div></div>
+  <div class="stack">
+    <div class="group menuGroup">
+      <div class="row decisionRow choice" data-key="birthdayGolfBooked"><button class="decisionTrigger choiceTrigger" type="button" aria-expanded="false" aria-controls="birthdayGolfBookedOptions"><span class="label">Golf booked</span><span class="decisionValue"><span id="birthdayGolfBookedChoiceText" class="decisionValueText">No</span></span></button><div id="birthdayGolfBookedOptions" class="choiceMenu hidden" role="group" aria-label="Golf booking status"><button class="choiceOption sel" data-v="no" type="button" aria-pressed="true">No</button><button class="choiceOption" data-v="yes" type="button" aria-pressed="false">Yes</button></div></div>
+      <div class="row"><div class="label">10:30 buffer</div><div id="birthdayBuffer" class="trailing">0 min</div></div>
+    </div>
+    <div class="group">
+      <div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Puttshack</div><label class="trailing blue editable"><span id="birthdayArrivalText">7:00 PM</span><input id="birthdayArrival" type="time" value="19:00"></label></div>
+      <div class="row"><div class="label">Dinner</div><div class="trailing">45 min</div></div>
+      <div class="row"><div class="label">Golf check-in</div><div id="birthdayCheckin" class="trailing">7:45 PM</div></div>
+      <div class="row"><div class="label">Golf target</div><label class="trailing blue editable"><span id="birthdayGolfText">8:00 PM</span><input id="birthdayGolf" type="time" value="20:00"></label></div>
+      <div class="row"><div class="label">Mini golf</div><div class="trailing">40 min</div></div>
+    </div>
+    <div class="group">
+      <div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Puttshack</div><div id="birthdayPuttshackLeave" class="trailing">8:45 PM</div></div>
+      <div class="row infoRow"><div class="infoLeft">30 min drive allowance</div><div class="infoRight"></div></div>
+      <div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Grapevine</div><div id="birthdayGrapevineArrival" class="trailing">9:15 PM</div></div>
+    </div>
+    <div class="group">
+      <div class="row"><div class="label">Karaoke</div><div class="trailing">1 hr</div></div>
+      <div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Grapevine</div><div id="birthdayGrapevineLeave" class="trailing">10:15 PM</div></div>
+      <div class="row"><div class="label">Goodbyes</div><div class="trailing">15 min</div></div>
+      <div class="row"><div class="label">Missy leaves</div><div id="birthdayMissyLeave" class="trailing">10:30 PM</div></div>
+      <div class="row infoRow"><div class="infoLeft">Latest departure</div><div class="infoRight">10:30 PM</div></div>
+    </div>
+    <div class="group">
+      <div class="row"><div class="label">Golf / person</div><div class="trailing">$16</div></div>
+      <div class="row"><div class="label">Food</div><div class="trailing">TBD</div></div>
+      <div class="row"><div class="label">Karaoke</div><div class="trailing">TBD</div></div>
+    </div>
+    <div class="group"><div class="row"><div class="label">Total</div><div class="trailing totalValue">TBD</div></div></div>
+  </div>
+</section>
+
 <section class="day">
   <div class="header"><div class="date">Wednesday, Nov 18</div></div>
   <div class="stack">
@@ -129,12 +164,12 @@
   </div>
 </section>
 
-<div class="buildVersion" aria-label="Babel Trip version">v1.2.10</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.3.0</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
   var $=function(s){return r.querySelector(s)}, allNodes=function(s){return Array.from(r.querySelectorAll(s))};
-  var state={dizzy:'weekend',dinnerMom:'yes',restaurant:'other',dinner:1110,momPaid:'yes',overnight:'yes',ticketCount:2,car:'mom'};
+  var state={birthdayGolfBooked:'no',dizzy:'weekend',dinnerMom:'yes',restaurant:'other',dinner:1110,momPaid:'yes',overnight:'yes',ticketCount:2,car:'mom'};
   function fmt(n){n=((n%1440)+1440)%1440;var h=Math.floor(n/60),m=n%60;return (((h+11)%12)+1)+':'+String(m).padStart(2,'0')+' '+(h>=12?'PM':'AM')}
   function closeChoices(except){
     allNodes('.choice').forEach(function(choice){
@@ -172,10 +207,13 @@
     var opened=allNodes('.choice').find(function(c){return !c.querySelector('.choiceMenu').classList.contains('hidden')});
     if(opened){e.preventDefault();closeChoices();opened.querySelector('.choiceTrigger').focus()}
   });
-  var pf=$('#prepFuel'),qf=$('#qsFuel'),sn=$('#snacks'),stop=$('#stopMinutes'),dep=$('#departure'),rs=$('#rudeSpend'),rs2=$('#rudeSpend2');
-  [pf,qf,sn,stop,dep,rs,rs2].forEach(function(x){x.addEventListener('input',function(){if(x===rs)rs2.value=rs.value;if(x===rs2)rs.value=rs2.value;render()})});
+  var ba=$('#birthdayArrival'),bt=$('#birthdayGolf'),pf=$('#prepFuel'),qf=$('#qsFuel'),sn=$('#snacks'),stop=$('#stopMinutes'),dep=$('#departure'),rs=$('#rudeSpend'),rs2=$('#rudeSpend2');
+  [ba,bt,pf,qf,sn,stop,dep,rs,rs2].forEach(function(x){x.addEventListener('input',function(){if(x===rs)rs2.value=rs.value;if(x===rs2)rs.value=rs2.value;render()})});
   function render(){
     var p=Math.max(0,Number(pf.value)||0);$('#prepFuelText').textContent=String.fromCharCode(36)+p.toFixed(0);allNodes('.choice').forEach(function(choice){var key=choice.dataset.key,selected=null;choice.querySelectorAll('.choiceOption').forEach(function(b){var v=key==='dinner'?Number(b.dataset.v):b.dataset.v,isSelected=state[key]===v;b.classList.toggle('sel',isSelected);b.setAttribute('aria-pressed',isSelected?'true':'false');if(isSelected)selected=b});choice.querySelector('.decisionValueText').textContent=selected?selected.textContent:''});$('#ticketLabel').textContent=state.ticketCount===1?'Ticket':'Tickets';$('#prepTotal').textContent=String.fromCharCode(36)+(35+(state.ticketCount===1?25:50)).toFixed(0);
+    var bah=ba.value.split(':').map(Number),bth=bt.value.split(':').map(Number),ba0=bah[0]*60+bah[1],bt0=bth[0]*60+bth[1],checkIn=bt0-15,puttLeave=bt0+40+5,grapevineArrive=puttLeave+30,grapevineLeave=grapevineArrive+60,missyOut=grapevineLeave+15,exitMargin=1350-missyOut;
+    $('#birthdayArrivalText').textContent=fmt(ba0);$('#birthdayGolfText').textContent=fmt(bt0);$('#birthdayCheckin').textContent=fmt(checkIn);$('#birthdayPuttshackLeave').textContent=fmt(puttLeave);$('#birthdayGrapevineArrival').textContent=fmt(grapevineArrive);$('#birthdayGrapevineLeave').textContent=fmt(grapevineLeave);$('#birthdayMissyLeave').textContent=fmt(missyOut);
+    $('#birthdayBuffer').textContent=exitMargin>0?'-'+exitMargin+' min':exitMargin<0?'+'+(-exitMargin)+' min':'0 min';$('#birthdayBuffer').classList.toggle('good',exitMargin>0);$('#birthdayBuffer').classList.toggle('red',exitMargin<0);$('#birthdayMissyLeave').classList.toggle('red',exitMargin<0);$('#birthdayCheckin').classList.toggle('red',ba0+45>checkIn);
     var hm=dep.value.split(':').map(Number),d0=hm[0]*60+hm[1],qa=d0+133,stopDur=Math.max(0,Number(stop.value)||0),qd=qa+stopDur,ca=qd+190-60,dinner=state.dinner,driveToDinner=state.restaurant==='uno'?30:5,desiredCousinDepart=dinner-5-driveToDinner-30-20,cd=state.dinnerMom==='yes'?Math.max(ca+30,desiredCousinDepart):ca+30,ma=cd+20,md=ma+30,da=md+driveToDinner,dd=Math.max(da,dinner)+60,ua=dd+5,acaiDur=15,ad=ua+acaiDur,mom2=(state.restaurant==='uno'?ad+20:dd+5),momDep=mom2+5,rudeA=momDep+(state.overnight==='yes'?18:5),rudeD=rudeA+150,cBack=rudeD+14,walkBack=rudeD+18;
     $('#departureText').textContent=fmt(d0);$('#quartzArrival').textContent=fmt(qa);$('#stopText').textContent=stopDur+' min';$('#quartzDepart').textContent=fmt(qd);$('#cousinArrival').textContent=fmt(ca)+' PT';$('#cousinSettle').textContent=(cd-ca)+' min';$('#cousinSettle').classList.toggle('good',cd-ca>30);$('#cousinDepart').textContent=fmt(cd);$('#momArrival1').textContent=fmt(ma);$('#momSettle').textContent='30 min';$('#momDepartDinner').textContent=fmt(md);$('#dinnerArrival').textContent=fmt(da);$('#dinnerReservation').textContent=fmt(dinner);$('#dinnerDepart').textContent=fmt(dd);$('#dinnerDepartDirect').textContent=fmt(dd);$('#acaiArrival').textContent=fmt(ua);$('#acaiStay').textContent=acaiDur+' min';$('#acaiDepart').textContent=fmt(ad);$('#momArrival2').textContent=fmt(mom2);$('#momArrivalDirect').textContent=fmt(mom2);$('#momWalkDepart').textContent=fmt(momDep);$('#momDepartRude').textContent=fmt(momDep);$('#rudeArrival').textContent=fmt(rudeA);$('#rudeArrivalWalk').textContent=fmt(rudeA);$('#rudeDepart').textContent=fmt(rudeD);$('#rudeDepartWalk').textContent=fmt(rudeD);$('#momReturnWalk').textContent=fmt(walkBack);$('#cousinReturn').textContent=fmt(cBack);
     allNodes('.restaurantName').forEach(function(el){el.textContent=state.restaurant==='uno'?'Uno Tre Otto':'Rosalie'});$('#momDinnerDrive').textContent=state.restaurant==='uno'?'30 min drive':'5 min drive';$('#momDinnerMiles').textContent=state.restaurant==='uno'?'10 mi':'1.0 mi';
