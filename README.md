@@ -61,3 +61,10 @@ The driver explicitly confirmed that **Ehrenberg is the last preferred inexpensi
 - Remove the visual `~` prefix from the three estimated remaining-range values and the provisional 1.0-mile restaurant-return leg. Display the existing planning numbers unadorned.
 - The 340-mile full-tank assumption, 300-mile refueling goal, 40-mile range margin, and **intentional full-tank Ehrenberg top-off** remain unchanged. Driving-time buffers do not make estimated fuel range exact.
 - No route, departure, reservation, payment, icon, interaction, or layout changes.
+
+## November 11 — Schedule flexibility status (v1.1.0)
+- The existing Thursday **Status** row is a planned scheduling indicator, not a live GPS/actual-arrival tracker.
+- Minimum Cousin's stop is **20 minutes**, fixed Mom's visit is **25 minutes**, and the target restaurant arrival is **5 minutes before** the reservation. Remaining available time is held at Cousin's as extra visit time, not at Mom's.
+- Compute signed flexibility as **target Cousin departure − (projected Cousin arrival + 20-minute minimum)**. Positive flexibility displays as **green negative minutes** (`-7 min` means seven minutes available beyond minimum), exactly zero displays **GOOD** in neutral text, and negative flexibility displays **red positive minutes** (`+1 min` means the *preferred arrival buffer* is missed by one minute). Missing the five-minute buffer does not necessarily mean missing the reservation.
+- Update status whenever the planned departure, Ehrenberg stop duration, restaurant, or reservation changes; protect minimum Cousin and Mom visits rather than borrowing time from them. If dinner participation is No or TBD, status remains TBD because no reservation is established.
+- For default 12:00 Arizona departure, 15-minute Ehrenberg stop and 6:00 Rosalie reservation: **-7 min**. Delaying by seven minutes gives **GOOD**; eight minutes gives **+1 min**. The underlying location timelines, controls, routes, and costs are unchanged.
