@@ -34,7 +34,7 @@ These are **working route estimates**, captured from Apple Maps screenshots on N
 
 **Decision semantics:** Mom joining remains the current **Yes** planning assumption. **No** and **TBD** are unresolved branches; the site displays the existing Alternative = TBD rather than inventing a new trip. A 5-minute **target** arrival buffer is reserved separately from driving time in the Mom dinner route. Overnight at Mom's means walk **18 minutes each way** to/from Rude Dogs; otherwise drive **5 minutes from Mom's** to Rude Dogs and then **14 minutes to Cousin's** for overnight. The Car choice is not yet wired to independent route behavior and must not silently override overnight mode. Client-side choices are not persisted across refreshes.
 
-## November 11 — Dinner buffer and location-row grammar (v1.0.6)
+## November 11 — Historical / superseded — Dinner buffer and location-row grammar (v1.0.6)
 - Rosalie 6:00 PM example: depart Cousin's **5:05 PM**, arrive at Mom's **5:25 PM**, visit Mom **25 minutes**, leave Mom's **5:50 PM**, arrive physically at Rosalie **5:55 PM**, target reservation **6:00 PM**. The **5-minute buffer** is planned parking/arrival slack, **not** additional drive time or a parking guarantee.
 - Reservation changes back-propagate into Cousin's departure. All available pre-dinner slack belongs at Cousin's, not at Mom's; Mom's visit remains 25 minutes. If arrival is too late, retain the 20-minute minimum Cousin's visit and show actual lateness.
 - Rosalie returns **directly** to Mom's using a provisional 5-minute return drive (not live traffic); Ubatuba is **omitted** in this branch.
@@ -62,7 +62,7 @@ The driver explicitly confirmed that **Ehrenberg is the last preferred inexpensi
 - The 340-mile full-tank assumption, 300-mile refueling goal, 40-mile range margin, and **intentional full-tank Ehrenberg top-off** remain unchanged. Driving-time buffers do not make estimated fuel range exact.
 - No route, departure, reservation, payment, icon, interaction, or layout changes.
 
-## November 11 — Schedule flexibility status (v1.1.0)
+## November 11 — Historical / superseded — Schedule flexibility status (v1.1.0)
 - The existing Thursday **Status** row is a planned scheduling indicator, not a live GPS/actual-arrival tracker.
 - Minimum Cousin's stop is **20 minutes**, fixed Mom's visit is **25 minutes**, and the target restaurant arrival is **5 minutes before** the reservation. Remaining available time is held at Cousin's as extra visit time, not at Mom's.
 - Compute signed flexibility as **target Cousin departure − (projected Cousin arrival + 20-minute minimum)**. Positive flexibility displays as **green negative minutes** (`-7 min` means seven minutes available beyond minimum), exactly zero displays **GOOD** in neutral text, and negative flexibility displays **red positive minutes** (`+1 min` means the *preferred arrival buffer* is missed by one minute). Missing the five-minute buffer does not necessarily mean missing the reservation.
@@ -87,14 +87,14 @@ The driver explicitly confirmed that **Ehrenberg is the last preferred inexpensi
 - Current approved visual rule: **all itinerary facts stay in their existing separate information rows**; do not use mixed row grammars in the same itinerary. A future alternative requires a *single coherent system-wide proposal* and user approval, evaluated on physical iPhone/iPad before promotion.
 - Do not treat test-browser height measurements alone as proof of polished real-device visual quality. The 82px/84px experiment is a rejected historical test, not an active design token.
 
-## November 11 — Dinner reservation menu (v1.1.4)
+## November 11 — Historical / superseded — Dinner reservation menu (v1.1.4)
 - Approved reservation choices: **6:00 PM, 6:30 PM, and 7:00 PM**, in that order. Previous 6:15 PM option is removed. **6:00 PM remains the default**.
 - Only the three menu labels/values and footer version change. Cousin's arrival and minimum stay, Mom's 25-minute stay, restaurant buffer, dinner and overnight branches, and scheduling/status calculations remain unchanged.
 - The existing Uno Açaí stay-time logic remains unchanged: 6:30 and 7:00 use the existing 15-minute later-reservation branch. This is not approval to modify that behavior.
 
-## November 11 — Unified Decisions selection grammar (v1.1.5; current)
+## November 11 — Historical / superseded — Unified Decisions selection grammar (v1.1.5; UI pattern retained)
 - All **seven** finite-choice Decisions rows (Dizzy, Dinner, Restaurant, Reservation, Car, Pays, Overnight) use a single full-row selection design: label on left and blue selected value alone on the right (no redundant chevron), 56px row tap target; all choices open the same checkmarked 44px-option menu.
-- Retain all v1.1.4 option sets and defaults, including reservation 6:00 / 6:30 / 7:00 PM. Choice changes still feed exactly the prior trip logic and totals. Car remains a visual-only choice without route coupling.
+- Retain seven selectable decisions, using the current reservation options and defaults specified in the newest planning contract. The Car choice remains visual-only with no route coupling. Car remains a visual-only choice without route coupling.
 - The menu is single-open, closes on selecting another choice, outside click or Escape, and uses ARIA expanded/pressed states. Independent money/time fields elsewhere remain native editable inputs. No other card, itinerary, time, fuel, status, or spacing rules change.
 - This interaction pattern is **Babel Trip local** pending user device review; do not promote it automatically to Babel Truth.
 
@@ -108,7 +108,7 @@ The driver explicitly confirmed that **Ehrenberg is the last preferred inexpensi
 - **The 5-minute preferred arrival buffer is retained in the scheduling/back-calculation and flexibility Status.** With a 6:00 reservation and normal Rosalie route, aim to physically arrive by 5:55 while the dinner row displays 6:00. Do not remove or alter the time buffer just because it is not written in the UI.
 - All other itinerary rows, route calculations, menu options, costs and decision controls remain unchanged.
 
-## November 11 — Distinct dinner arrival and reservation (v1.1.8; current)
+## November 11 — Historical / superseded — Distinct dinner arrival and reservation (v1.1.8; UI pattern retained)
 - The existing restaurant arrival row (Rosalie or Uno Tre Otto, retaining its current circular down-arrow) shows the **calculated physical arrival ETA** (e.g., 5:55 PM when the reservation is 6:00 PM and the trip is on schedule).
 - Directly below it, an **icon-free Reservation row** shows the selected booking time (6:00, 6:30, or 7:00 PM), with no repeated restaurant name. Both use the same existing 56px row, type, neutral trailing color, separator and spacing vocabulary. Do not imply the read-only time is a clickable control.
 - The physical arrival row turns red when projected arrival is later than the reservation; the reservation time remains steady and neutral. If arrival is only after the preferred five-minute buffer but before the reservation, Status may be positive without marking the restaurant arrival red.
@@ -119,3 +119,12 @@ The driver explicitly confirmed that **Ehrenberg is the last preferred inexpensi
 - The old **Cost** becomes a separately grouped **Total** card **after** the restaurant stop, reusing the same one-row Total card treatment as the Wednesday and Thursday overall totals. The existing full-trip Total is unchanged.
 - Display the estimated dinner price (**$50 Rosalie**, **$90 Uno**) instead of 'Mom'. When Pays = Mom, the amount is **muted and struck through**; when Pays = Me, the amount is normal. The overall trip amount counts the dinner only when the user pays, as before.
 - Do not alter reservation/arrival semantics, routes, açaí pricing, controls or other card styling outside this dinner segment.
+
+## November 11 — Fixed family visits and evening dinner options (v1.2.0; CURRENT PLANNING CONTRACT)
+- User approved **exactly 30 minutes at Cousin's and 30 minutes at Mom's** before dinner. Both are fixed durations, **not adjustable slack**. The app must calculate Cousin departure = arrival + 30, Mom arrival = Cousin departure + 20-minute planned drive, Mom departure = Mom arrival + 30, and restaurant ETA = Mom departure + selected restaurant's drive (Rosalie 5 / Uno 30 minutes).
+- Reservation selector is now **6:30 PM (default), 7:00 PM, 7:30 PM**, replacing the earlier 6:00 / 6:30 / 7:00 choices. Reservation times are Pacific-local. Neither reservation selection nor restaurant choice should silently inflate the 30-minute family visits. The dinner reservation row shows the selected booking time; the restaurant arrival row shows projected ETA separately.
+- If the fixed route arrives early, that gap is honest **pre-reservation waiting margin**, not extra family-visit minutes. Dinner's 1-hour meal is scheduled from the later of arrival or reservation, as it was previously.
+- Thursday **Status** is still a predicted scheduling indicator, not GPS. Compare projected restaurant ETA to the **five-minute-early preferred target**: margin = selected reservation − 5 min − projected arrival. **Green negative minutes** indicate extra time beyond that 5-minute target, **GOOD** is exactly at target, **red positive minutes** indicate the target buffer was missed. Arrival time itself turns red only once later than the reservation. Dinner No/TBD means Status TBD.
+- With the default noon Arizona departure, 15-minute Ehrenberg stop, Rosalie and 6:30 PM: Cousin arrives **4:38 PM PT**, departs **5:08 PM**, Mom arrives **5:28 PM**, departs **5:58 PM**, Rosalie arrives **6:03 PM**, reservation **6:30 PM**; Status **-22 min** (27 minutes between physical arrival and reservation, five minutes of which are the protected target buffer).
+- With Uno and 6:30 PM under the same route, ETA is **6:28 PM**, two minutes before reservation; Status **+3 min** (the target buffer missed, but reservation not yet late). Its Açaí stay remains the existing **15 minutes** across the newly offered reservation times; the older shorter-evening special cases are obsolete.
+- All other budgets, choices, routes, fuel intervals, icons, row styling, overnight branches, restaurant covered-price Total treatment, and downstream meal/stop behavior remain unchanged. Earlier sections are recorded history, **not competing active timing rules**.
