@@ -150,3 +150,9 @@ The driver explicitly confirmed that **Ehrenberg is the last preferred inexpensi
 - Adopt two consistent levels within the existing website: **12px related/card gap** (Decisions groups and all `.stack` groups/cards) and **28px major section gap** (last Decisions group→Wednesday and Wednesday→Thursday). Section header→content spacing is **12px**. Footer spacing remains existing 28px.
 - Keep all `row` heights at 56px, current card groups, labels, menu placement/behavior, icons, calculation logic, arrival/status semantics and dark/light palettes unchanged. Do not introduce decorative separators or new wrappers to patch spacing.
 - This is app-local visual alignment pending physical iPhone/iPad review. Preserve the shared rhythm for future Babel Trip sections unless new device evidence warrants a deliberate change.
+
+## November 11 — Collapse hidden Alternative card wrapper (v1.2.5; CURRENT SPACING FIX)
+- Physical iPhone review exposed an exact double gap between Cousin's pause group and Mom's departure group. Root cause: the Alternative row was hidden while its containing group stayed in Thursday's stack, leaving a zero-height flex item and **two consecutive 12px gaps (24px total)**.
+- Move the existing altPlan ID and hidden state from the inner row to the **entire Alternative group wrapper**. The existing render visibility toggle now hides/shows the full card; no empty flex item when Dinner = Yes. Dinner = No / TBD must still reveal the same Alternative = TBD card with one 56px row.
+- Preserve all existing **12px gaps** across sibling itinerary cards and nested stacks, **28px** between major sections, **12px** heading spacing; no CSS changes, new wrappers, or one-off margins. No row data, timing, controls, colors, finances, branches or JavaScript calculations changed.
+- General rule: optional itinerary cards must be removed from the layout when inactive. Do not merely hide their inner contents while leaving an otherwise empty stack child.
