@@ -86,3 +86,8 @@ The driver explicitly confirmed that **Ehrenberg is the last preferred inexpensi
 - Revert the **entire v1.1.2 composed-row UI experiment**: restore the v1.1.1 rows and CSS exactly, with the footer advanced to v1.1.3. Do not change any travel, fuel, payment, icon, status, control, or scheduling logic.
 - Current approved visual rule: **all itinerary facts stay in their existing separate information rows**; do not use mixed row grammars in the same itinerary. A future alternative requires a *single coherent system-wide proposal* and user approval, evaluated on physical iPhone/iPad before promotion.
 - Do not treat test-browser height measurements alone as proof of polished real-device visual quality. The 82px/84px experiment is a rejected historical test, not an active design token.
+
+## November 11 — Dinner reservation menu (v1.1.4)
+- Approved reservation choices: **6:00 PM, 6:30 PM, and 7:00 PM**, in that order. Previous 6:15 PM option is removed. **6:00 PM remains the default**.
+- Only the three menu labels/values and footer version change. Cousin's arrival and minimum stay, Mom's 25-minute stay, restaurant buffer, dinner and overnight branches, and scheduling/status calculations remain unchanged.
+- The existing Uno Açaí stay-time logic remains unchanged: 6:30 and 7:00 use the existing 15-minute later-reservation branch. This is not approval to modify that behavior.
