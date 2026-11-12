@@ -113,3 +113,9 @@ The driver explicitly confirmed that **Ehrenberg is the last preferred inexpensi
 - Directly below it, an **icon-free Reservation row** shows the selected booking time (6:00, 6:30, or 7:00 PM), with no repeated restaurant name. Both use the same existing 56px row, type, neutral trailing color, separator and spacing vocabulary. Do not imply the read-only time is a clickable control.
 - The physical arrival row turns red when projected arrival is later than the reservation; the reservation time remains steady and neutral. If arrival is only after the preferred five-minute buffer but before the reservation, Status may be positive without marking the restaurant arrival red.
 - All back-calculated timing, Cousin/Mom visit minimums, travel facts, status, restaurant switching, costs, and downstream route behavior remain untouched. No new card, menu, or visual treatment.
+
+## November 11 — Dinner stop and covered dinner total (v1.1.9; current)
+- In the Mom/dinner itinerary, the previous **Stay** row is now a genuine stop: **circular pause icon + live restaurant name (Rosalie / Uno Tre Otto) + 1 hr**, after the arrival and separate Reservation. The same 60-minute stop and scheduling calculations remain unchanged.
+- The old **Cost** becomes a separately grouped **Total** card **after** the restaurant stop, reusing the same one-row Total card treatment as the Wednesday and Thursday overall totals. The existing full-trip Total is unchanged.
+- Display the estimated dinner price (**$50 Rosalie**, **$90 Uno**) instead of 'Mom'. When Pays = Mom, the amount is **muted and struck through**; when Pays = Me, the amount is normal. The overall trip amount counts the dinner only when the user pays, as before.
+- Do not alter reservation/arrival semantics, routes, açaí pricing, controls or other card styling outside this dinner segment.
