@@ -144,3 +144,9 @@ The driver explicitly confirmed that **Ehrenberg is the last preferred inexpensi
 ## November 11 — Covered dinner price strike placement (v1.2.3; current visual correction)
 - On physical-device review, the browser font's native `text-decoration: line-through` placed the line off-center. Use a 1px `::after` line across the **visual center of the covered price's own box** instead, scoped to `.coveredPrice` only.
 - Preserve the existing muted covered price, `Pays = Mom` / `Pays = Me` toggle, amounts ($50 Rosalie/$90 Uno), 56px Total row and all itinerary/financial logic. Do not add a second strike or change fonts, rows, icons or surrounding components.
+
+## November 11 — Unified vertical spacing rhythm (v1.2.4; CURRENT VISUAL CONTRACT)
+- Real iPhone screenshots showed inconsistent spacing: Decisions groups used an 18px gap and an 18px transition into Wednesday, Wednesday→Thursday used 34px, while stacked itinerary cards used 10px. This was accidental hierarchy, not approved meaning.
+- Adopt two consistent levels within the existing website: **12px related/card gap** (Decisions groups and all `.stack` groups/cards) and **28px major section gap** (last Decisions group→Wednesday and Wednesday→Thursday). Section header→content spacing is **12px**. Footer spacing remains existing 28px.
+- Keep all `row` heights at 56px, current card groups, labels, menu placement/behavior, icons, calculation logic, arrival/status semantics and dark/light palettes unchanged. Do not introduce decorative separators or new wrappers to patch spacing.
+- This is app-local visual alignment pending physical iPhone/iPad review. Preserve the shared rhythm for future Babel Trip sections unless new device evidence warrants a deliberate change.
