@@ -13,9 +13,6 @@
   <div class="header"><div class="date">Saturday, Nov 14</div></div>
   <div class="stack">
     <div class="group"><div class="row"><div class="label">Status</div><div id="birthdayBuffer" class="trailing">GOOD</div></div></div>
-    <div class="group menuGroup">
-      <div class="row decisionRow choice" data-key="birthdayGolfBooked"><button class="decisionTrigger choiceTrigger" type="button" aria-expanded="false" aria-controls="birthdayGolfBookedOptions"><span class="label">Golf booked</span><span class="decisionValue"><span id="birthdayGolfBookedChoiceText" class="decisionValueText">No</span></span></button><div id="birthdayGolfBookedOptions" class="choiceMenu hidden" role="group" aria-label="Golf booking status"><button class="choiceOption sel" data-v="no" type="button" aria-pressed="true">No</button><button class="choiceOption" data-v="yes" type="button" aria-pressed="false">Yes</button></div></div>
-    </div>
     <div class="group">
       <div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Puttshack</div><label class="trailing blue editable"><span id="birthdayArrivalText">7:00 PM</span><input id="birthdayArrival" type="time" value="19:00"></label></div>
       <div class="row"><div class="label">Dinner</div><label class="trailing blue editable"><span id="birthdayDinnerText">45 min</span><input id="birthdayDinner" type="number" min="0" step="5" value="45"></label></div>
@@ -163,12 +160,12 @@
   </div>
 </section>
 
-<div class="buildVersion" aria-label="Babel Trip version">v1.3.2</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.3.3</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
   var $=function(s){return r.querySelector(s)}, allNodes=function(s){return Array.from(r.querySelectorAll(s))};
-  var state={birthdayGolfBooked:'no',dizzy:'weekend',dinnerMom:'yes',restaurant:'other',dinner:1110,momPaid:'yes',overnight:'yes',ticketCount:2,car:'mom'};
+  var state={dizzy:'weekend',dinnerMom:'yes',restaurant:'other',dinner:1110,momPaid:'yes',overnight:'yes',ticketCount:2,car:'mom'};
   function fmt(n){n=((n%1440)+1440)%1440;var h=Math.floor(n/60),m=n%60;return (((h+11)%12)+1)+':'+String(m).padStart(2,'0')+' '+(h>=12?'PM':'AM')}
   function closeChoices(except){
     allNodes('.choice').forEach(function(choice){
