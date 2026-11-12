@@ -91,3 +91,9 @@ The driver explicitly confirmed that **Ehrenberg is the last preferred inexpensi
 - Approved reservation choices: **6:00 PM, 6:30 PM, and 7:00 PM**, in that order. Previous 6:15 PM option is removed. **6:00 PM remains the default**.
 - Only the three menu labels/values and footer version change. Cousin's arrival and minimum stay, Mom's 25-minute stay, restaurant buffer, dinner and overnight branches, and scheduling/status calculations remain unchanged.
 - The existing Uno Açaí stay-time logic remains unchanged: 6:30 and 7:00 use the existing 15-minute later-reservation branch. This is not approval to modify that behavior.
+
+## November 11 — Unified Decisions selection grammar (v1.1.5; current)
+- All **seven** finite-choice Decisions rows (Dizzy, Dinner, Restaurant, Reservation, Car, Pays, Overnight) use a single full-row selection design: label on left, blue selected value plus subtle chevron on right, 56px row tap target; all choices open the same checkmarked 44px-option menu.
+- Retain all v1.1.4 option sets and defaults, including reservation 6:00 / 6:30 / 7:00 PM. Choice changes still feed exactly the prior trip logic and totals. Car remains a visual-only choice without route coupling.
+- The menu is single-open, closes on selecting another choice, outside click or Escape, and uses ARIA expanded/pressed states. Independent money/time fields elsewhere remain native editable inputs. No other card, itinerary, time, fuel, status, or spacing rules change.
+- This interaction pattern is **Babel Trip local** pending user device review; do not promote it automatically to Babel Truth.
