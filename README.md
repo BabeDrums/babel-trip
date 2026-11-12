@@ -75,8 +75,14 @@ The driver explicitly confirmed that **Ehrenberg is the last preferred inexpensi
 - From the Wednesday full tank: Work → Ehrenberg 143 mi, **157 mi left** before the refill interval. After the required Ehrenberg full reset: Ehrenberg → Cousin's 210 mi, **90 mi left**; Cousin's → Mom's 5.5 mi, **85 mi left** when rounded from 84.5.
 - These are planning distances, not a dynamic odometer. If the car is not filled to full, or more mileage is driven than planned, revise the counter. No other controls, route logic, stop durations, or status semantics changed.
 
-## November 11 — Composed information-row experiment (v1.1.2; scoped)
+## November 11 — Composed information-row experiment (v1.1.2; rejected after physical iPhone review)
 - **Limited experiment in the real website:** only the Ehrenberg **Fuel** and subsequent Ehrenberg **departure** use a unified two-level row with their immediately related facts. All other information rows remain separate to enable comparison on iPhone and iPad.
 - Content-driven minimum height: **44px** main/action line + **16px** supporting information line + **6px** between lines + **8px** top/bottom inset = **82px**. Rows can expand with content; this replaces two 56px rows (112px) for each of the two cases.
 - Existing 17px primary and 13px secondary type, existing icons, right/left columns, controls, separator style, and facts are preserved. The existing invisible editable Fuel input in this sample has an explicit **44px** touch height and remains anchored over the price only.
 - No unrelated rows, data, route timings, mileage, prices, status, controls, or branch behavior changed. Do not extend the pattern globally before visual verification on physical iPhone/iPad.
+
+## November 11 — Revert composed-row experiment (v1.1.3; current visual contract)
+- The user reviewed v1.1.2 **on a physical iPhone in dark mode** and rejected the hybrid layout. It caused inconsistent row rhythm, separator positions, and hierarchy by combining only two rows while retaining separate information rows elsewhere.
+- Revert the **entire v1.1.2 composed-row UI experiment**: restore the v1.1.1 rows and CSS exactly, with the footer advanced to v1.1.3. Do not change any travel, fuel, payment, icon, status, control, or scheduling logic.
+- Current approved visual rule: **all itinerary facts stay in their existing separate information rows**; do not use mixed row grammars in the same itinerary. A future alternative requires a *single coherent system-wide proposal* and user approval, evaluated on physical iPhone/iPad before promotion.
+- Do not treat test-browser height measurements alone as proof of polished real-device visual quality. The 82px/84px experiment is a rejected historical test, not an active design token.
