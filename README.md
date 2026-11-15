@@ -233,3 +233,13 @@ User called Mom and confirmed that Thursday Nov 19 will follow one route: **Rosa
 - Keep independent editable Thursday Arizona departure, Ehrenberg duration/fuel, snacks, Thursday karaoke spend, and Saturday dinner/golf inputs. Saturday and Wednesday budget calculations remain unchanged except relocating Dizzy's choice. Payer continues to control the meal inclusion in financial totals. Status/back-calculation retain Cousin's 30-min minimum and Mom's 30-min fixed visit.
 - Default 12:15 PM AZ departure / 15-minute Ehrenberg pause: arrive Cousin 4:53 PM PT, leave 6:30, Mom 6:50–7:20, Rosalie physically 7:25 for 7:30 target, dinner ends 8:30, park at Mom 8:35–8:40, Rude Dogs 8:58–11:28, walk home to Mom by 11:46 PM PT. Status -67 min beyond the Cousin minimum. Driving/walking times are planning estimates, not live traffic or guaranteed venue hours.
 - UI approval: user “Bet whatever u think” to the scoped recommendation to simplify settled choices; branch/PR validation and deployment confirmation remain separate requirements.
+
+
+## November 15 — Completed birthday outing archived from active trip (v1.3.7)
+
+The user confirmed the **November 14 Scottsdale birthday outing was successfully completed** and explicitly requested removing Puttshack entirely from the itinerary. The actual outing was Puttshack mini golf with Missy followed by Grimaldi’s dinner with Missy and D’Angelo; the previously planned Grapevine karaoke did not occur. This is historical context, not a future itinerary or proof of a particular booking/expense.
+
+- Remove the **entire completed Saturday Nov 14 birthday section** from active Babel Trip so the unvisited Grapevine plan is not left behind as a misleading standalone route.
+- Remove associated birthday inputs, event bindings, schedule/status calculation and unused top-section CSS. No new replacement UI, completion card or archive surface.
+- Preserve the remaining **Wednesday Nov 18 and Thursday Nov 19** California itinerary HTML and functionality exactly, including Dizzy and Pays choices, cost math, editable fuel/departure/stops, and confirmed Thursday Rosalie/overnight walking route.
+- The history of previous birthday planning remains available via Git history/earlier documentation. Only active webpage content changes.
