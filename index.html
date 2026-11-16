@@ -175,7 +175,13 @@
   var pf=$('#prepFuel'),qf=$('#qsFuel'),sn=$('#snacks'),stop=$('#stopMinutes'),dep=$('#departure'),tt=$('#tacoTarget'),
       hs=$('#homeStopMinutes'),ea=$('#quartzArrivalInput'),caInput=$('#cousinArrivalInput'),
       ts=$('#tacoSpend'),bs=$('#breakfastSpend'),ls=$('#lunchSpend'),rs=$('#rudeSpend');
-  [pf,qf,sn,stop,dep,hs,tt,ts,bs,ls,rs].forEach(function(x){x.addEventListener('input',render)});
+  var homeStayEdited=false;
+  [pf,qf,sn,stop,tt,ts,bs,ls,rs].forEach(function(x){x.addEventListener('input',render)});
+  dep.addEventListener('input',function(){
+    if(!homeStayEdited){var leave=timeMinutes(dep.value);if(leave!==null)hs.value=String(Math.max(0,16*60-(leave+16)))}
+    render();
+  });
+  hs.addEventListener('input',function(){homeStayEdited=true;render()});
   function timeMinutes(value){if(!/^\d\d:\d\d$/.test(value))return null;var a=value.split(':').map(Number);return a[0]*60+a[1]}
   function timeInput(n){n=((n%1440)+1440)%1440;return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
   // Place a clock-only adjustment on the nearest plausible day, including just past midnight.
@@ -222,6 +228,7 @@
     $('#homeArrival').textContent=fmt(homeArr);
     $('#homeStopText').textContent=homeStay+' min';
     $('#homeDepart').textContent=fmt(homeDep);
+    $('#homeDepart').classList.toggle('red',homeDep>16*60);
     $('#quartzArrival').textContent=fmt(qa);
     ea.value=timeInput(qa);
     $('#quartzArrivalReset').classList.toggle('hidden',arrivalOverrides.ehrenberg===null);
