@@ -176,7 +176,7 @@
       hs=$('#homeStopMinutes'),ea=$('#quartzArrivalInput'),caInput=$('#cousinArrivalInput'),
       ts=$('#tacoSpend'),bs=$('#breakfastSpend'),ls=$('#lunchSpend'),rs=$('#rudeSpend');
   [pf,qf,sn,stop,dep,hs,tt,ts,bs,ls,rs].forEach(function(x){x.addEventListener('input',render)});
-  function timeMinutes(value){if(!/^\\d\\d:\\d\\d$/.test(value))return null;var a=value.split(':').map(Number);return a[0]*60+a[1]}
+  function timeMinutes(value){if(!/^\d\d:\d\d$/.test(value))return null;var a=value.split(':').map(Number);return a[0]*60+a[1]}
   function timeInput(n){n=((n%1440)+1440)%1440;return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
   // Place a clock-only adjustment on the nearest plausible day, including just past midnight.
   function nearClock(n,estimate){if(n===null)return estimate;return [n-1440,n,n+1440].reduce(function(best,v){return Math.abs(v-estimate)<Math.abs(best-estimate)?v:best},n)}
