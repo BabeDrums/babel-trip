@@ -32,7 +32,7 @@
 <div class="row infoRow"><div class="infoLeft">16 min drive · planned</div><div class="infoRight">7.1 mi · 293 mi left</div></div>
 <div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Home</div><div id="homeArrival" class="trailing">3:31 PM</div></div>
 <div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Home</div><label class="trailing blue editable"><span id="homeStopText">29 min</span><input id="homeStopMinutes" aria-label="Minutes at home" type="number" min="0" step="1" value="29"></label></div></div>
-<div class="group"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Home</div><div id="homeDepart" class="trailing">4:00 PM</div></div>
+<div class="group"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Home</div><div class="trailing timeControl"><button id="homeDepartReset" class="timeReset hidden" type="button" aria-label="Reset home stop to automatic timing" title="Use automatic home stop">↺</button><label class="blue editable"><span id="homeDepart">4:00 PM</span><input id="homeDepartInput" type="time" value="16:00" aria-label="Adjust departure from home, Arizona time"></label></div></div>
 <div class="row infoRow"><div class="infoLeft">2 hr 11 min · provisional</div><div class="infoRight">mi TBD · range TBD</div></div>
 <div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Ehrenberg</div><div class="trailing timeControl"><button id="quartzArrivalReset" class="timeReset hidden" type="button" aria-label="Reset Ehrenberg arrival to estimate" title="Use estimated arrival">↺</button><label class="blue editable"><span id="quartzArrival">6:11 PM</span><input id="quartzArrivalInput" type="time" value="18:11" aria-label="Adjust Ehrenberg arrival time, Arizona time"></label></div></div>
 <div class="row"><div class="label">Fuel</div><label class="trailing blue editable"><span id="qsFuelText">$20</span><input id="qsFuel" type="number" min="0" value="20"></label></div>
@@ -128,7 +128,7 @@
   </div>
 </section>
 
-<div class="buildVersion" aria-label="Babel Trip version">v1.3.9</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.4.0</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
@@ -173,15 +173,19 @@
     if(opened){e.preventDefault();closeChoices();opened.querySelector('.choiceTrigger').focus()}
   });
   var pf=$('#prepFuel'),qf=$('#qsFuel'),sn=$('#snacks'),stop=$('#stopMinutes'),dep=$('#departure'),tt=$('#tacoTarget'),
-      hs=$('#homeStopMinutes'),ea=$('#quartzArrivalInput'),caInput=$('#cousinArrivalInput'),
+      hs=$('#homeStopMinutes'),hd=$('#homeDepartInput'),ea=$('#quartzArrivalInput'),caInput=$('#cousinArrivalInput'),
       ts=$('#tacoSpend'),bs=$('#breakfastSpend'),ls=$('#lunchSpend'),rs=$('#rudeSpend');
-  var homeStayEdited=false;
-  [pf,qf,sn,stop,tt,ts,bs,ls,rs].forEach(function(x){x.addEventListener('input',render)});
-  dep.addEventListener('input',function(){
-    if(!homeStayEdited){var leave=timeMinutes(dep.value);if(leave!==null)hs.value=String(Math.max(0,16*60-(leave+16)))}
-    render();
+  // Automatic timing is a planning preference, not a restriction on actual stop length.
+  // Editing Home stay holds duration; editing Leave Home holds departure clock time.
+  var homeMode='auto',homeDepartureManual=null;
+  [pf,qf,sn,stop,tt,ts,bs,ls,rs,dep].forEach(function(x){x.addEventListener('input',render)});
+  hs.addEventListener('input',function(){homeMode='stay';render()});
+  hd.addEventListener('change',function(){
+    var n=timeMinutes(hd.value);
+    if(n===null)return;
+    homeDepartureManual=n;homeMode='depart';render();
   });
-  hs.addEventListener('input',function(){homeStayEdited=true;render()});
+  $('#homeDepartReset').addEventListener('click',function(){homeMode='auto';homeDepartureManual=null;render()});
   function timeMinutes(value){if(!/^\d\d:\d\d$/.test(value))return null;var a=value.split(':').map(Number);return a[0]*60+a[1]}
   function timeInput(n){n=((n%1440)+1440)%1440;return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
   // Place a clock-only adjustment on the nearest plausible day, including just past midnight.
@@ -214,10 +218,19 @@
     $('#prepTotal').textContent='$'+(35+(state.ticketCount===1?25:50)).toFixed(0);
 
     // Wednesday: noon full tank, Work → Home → Ehrenberg → Cousin's.
-    // Departure + home duration determine estimate; arrival edits override clock time only.
     // Work → Home is a provisional reverse-commute estimate. Home → Ehrenberg mileage is unverified.
     var d0=timeMinutes(dep.value);if(d0===null)d0=15*60+15;
-    var homeArr=d0+16,homeStay=Math.max(0,Number(hs.value)||0),homeDep=homeArr+homeStay;
+    var homeArr=d0+16,homeStay,homeDep;
+    if(homeMode==='auto'){
+      homeStay=Math.max(5,Math.min(30,16*60-homeArr));
+      homeDep=homeArr+homeStay;
+    }else if(homeMode==='depart'){
+      homeDep=Math.max(homeArr,nearClock(homeDepartureManual,homeArr+15));
+      homeStay=homeDep-homeArr;
+    }else{
+      homeStay=Math.max(0,Number(hs.value)||0);
+      homeDep=homeArr+homeStay;
+    }
     var qaEstimate=homeDep+131,qa=nearClock(arrivalOverrides.ehrenberg,qaEstimate);
     var stopDur=Math.max(0,Number(stop.value)||0),qd=qa+stopDur;
     var caEstimate=qd+190-60,ca=nearClock(arrivalOverrides.cousin,caEstimate);
@@ -227,7 +240,10 @@
     $('#departureText').textContent=fmt(d0);
     $('#homeArrival').textContent=fmt(homeArr);
     $('#homeStopText').textContent=homeStay+' min';
+    hs.value=String(homeStay);
     $('#homeDepart').textContent=fmt(homeDep);
+    hd.value=timeInput(homeDep);
+    $('#homeDepartReset').classList.toggle('hidden',homeMode==='auto');
     $('#homeDepart').classList.toggle('red',homeDep>16*60);
     $('#quartzArrival').textContent=fmt(qa);
     ea.value=timeInput(qa);
