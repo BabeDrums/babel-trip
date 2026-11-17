@@ -147,15 +147,15 @@
 </details>
 </div>
 <div class="travelLeg"><div class="row infoRow"><div class="infoLeft">10 min drive</div><div class="infoRight hidden">mi TBD</div></div></div>
-<div class="group stopGroup" data-stop-title="Tacos Nogales" data-stop-primary="tacoArrival" data-stop-leave="tacoDepart" data-stop-duration="tacoTargetText" data-stop-purpose="Pickup">
+<div class="group stopGroup" data-stop-title="Tacos Nogales" data-stop-primary="tacoArrival" data-stop-leave="tacoDepart" data-stop-duration="tacoStay" data-stop-purpose="Order + pickup">
 <details class="stopFold">
 <summary class="stopTop" aria-label="Tacos Nogales: tap for details">
 <span class="stopHeading"><span class="stopTitle">Tacos Nogales</span><span id="stopClock40" class="stopTime">8:56 PM</span></span>
 <span class="stopFoot"><span id="stopCaption40" class="stopInfo">Pickup</span><span class="stopChevron" aria-hidden="true"></span></span>
 </summary>
 <div class="stopDetails" id="stopBody40"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Tacos Nogales</div><div class="trailing timeControl"><button id="tacoArrivalReset" class="timeReset hidden" type="button" aria-label="Reset tacoArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="tacoArrival">8:56 PM</span><input id="tacoArrivalInput" type="time" value="20:56" aria-label="Adjust taco Arrival, California time"></label></div></div>
-<div class="row"><div class="label">Pickup</div><label class="trailing blue editable"><span id="tacoTargetText">9:00 PM</span><input id="tacoTarget" type="time" value="21:00" aria-label="Tacos Nogales pickup target California time"></label></div>
-<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Stay</div><label class="trailing blue editable"><span id="tacoStay">10 min</span><input id="tacoPickupMinutes" type="number" min="0" step="5" value="10" aria-label="Tacos Nogales pickup stop duration in minutes"></label></div>
+<div class="row hidden" aria-hidden="true"><div class="label">Pickup</div><label class="trailing blue editable"><span id="tacoTargetText">9:00 PM</span><input id="tacoTarget" type="time" value="21:00" aria-label="Tacos Nogales pickup target California time"></label></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Order + pickup</div><label class="trailing blue editable"><span id="tacoStay">20 min</span><input id="tacoPickupMinutes" type="number" min="0" step="5" value="20" aria-label="Tacos Nogales pickup stop duration in minutes"></label></div>
 <div class="row"><div class="label">Dinner</div><label class="trailing blue editable"><span id="tacoSpendText">$15</span><input id="tacoSpend" type="number" min="0" value="15"></label></div>
 <div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="tacoDepartReset" class="timeReset hidden" type="button" aria-label="Reset tacoDepart to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="tacoDepart">9:10 PM</span><input id="tacoDepartInput" type="time" value="21:10" aria-label="Adjust taco Depart, California time"></label></div></div></div>
 </details>
@@ -329,35 +329,14 @@
 </details>
 </div>
 <div class="journeyBranch hidden" id="fridayPickupBlock"><div class="travelLeg"><div class="row infoRow"><div class="infoLeft">1 hr 30 min drive</div><div class="infoRight hidden">mi TBD</div></div></div>
-<div class="group stopGroup" data-stop-title="Temecula" data-stop-primary="fridayPickupArrival" data-stop-leave="" data-stop-duration="" data-stop-purpose="Pickup">
+<div class="group stopGroup" data-stop-title="Temecula" data-stop-primary="fridayPickupArrival" data-stop-leave="fridayPickupDeparture" data-stop-duration="fridayPickupMinutesText" data-stop-purpose="Pickup">
 <details class="stopFold">
-<summary class="stopTop" aria-label="Temecula: tap for details">
-<span class="stopHeading"><span class="stopTitle">Temecula</span><span id="stopClock27" class="stopTime">2:45 PM</span></span>
-<span class="stopFoot"><span id="stopCaption27" class="stopInfo">Pickup</span><span class="stopChevron" aria-hidden="true"></span></span>
-</summary>
-<div class="stopDetails" id="stopBody27"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Temecula</div><div class="trailing timeControl"><button id="fridayPickupArrivalReset" class="timeReset hidden" type="button" aria-label="Reset fridayPickupArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayPickupArrival">2:45 PM</span><input id="fridayPickupArrivalInput" type="time" value="14:45" aria-label="Adjust friday Pickup Arrival, California time"></label></div></div></div>
-</details>
-</div>
-<div class="group stopGroup" data-stop-title="Pickup" data-stop-primary="" data-stop-leave="" data-stop-duration="fridayPickupMinutesText" data-stop-purpose="Stop">
-<details class="stopFold">
-<summary class="stopTop" aria-label="Pickup: tap for details">
-<span class="stopHeading"><span class="stopTitle">Pickup</span><span id="stopClock26" class="stopTime"></span></span>
-<span class="stopFoot"><span id="stopCaption26" class="stopInfo">Stop</span><span class="stopChevron" aria-hidden="true"></span></span>
-</summary>
-<div class="stopDetails" id="stopBody26"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4 M12.4 6.8v6.4"></path></svg></span>Pickup</div><label class="trailing blue editable"><span id="fridayPickupMinutesText">30 min</span><input id="fridayPickupMinutes" type="number" min="0" step="5" value="30" aria-label="Pickup + fuel duration in minutes"></label></div>
+<summary class="stopTop" aria-label="Temecula: tap for details"><span class="stopHeading"><span class="stopTitle">Temecula</span><span id="stopClock27" class="stopTime"></span></span><span class="stopFoot"><span id="stopCaption27" class="stopInfo">Pickup</span><span class="stopChevron" aria-hidden="true"></span></span></summary>
+<div class="stopDetails" id="stopBody27"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Temecula</div><div class="trailing timeControl"><button id="fridayPickupArrivalReset" class="timeReset hidden" type="button" aria-label="Reset fridayPickupArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayPickupArrival">2:45 PM</span><input id="fridayPickupArrivalInput" type="time" value="14:45" aria-label="Adjust friday Pickup Arrival, California time"></label></div></div>
+<div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4 M12.4 6.8v6.4"></path></svg></span>Pickup</div><label class="trailing blue editable"><span id="fridayPickupMinutesText">30 min</span><input id="fridayPickupMinutes" type="number" min="0" step="5" value="30" aria-label="Pickup + fuel duration in minutes"></label></div>
 <div class="row"><div class="label">Fuel</div><label class="trailing blue editable"><span id="fridayFuelText">$50</span><input id="fridayFuel" type="number" min="0" value="50" aria-label="Fuel amount"></label></div>
-<div class="row infoRow"><div class="infoLeft">Top off planned</div><div class="infoRight">300 mi target</div></div></div>
-</details>
-</div>
-<div class="group stopGroup" data-stop-title="Temecula" data-stop-primary="fridayPickupDeparture" data-stop-leave="" data-stop-duration="" data-stop-purpose="Pickup">
-<details class="stopFold">
-<summary class="stopTop" aria-label="Temecula: tap for details">
-<span class="stopHeading"><span class="stopTitle">Temecula</span><span id="stopClock25" class="stopTime">3:15 PM</span></span>
-<span class="stopFoot"><span id="stopCaption25" class="stopInfo">Pickup</span><span class="stopChevron" aria-hidden="true"></span></span>
-</summary>
-<div class="stopDetails" id="stopBody25"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Temecula</div><div class="trailing timeControl"><button id="fridayPickupDepartureReset" class="timeReset hidden" type="button" aria-label="Reset fridayPickupDeparture to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayPickupDeparture">3:15 PM</span><input id="fridayPickupDepartureInput" type="time" value="15:15" aria-label="Adjust friday Pickup Departure, California time"></label></div></div></div>
-</details>
-</div>
+<div class="row infoRow"><div class="infoLeft">Top off planned</div><div class="infoRight">300 mi target</div></div>
+<div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Temecula</div><div class="trailing timeControl"><button id="fridayPickupDepartureReset" class="timeReset hidden" type="button" aria-label="Reset fridayPickupDeparture to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayPickupDeparture">3:15 PM</span><input id="fridayPickupDepartureInput" type="time" value="15:15" aria-label="Adjust friday Pickup Departure, California time"></label></div></div></div></details></div>
 <div class="travelLeg"><div class="row infoRow"><div class="infoLeft">1 hr 20 min drive</div><div class="infoRight hidden">mi TBD</div></div></div></div>
 <div class="journeyBranch hidden" id="fridaySoloBlock"><div class="travelLeg"><div class="row infoRow"><div class="infoLeft">45 min drive</div><div class="infoRight hidden">mi TBD</div></div></div></div>
 <div class="group stopGroup" data-stop-title="Hanagi" data-stop-primary="fridayHanagiArrivalPickup|fridayHanagiArrivalSolo" data-stop-leave="fridayHanagiDeparture" data-stop-duration="fridaySushiMinutesText" data-stop-purpose="Sushi">
@@ -411,33 +390,12 @@
 </details>
 </div></div>
 <div class="journeyBranch hidden" id="fridayReturnDizzyBlock"><div class="travelLeg"><div class="row infoRow"><div class="infoLeft">80 min drive</div><div class="infoRight hidden">mi TBD</div></div></div>
-<div class="group stopGroup" data-stop-title="Temecula" data-stop-primary="fridayDropArrival" data-stop-leave="" data-stop-duration="" data-stop-purpose="Pickup">
+<div class="group stopGroup" data-stop-title="Temecula" data-stop-primary="fridayDropArrival" data-stop-leave="fridayDropDeparture" data-stop-duration="fridayDropMinutesText" data-stop-purpose="Drop-off">
 <details class="stopFold">
-<summary class="stopTop" aria-label="Temecula: tap for details">
-<span class="stopHeading"><span class="stopTitle">Temecula</span><span id="stopClock20" class="stopTime">11:50 PM</span></span>
-<span class="stopFoot"><span id="stopCaption20" class="stopInfo">Pickup</span><span class="stopChevron" aria-hidden="true"></span></span>
-</summary>
-<div class="stopDetails" id="stopBody20"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Temecula</div><div class="trailing timeControl"><button id="fridayDropArrivalReset" class="timeReset hidden" type="button" aria-label="Reset fridayDropArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayDropArrival">11:50 PM</span><input id="fridayDropArrivalInput" type="time" value="23:50" aria-label="Adjust friday Drop Arrival, California time"></label></div></div></div>
-</details>
-</div>
-<div class="group stopGroup" data-stop-title="Drop-off" data-stop-primary="" data-stop-leave="" data-stop-duration="fridayDropMinutesText" data-stop-purpose="Drop-off">
-<details class="stopFold">
-<summary class="stopTop" aria-label="Drop-off: tap for details">
-<span class="stopHeading"><span class="stopTitle">Drop-off</span><span id="stopClock19" class="stopTime"></span></span>
-<span class="stopFoot"><span id="stopCaption19" class="stopInfo">Drop-off</span><span class="stopChevron" aria-hidden="true"></span></span>
-</summary>
-<div class="stopDetails" id="stopBody19"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4 M12.4 6.8v6.4"></path></svg></span>Drop-off</div><label class="trailing blue editable"><span id="fridayDropMinutesText">10 min</span><input id="fridayDropMinutes" type="number" min="0" step="5" value="10" aria-label="Drop off Dizzy duration in minutes"></label></div></div>
-</details>
-</div>
-<div class="group stopGroup" data-stop-title="Temecula" data-stop-primary="fridayDropDeparture" data-stop-leave="" data-stop-duration="" data-stop-purpose="Pickup">
-<details class="stopFold">
-<summary class="stopTop" aria-label="Temecula: tap for details">
-<span class="stopHeading"><span class="stopTitle">Temecula</span><span id="stopClock18" class="stopTime">12:00 AM +1</span></span>
-<span class="stopFoot"><span id="stopCaption18" class="stopInfo">Pickup</span><span class="stopChevron" aria-hidden="true"></span></span>
-</summary>
-<div class="stopDetails" id="stopBody18"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Temecula</div><div class="trailing timeControl"><button id="fridayDropDepartureReset" class="timeReset hidden" type="button" aria-label="Reset fridayDropDeparture to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayDropDeparture">12:00 AM +1</span><input id="fridayDropDepartureInput" type="time" value="00:00" aria-label="Adjust friday Drop Departure, California time"></label></div></div></div>
-</details>
-</div>
+<summary class="stopTop" aria-label="Temecula: tap for details"><span class="stopHeading"><span class="stopTitle">Temecula</span><span id="stopClock20" class="stopTime"></span></span><span class="stopFoot"><span id="stopCaption20" class="stopInfo">Drop-off</span><span class="stopChevron" aria-hidden="true"></span></span></summary>
+<div class="stopDetails" id="stopBody20"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Temecula</div><div class="trailing timeControl"><button id="fridayDropArrivalReset" class="timeReset hidden" type="button" aria-label="Reset fridayDropArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayDropArrival">11:50 PM</span><input id="fridayDropArrivalInput" type="time" value="23:50" aria-label="Adjust friday Drop Arrival, California time"></label></div></div>
+<div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4 M12.4 6.8v6.4"></path></svg></span>Drop-off</div><label class="trailing blue editable"><span id="fridayDropMinutesText">10 min</span><input id="fridayDropMinutes" type="number" min="0" step="5" value="10" aria-label="Drop off Dizzy duration in minutes"></label></div>
+<div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Temecula</div><div class="trailing timeControl"><button id="fridayDropDepartureReset" class="timeReset hidden" type="button" aria-label="Reset fridayDropDeparture to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayDropDeparture">12:00 AM +1</span><input id="fridayDropDepartureInput" type="time" value="00:00" aria-label="Adjust friday Drop Departure, California time"></label></div></div></div></details></div>
 <div class="travelLeg"><div class="row infoRow"><div class="infoLeft">75 min drive</div><div class="infoRight hidden">mi TBD</div></div></div>
 <div class="group stopGroup" data-stop-title="Cousin's" data-stop-primary="fridayReturnArrival" data-stop-leave="" data-stop-duration="" data-stop-purpose="Overnight">
 <details class="stopFold">
@@ -528,33 +486,12 @@
 </details>
 </div></div>
 <div class="journeyBranch hidden" id="saturdayTemeculaReturn"><div class="travelLeg"><div class="row infoRow"><div class="infoLeft">85 min drive</div><div class="infoRight hidden">mi TBD</div></div></div>
-<div class="group stopGroup" data-stop-title="Temecula" data-stop-primary="saturdayTemeculaArrival" data-stop-leave="" data-stop-duration="" data-stop-purpose="Pickup">
+<div class="group stopGroup" data-stop-title="Temecula" data-stop-primary="saturdayTemeculaArrival" data-stop-leave="saturdayTemeculaDepart" data-stop-duration="saturdayDropMinutesText" data-stop-purpose="Drop-off">
 <details class="stopFold">
-<summary class="stopTop" aria-label="Temecula: tap for details">
-<span class="stopHeading"><span class="stopTitle">Temecula</span><span id="stopClock10" class="stopTime">8:55 PM</span></span>
-<span class="stopFoot"><span id="stopCaption10" class="stopInfo">Pickup</span><span class="stopChevron" aria-hidden="true"></span></span>
-</summary>
-<div class="stopDetails" id="stopBody10"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Temecula</div><div class="trailing timeControl"><button id="saturdayTemeculaArrivalReset" class="timeReset hidden" type="button" aria-label="Reset saturdayTemeculaArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayTemeculaArrival">8:55 PM</span><input id="saturdayTemeculaArrivalInput" type="time" value="20:55" aria-label="Adjust saturday Temecula Arrival, California time"></label></div></div></div>
-</details>
-</div>
-<div class="group stopGroup" data-stop-title="Drop-off" data-stop-primary="" data-stop-leave="" data-stop-duration="saturdayDropMinutesText" data-stop-purpose="Drop-off">
-<details class="stopFold">
-<summary class="stopTop" aria-label="Drop-off: tap for details">
-<span class="stopHeading"><span class="stopTitle">Drop-off</span><span id="stopClock9" class="stopTime"></span></span>
-<span class="stopFoot"><span id="stopCaption9" class="stopInfo">Drop-off</span><span class="stopChevron" aria-hidden="true"></span></span>
-</summary>
-<div class="stopDetails" id="stopBody9"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4 M12.4 6.8v6.4"></path></svg></span>Drop-off</div><label class="trailing blue editable"><span id="saturdayDropMinutesText">10 min</span><input id="saturdayDropMinutes" type="number" min="0" step="5" value="10" aria-label="Drop off Dizzy duration in minutes"></label></div></div>
-</details>
-</div>
-<div class="group stopGroup" data-stop-title="Temecula" data-stop-primary="saturdayTemeculaDepart" data-stop-leave="" data-stop-duration="" data-stop-purpose="Pickup">
-<details class="stopFold">
-<summary class="stopTop" aria-label="Temecula: tap for details">
-<span class="stopHeading"><span class="stopTitle">Temecula</span><span id="stopClock8" class="stopTime">9:05 PM</span></span>
-<span class="stopFoot"><span id="stopCaption8" class="stopInfo">Pickup</span><span class="stopChevron" aria-hidden="true"></span></span>
-</summary>
-<div class="stopDetails" id="stopBody8"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Temecula</div><div class="trailing timeControl"><button id="saturdayTemeculaDepartReset" class="timeReset hidden" type="button" aria-label="Reset saturdayTemeculaDepart to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayTemeculaDepart">9:05 PM</span><input id="saturdayTemeculaDepartInput" type="time" value="21:05" aria-label="Adjust saturday Temecula Depart, California time"></label></div></div></div>
-</details>
-</div>
+<summary class="stopTop" aria-label="Temecula: tap for details"><span class="stopHeading"><span class="stopTitle">Temecula</span><span id="stopClock10" class="stopTime"></span></span><span class="stopFoot"><span id="stopCaption10" class="stopInfo">Drop-off</span><span class="stopChevron" aria-hidden="true"></span></span></summary>
+<div class="stopDetails" id="stopBody10"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Temecula</div><div class="trailing timeControl"><button id="saturdayTemeculaArrivalReset" class="timeReset hidden" type="button" aria-label="Reset saturdayTemeculaArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayTemeculaArrival">8:55 PM</span><input id="saturdayTemeculaArrivalInput" type="time" value="20:55" aria-label="Adjust saturday Temecula Arrival, California time"></label></div></div>
+<div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4 M12.4 6.8v6.4"></path></svg></span>Drop-off</div><label class="trailing blue editable"><span id="saturdayDropMinutesText">10 min</span><input id="saturdayDropMinutes" type="number" min="0" step="5" value="10" aria-label="Drop off Dizzy duration in minutes"></label></div>
+<div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Temecula</div><div class="trailing timeControl"><button id="saturdayTemeculaDepartReset" class="timeReset hidden" type="button" aria-label="Reset saturdayTemeculaDepart to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayTemeculaDepart">9:05 PM</span><input id="saturdayTemeculaDepartInput" type="time" value="21:05" aria-label="Adjust saturday Temecula Depart, California time"></label></div></div></div></details></div>
 <div class="travelLeg"><div class="row infoRow"><div class="infoLeft">75 min drive</div><div class="infoRight hidden">mi TBD</div></div></div>
 <div class="group stopGroup" data-stop-title="Cousin's" data-stop-primary="saturdayCousinArrivalWithDizzy" data-stop-leave="" data-stop-duration="" data-stop-purpose="Visit">
 <details class="stopFold">
@@ -889,7 +826,7 @@
     var tacoArr=checkpoint('tacoArrival',tacoDriveOut+10,'',tacoDriveOut);
     // Previous default was 9:00 PM for an 8:56 PM arrival. Preserve the
     // four-minute preparation margin, but attach it to the live arrival.
-    var pickupSuggested=tacoArr+4;
+    var pickupSuggested=tacoArr;
     var tacoTarget=pickupTargetManual===null
       ? pickupSuggested
       : nearClock(pickupTargetManual,pickupSuggested);
