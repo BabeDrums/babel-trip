@@ -94,7 +94,7 @@
 <span class="dayRight"><span id="day-wed-total" class="dayAmount">$90</span><span class="dayChevron" aria-hidden="true"></span></span>
 </summary>
 <div class="stack flowStack">
-<div class="group statusGroup"><div class="row"><div class="label">Status</div><div id="statusValue" class="trailing good">-170 min</div></div></div>
+<div class="group statusGroup hidden" id="wedWarning"><div class="row"><div class="label">Pickup closing</div><div id="statusValue" class="trailing good">-170 min</div></div></div>
 <div class="group supportGroup"><div class="row"><div class="label">Lunch</div><div class="trailing">12:00 PM</div></div>
 <div class="row"><div class="label">Fuel</div><label class="trailing blue editable"><span id="prepFuelText">$45</span><input id="prepFuel" type="number" min="0" value="45"></label></div>
 <div class="row infoRow"><div class="infoLeft">Full tank</div><div class="infoRight">300 mi left</div></div></div>
@@ -256,7 +256,7 @@
 </details>
 </div>
 <div class="travelLeg"><div class="row infoRow"><div id="momDinnerDrive" class="infoLeft">5 min drive · my car</div><div id="momDinnerMiles" class="infoRight">1.0 mi</div></div></div>
-<div class="group stopGroup menuGroup" data-stop-title="Rosalie" data-stop-primary="dinnerArrival" data-stop-leave="dinnerDepartDirect" data-stop-duration="rosalieStay" data-stop-purpose="Stop">
+<div class="group stopGroup menuGroup" data-stop-title="Rosalie" data-stop-primary="dinnerArrival" data-stop-leave="dinnerDepartDirect" data-stop-duration="rosalieStay" data-stop-purpose="Dinner">
 <details class="stopFold">
 <summary class="stopTop" aria-label="Rosalie: tap for details">
 <span class="stopHeading"><span class="stopTitle">Rosalie</span><span id="stopClock32" class="stopTime">7:25 PM</span></span>
@@ -317,7 +317,7 @@
 <span class="dayRight"><span id="day-fri-total" class="dayAmount">$210</span><span class="dayChevron" aria-hidden="true"></span></span>
 </summary>
 <div class="stack flowStack">
-<div class="group statusGroup"><div class="row"><div class="label">Status</div><div id="fridayStatus" class="trailing">-55 min</div></div></div>
+<div class="group statusGroup hidden" id="fridayWarning"><div class="row"><div class="label">Arrival goal</div><div id="fridayStatus" class="trailing">-55 min</div></div></div>
 <div class="group stopGroup" data-stop-title="Mom's" data-stop-primary="fridayDepartureText" data-stop-leave="" data-stop-duration="" data-stop-purpose="Visit">
 <details class="stopFold">
 <summary class="stopTop" aria-label="Mom's: tap for details">
@@ -365,7 +365,7 @@
 <div class="row infoRow"><div class="infoLeft">P4 Purple · arrival goal</div><div class="infoRight">7:30 PM</div></div></div>
 </details>
 </div>
-<div class="group stopGroup" data-stop-title="House of Blues" data-stop-primary="fridayEventTarget" data-stop-leave="fridayEventDeparture" data-stop-duration="" data-stop-purpose="Stop">
+<div class="group stopGroup" data-stop-title="House of Blues" data-stop-primary="fridayEventTarget" data-stop-leave="fridayEventDeparture" data-stop-duration="fridayEventMinutesText" data-stop-purpose="Event">
 <details class="stopFold">
 <summary class="stopTop" aria-label="House of Blues: tap for details">
 <span class="stopHeading"><span class="stopTitle">House of Blues</span><span id="stopClock22" class="stopTime">8:00 PM</span></span>
@@ -603,7 +603,7 @@
 </details></section>
 
 <div id="resetBar" class="resetBar hidden"><button id="resetTimings" type="button" title="Restore arrival and departure estimates without changing durations or costs" aria-label="Reset edited arrival and departure clocks">Reset clocks</button></div>
-<div class="buildVersion" aria-label="Babel Trip version">v1.6.0</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.7.0</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
@@ -779,6 +779,49 @@
     $('#sundayBreakfastDeparture').value='09:50';
     render();
   });
+
+  // Compact, read-first presentation. Inputs remain available in each stop's
+  // native disclosure. No travel or budget calculation is performed here.
+  var dayHeaderTotals=[
+    ['prep','prepTotal'],['wed','wednesdayTotal'],['thu','travelTotal'],
+    ['fri','fridayTotal'],['sat','saturdayTotal'],
+    ['sun','sundayTotal'],['budget','grandTotal']
+  ];
+  function firstDisplayedClock(ids){
+    var list=ids.split('|').filter(Boolean);
+    for(var i=0;i<list.length;i++){
+      var node=$('#'+list[i]);
+      if(!node)continue;
+      var row=node.closest('.row');
+      if(row&&row.classList.contains('hidden'))continue;
+      var value=node.textContent.trim();
+      if(value)return value;
+    }
+    return '';
+  }
+  function updatePanelSummaries(){
+    dayHeaderTotals.forEach(function(pair){
+      $('#day-'+pair[0]+'-total').textContent=$('#'+pair[1]).textContent.trim();
+    });
+    allNodes('.stopGroup[data-stop-title]').forEach(function(card){
+      var mainTime=firstDisplayedClock(card.dataset.stopPrimary||'');
+      var leave=firstDisplayedClock(card.dataset.stopLeave||'');
+      var durationId=card.dataset.stopDuration;
+      var duration=durationId?$('#'+durationId)?.textContent.trim():'';
+      var purpose=card.dataset.stopPurpose||'';
+      var summary=purpose;
+      if(duration){
+        if(purpose==='Order + pickup')summary='Order + pickup · '+duration;
+        else if(purpose==='Overnight')summary='Overnight';
+        else if(purpose==='Departure')summary='Departure';
+        else summary=purpose+' · '+duration;
+      }
+      if(leave&&leave!==mainTime)summary+=(summary?' · ':'')+'Leave '+leave;
+      var timeNode=card.querySelector('.stopTime'),infoNode=card.querySelector('.stopInfo');
+      timeNode.textContent=mainTime;
+      infoNode.textContent=summary;
+    });
+  }
   function render(){
     var fuel=amount(pf,'prepFuel'),topoff=amount(qf,'qsFuel'),snacks=amount(sn,'snacks'),
         tacoCost=amount(ts,'tacoSpend'),breakfastCost=amount(bs,'breakfastSpend'),
@@ -864,6 +907,8 @@
     $('#statusValue').textContent=closeMargin>0?'-'+closeMargin+' min':closeMargin<0?'+'+(-closeMargin)+' min':'GOOD';
     $('#statusValue').classList.toggle('good',closeMargin>0);
     $('#statusValue').classList.toggle('red',closeMargin<0);
+    $('#wedWarning').classList.toggle('hidden',closeMargin>=30);
+    $('#statusValue').textContent=closeMargin>=0?closeMargin+' min before close':(-closeMargin)+' min past listed close';
     $('#tacoArrival').classList.toggle('red',tacoArr<tacoDriveOut||tacoArr>=1440);
     $('#tacoDepart').classList.toggle('red',tacoLeave<tacoArr||tacoLeave>1440);
 
@@ -951,6 +996,8 @@
     put('fridayStatus',buffer>0?'-'+buffer+' min':buffer<0?'+'+(-buffer)+' min':'GOOD');
     $('#fridayStatus').classList.toggle('good',buffer>0);
     $('#fridayStatus').classList.toggle('red',buffer<0);
+    $('#fridayWarning').classList.toggle('hidden',buffer>=0);
+    $('#fridayStatus').textContent=buffer>=0?buffer+' min before arrival goal':(-buffer)+' min after goal';
     $('#fridayGardenArrival').classList.toggle('red',gardenArr<sushiEnd||gardenArr>1200);
     show('fridayGrandpaBlock',state.dizzy!=='friday');
     show('fridayReturnDizzyBlock',state.dizzy==='friday');
@@ -1065,6 +1112,7 @@
     put('grandTotal','$'+(trip+35+contingency).toFixed(0));
     put('budgetFuel','$'+(fuel+topoff+friFuel+sunFuel).toFixed(0));
     put('budgetTickets','$'+ticketCost.toFixed(0));
+    updatePanelSummaries();
     show('resetBar',hasTimeOverrides());
   }
 })();
