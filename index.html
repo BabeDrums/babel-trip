@@ -237,7 +237,7 @@
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
   var $=function(s){return r.querySelector(s)}, allNodes=function(s){return Array.from(r.querySelectorAll(s))};
-  var state={dizzy:'weekend',momPaid:'yes',ticketCount:2};
+  var state={dizzy:'weekend',momPaid:'yes',ticketCount:2,satDinner:'tbd',satKaraoke:'no'};
   var arrivalOverrides={ehrenberg:null,cousin:null};
   function fmt(n){n=((n%1440)+1440)%1440;var h=Math.floor(n/60),m=n%60;return (((h+11)%12)+1)+':'+String(m).padStart(2,'0')+' '+(h>=12?'PM':'AM')}
   function closeChoices(except){
@@ -290,6 +290,9 @@
     homeDepartureManual=n;homeMode='depart';render();
   });
   $('#homeDepartReset').addEventListener('click',function(){homeMode='auto';homeDepartureManual=null;render()});
+  var fridayDepartEdited=false,saturdayDepartEdited=false,customAmounts={};
+  var newControlIds=['fridayDeparture','fridayPickupMinutes','fridayFuel','fridaySushiMinutes','fridaySushiSpend','fridayParking','fridayEventMinutes','fridayEventSpend','fridayDropMinutes','saturdayDeparture','saturdayLunch','saturdayDinnerSpend','saturdayDinnerTime','saturdayDinnerMinutes','saturdayKaraokeMinutes','saturdayKaraokeSpend','saturdayDropMinutes','sundayBreakfastDeparture','sundayBreakfastMinutes','sundayBreakfastSpend','sundayPackMinutes','sundayStopMinutes','sundayFuel','sundaySnacks','tripBuffer'];
+  newControlIds.forEach(function(id){$('#'+id).addEventListener('input',function(){if(id==='fridayDeparture')fridayDepartEdited=true;if(id==='saturdayDeparture')saturdayDepartEdited=true;if(['fridayFuel','fridaySushiSpend','fridayEventSpend','saturdayLunch','saturdayDinnerSpend','saturdayKaraokeSpend'].indexOf(id)>=0)customAmounts[id]=true;render()})});
   function timeMinutes(value){if(!/^\d\d:\d\d$/.test(value))return null;var a=value.split(':').map(Number);return a[0]*60+a[1]}
   function timeInput(n){n=((n%1440)+1440)%1440;return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
   // Place a clock-only adjustment on the nearest plausible day, including just past midnight.
@@ -303,6 +306,14 @@
     $('#'+id+'Text').textContent='$'+v.toFixed(0);
     return v;
   }
+  function show(id,yes){$('#'+id).classList.toggle('hidden',!yes)}
+  function put(id,v){$('#'+id).textContent=v}
+  function minutes(id){return Math.max(0,Number($('#'+id).value)||0)}
+  function paid(id){return amount($('#'+id),id)}
+  function duration(id){var n=minutes(id);put(id+'Text',n+' min');return n}
+  function setTime(id,v){put(id+'Text',fmt(v));$('#'+id).value=timeInput(v)}
+  function defaultAmount(id,n){if(!customAmounts[id])$('#'+id).value=n}
+  function fmtDay(v){return fmt(v)+(v>=1440?' +1':'')}
   function render(){
     var fuel=amount(pf,'prepFuel'),topoff=amount(qf,'qsFuel'),snacks=amount(sn,'snacks'),
         tacoCost=amount(ts,'tacoSpend'),breakfastCost=amount(bs,'breakfastSpend'),
@@ -407,8 +418,112 @@
     $('#dinnerArrival').classList.toggle('red',da>dinner);
     $('#rudeArrivalWalk').classList.toggle('red',rudeA>1290);
     $('#travelTotal').textContent='$'+(breakfastCost+lunchCost+rudeCost+(state.momPaid==='yes'?0:50)).toFixed(0);
+    renderRest(fuel,topoff,snacks,tacoCost,breakfastCost,lunchCost,rudeCost);
   }
   render();
+  function renderRest(fuel,topoff,snacks,tacoCost,breakfastCost,lunchCost,rudeCost){
+    // Friday starts at Mom's after Thursday's confirmed overnight.
+    // Travel times are provisional allowances, never live navigation.
+    var withDizzy=state.dizzy!=='none',weekend=state.dizzy==='weekend';
+    if(!fridayDepartEdited)$('#fridayDeparture').value=withDizzy?'13:15':'16:10';
+    defaultAmount('fridaySushiSpend',withDizzy?110:65);
+    defaultAmount('fridayEventSpend',withDizzy?20:10);
+    defaultAmount('saturdayLunch',weekend?50:25);
+    defaultAmount('saturdayDinnerSpend',weekend?85:45);
+    defaultAmount('saturdayKaraokeSpend',weekend?35:20);
+    var fd=timeMinutes($('#fridayDeparture').value);if(fd===null)fd=withDizzy?795:970;
+    setTime('fridayDeparture',fd);
+    show('fridayPickupBlock',withDizzy);show('fridaySoloBlock',!withDizzy);
+    var pickupArr=fd+90,pickupDur=duration('fridayPickupMinutes'),pickupLeave=pickupArr+pickupDur;
+    put('fridayPickupArrival',fmtDay(pickupArr));put('fridayPickupDeparture',fmtDay(pickupLeave));
+    var hanagiArr=withDizzy?pickupLeave+80:fd+45;
+    put('fridayHanagiArrivalPickup',fmtDay(hanagiArr));
+    put('fridayHanagiArrivalSolo',fmtDay(hanagiArr));
+    var sushiStart=Math.max(17*60,hanagiArr),sushiEnd=sushiStart+duration('fridaySushiMinutes');
+    var gardenArr=sushiEnd+20,venueStart=Math.max(20*60,gardenArr),venueEnd=venueStart+duration('fridayEventMinutes');
+    var buffer=19*60+30-gardenArr;
+    put('fridayStatus',buffer>0?'-'+buffer+' min':buffer<0?'+'+(-buffer)+' min':'GOOD');
+    $('#fridayStatus').classList.toggle('good',buffer>0);$('#fridayStatus').classList.toggle('red',buffer<0);
+    put('fridayHanagiDeparture',fmtDay(sushiEnd));put('fridayGardenArrival',fmtDay(gardenArr));
+    put('fridayEventDeparture',fmtDay(venueEnd));
+    $('#fridayGardenArrival').classList.toggle('red',gardenArr>20*60);
+    var arriveGrandpa=venueEnd+35,dropFridayArr=venueEnd+80,dropFridayDepart=dropFridayArr+duration('fridayDropMinutes'),returnFri=dropFridayDepart+75;
+    show('fridayGrandpaBlock',state.dizzy!=='friday');show('fridayReturnDizzyBlock',state.dizzy==='friday');
+    put('fridayGrandpaArrival',fmtDay(arriveGrandpa));
+    put('fridayDropArrival',fmtDay(dropFridayArr));put('fridayDropDeparture',fmtDay(dropFridayDepart));
+    put('fridayReturnArrival',fmtDay(returnFri));
+    $('#fridayReturnArrival').classList.toggle('red',returnFri>=24*60);
+    var friFuel=withDizzy?paid('fridayFuel'):0,friSushi=paid('fridaySushiSpend'),friParking=paid('fridayParking'),friEvent=paid('fridayEventSpend');
+    var friTotal=friFuel+friSushi+friParking+friEvent;
+    put('fridayTotal','$'+friTotal.toFixed(0));
+
+    // Saturday conservatively budgets an unconfirmed dinner; selecting Grandpa
+    // makes it free without assuming he has already agreed to cover it.
+    var fromCousin=state.dizzy==='friday';
+    show('saturdayFromCousin',fromCousin);
+    if(!saturdayDepartEdited)$('#saturdayDeparture').value='11:20';
+    var sd=timeMinutes($('#saturdayDeparture').value);if(sd===null)sd=680;
+    setTime('saturdayDeparture',sd);
+    var grandpaStart=fromCousin?sd+40:11*60;
+    put('saturdayGrandpaArrival',fmtDay(grandpaStart));
+    put('saturdayGrandpaStart',fmtDay(grandpaStart));
+    var satDinnerTime=timeMinutes($('#saturdayDinnerTime').value);if(satDinnerTime===null)satDinnerTime=1110;
+    setTime('saturdayDinnerTime',satDinnerTime);
+    var hangout=state.satDinner==='hangout',atGrandpa=state.satDinner==='grandpa';
+    show('saturdayHangoutTravel',hangout);
+    var dinnerArrival=hangout?Math.max(grandpaStart,satDinnerTime-20)+20:grandpaStart;
+    var dinnerStart=Math.max(satDinnerTime,dinnerArrival);
+    var familyUntil=hangout?dinnerStart-20:dinnerStart;
+    var familyDur=Math.max(0,familyUntil-grandpaStart);
+    put('saturdayFamilyTime',Math.floor(familyDur/60)+' hr'+(familyDur%60?' '+familyDur%60+' min':''));
+    put('saturdayHangoutLeave',fmtDay(dinnerStart-20));
+    put('saturdayHangoutArrival',fmtDay(dinnerStart));
+    var dinnerEnd=dinnerStart+duration('saturdayDinnerMinutes');
+    show('saturdayKaraokeBlock',state.satKaraoke==='yes');
+    var karaokeArrival=dinnerEnd+15,karaokeStart=Math.max(1200,karaokeArrival),karaokeEnd=karaokeStart+duration('saturdayKaraokeMinutes');
+    put('saturdayKaraokeLeave',fmtDay(dinnerEnd));
+    put('saturdayKaraokeArrival',fmtDay(karaokeArrival));
+    put('saturdayKaraokeDeparture',fmtDay(karaokeEnd));
+    $('#saturdayKaraokeArrival').classList.toggle('red',karaokeArrival>1245);
+    var satFinish=state.satKaraoke==='yes'?karaokeEnd:dinnerEnd;
+    show('saturdayTemeculaReturn',weekend);show('saturdayDirectReturn',!weekend);
+    var saturdayTemecula=satFinish+85,satDropDepart=saturdayTemecula+duration('saturdayDropMinutes'),saturdayCousin=weekend?satDropDepart+75:satFinish+45;
+    put('saturdayTemeculaArrival',fmtDay(saturdayTemecula));
+    put('saturdayTemeculaDepart',fmtDay(satDropDepart));
+    put('saturdayCousinArrivalWithDizzy',fmtDay(saturdayCousin));
+    put('saturdayCousinArrivalSolo',fmtDay(saturdayCousin));
+    $('#saturdayCousinArrivalWithDizzy').classList.toggle('red',saturdayCousin>=1440);
+    $('#saturdayCousinArrivalSolo').classList.toggle('red',saturdayCousin>=1440);
+    var lunchSat=paid('saturdayLunch'),dinnerSat=atGrandpa?0:paid('saturdayDinnerSpend'),karaokeSat=state.satKaraoke==='yes'?paid('saturdayKaraokeSpend'):0;
+    var satTotal=lunchSat+dinnerSat+karaokeSat;
+    put('saturdayTotal','$'+satTotal.toFixed(0));
+    $('#saturdayDinnerSpend').closest('.row').classList.toggle('hidden',atGrandpa);
+
+    // Sunday adds the 1-hour time-zone shift back to Arizona.
+    var su=timeMinutes($('#sundayBreakfastDeparture').value);if(su===null)su=590;
+    setTime('sundayBreakfastDeparture',su);
+    var sbArr=su+10,sbLeave=sbArr+duration('sundayBreakfastMinutes'),cousinBack=sbLeave+10,caLeave=cousinBack+duration('sundayPackMinutes');
+    put('sundayBreakfastArrival',fmtDay(sbArr));put('sundayBreakfastEnd',fmtDay(sbLeave));
+    put('sundayCousinReturn',fmtDay(cousinBack));put('sundayLeaveCalifornia',fmtDay(caLeave));
+    var ehrenbergBack=caLeave+190+60,ehrenbergDeparture=ehrenbergBack+duration('sundayStopMinutes'),homeBack=ehrenbergDeparture+131;
+    put('sundayEhrenbergArrival',fmtDay(ehrenbergBack)+' AZ');
+    put('sundayEhrenbergDeparture',fmtDay(ehrenbergDeparture)+' AZ');
+    put('sundayHomeArrival',fmtDay(homeBack)+' AZ');
+    var sunFuel=paid('sundayFuel'),sunBreakfast=paid('sundayBreakfastSpend'),sunSnacks=paid('sundaySnacks');
+    var sunTotal=sunFuel+sunBreakfast+sunSnacks;
+    put('sundayTotal','$'+sunTotal.toFixed(0));
+
+    // Totals use each transaction once. Fuel/tickets are breakdown values.
+    var ticketCost=state.ticketCount===1?25:50,prep=35+ticketCost;
+    var wed=fuel+topoff+snacks+tacoCost;
+    var thu=breakfastCost+lunchCost+rudeCost+(state.momPaid==='yes'?0:50);
+    var trip=prep-35+wed+thu+friTotal+satTotal+sunTotal;
+    var contingency=paid('tripBuffer');
+    put('tripExpenses','$'+trip.toFixed(0));put('budgetHaircut','$35');
+    put('grandTotal','$'+(trip+35+contingency).toFixed(0));
+    put('budgetFuel','$'+(fuel+topoff+friFuel+sunFuel).toFixed(0));
+    put('budgetTickets','$'+ticketCost.toFixed(0));
+  }
 })();
 </script></div>
 </body></html>
