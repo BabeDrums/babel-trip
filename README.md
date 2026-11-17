@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.6.0.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the v1.6.0 runtime contract.
+**Current active release: v1.7.0.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the v1.6.0 runtime contract.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -344,7 +344,7 @@ At the existing **8:36 PM PT** Cousin arrival, 15 minutes yields departure **8:5
 
 **Validation:** 11 runtime interaction scenarios covering the 15-minute default; overrides to 5/20/45 minutes; direct departure adjustment; reset restoring original duration; last-edited control precedence; later actual Cousin arrival preserving manually set wait; arrival reset; no-Dizzy and Grandpa-pays budget regression. No other visible structure or styling altered. The broader stop/leg information-architecture proposal is **unapproved, remains separate, and must be physically reviewed before any future merge**.
 
-## November 17 — One production itinerary, adaptive pickup and clean time rows (v1.6.0; CURRENT)
+## November 17 — One production itinerary, adaptive pickup and clean time rows (v1.6.0; historical release)
 
 **User-verified physical iPhone evidence:** On the prior preview, the Tacos Nogales arrival could be edited to **8:18 PM** but its pickup remained **9:00 PM**. Visible blue reset arrows proliferated beside time edits and distracted from the redesigned stop-card layout. The user expressly requested a single **most-updated website**, not active vs preview variants. This release promotes the already reviewed stop-first structure and incorporates those corrections.
 
@@ -360,4 +360,26 @@ At the existing **8:36 PM PT** Cousin arrival, 15 minutes yields departure **8:5
 - Initial source and markup checks: all original element IDs preserved; source JS parse valid; all DOM selector IDs resolved; card/section tags balanced; no private family addresses. **15 interaction scenarios** passed using a mock DOM, including screenshot exact 8:18→8:22 pickup, early/late arrival, manual pickup override, impossible early pickup warning, reset/recommendation recovery, Cousin wait edits, all Dizzy cost scenarios ($745 Weekend, $550 Solo, $680 Friday-only), Saturday payer/karaoke, and Sunday AZ shift.
 - Device rendering must still be judged on a real iPhone for typographic rhythm, control accessibility, and scroll interactions; mock JavaScript tests alone are not a physical-device sign-off. Do not assert live until GitHub Pages workflow success for the exact merged commit.
 - If the new structure proves worse physically, the previous `v1.5.1` Git commit remains a **rollback reference**, not a competing user-facing website.
+
+## November 17 — One-day panels, progressive stop details and honest food pickup (v1.7.0; CURRENT)
+
+**User-delegated design decision:** simplify Babel Trip for quick scanning while retaining its existing typography, colors, iOS-native controls, actual-time overrides, scenario logic, mileage evidence, and one canonical website URL. No multiple public preview versions. The current production entry point remains `index.html`, now v1.7.0.
+
+### Day hierarchy / reading contract
+- **One visual day surface per date:** six compact expandable headers with full date, concise route description and live day spending subtotal. The expanded day contains its own stop sequence in a single white panel with quiet dividers/travel lines. **Only one day open at a time**, with Wednesday Nov 18 (first trip travel day) open on initial load. The budget below the days stays visible at all times and continues to include every day whether open or collapsed.
+- **Stops are concise by default:** show the primary stop/location and editable arrival/departure clock, plus a short *computed* summary of pickup/visit duration, leave time, overnight or relevant spend. Tap the stop name to reveal all existing native edit controls, notes and decisions; only one stop details section expands at a time. Left-side stop button and right-side time input remain **separate hit targets**. Day toggles are native buttons with `aria-expanded`; stop labels use 44px minimum hit targets and `aria-expanded`. All 44 stop groups remain in the source; 29 contain multiple rows and have disclosure buttons. Trivial one-row stops stay immediately readable.
+- **Quiet travel info:** between stops retain published/previously screenshot-grounded distances and durations; remove useless `mi TBD` strings and repetitive `planned`/`provisional` suffixes *only from the visible travel labels*. Add an unambiguous global reminder that **drive lengths and times are estimates**, not actual GPS. No fabricated distances or guarantees.
+- **Status appears on meaningful warnings:** normal Wednesday closing slack and Friday target slack no longer demand an entire status row. If arrival/pickup passes the modeled deadline, surface a plain-language late warning in that day's panel. Timing/decision math remains unchanged.
+- Keep the existing Day Tuesday preparation and Trip Total sections; Tuesday can be opened from its header like any other day. **Do not interpret collapse as deleting an obligation**—all day totals update while collapsed. Existing automatic clock corrections and dedicated global `Reset clocks` remain available. **No persistence across page reload yet.**
+
+### Tacos Nogales — remove the unverified pickup appointment
+- Earlier runtime displayed a fixed 9 PM pickup and then a four-minute arrival-relative pickup recommendation; user questioned both because no verified pre-order exists. Order-ahead via phone **has not been confirmed**; third-party online-order links did not establish a working checkout. Do **not** imply an order has been placed or will be ready at a scheduled time.
+- Replace the separate **Pickup clock target** with a **single editable 20-minute order/wait/collect duration** at Tacos Nogales. The stop starts at its editable arrival and departs **arrival + pickup duration** by default. A manual **Leave** clock override remains available, with the existing last-edited-duration/departure semantics. With Wednesday cousin arrival 8:36 PM PT and 15-minute Cousin pause, estimated tacos arrival is **9:01 PM**, leave **9:21 PM**, return to Cousin's **9:31 PM**. Restaurant hours/traffic/last-order still require independent verification.
+- Clear semantic labels for modeled pauses at Wednesday Home (**Stop**), Ehrenberg (**Refuel**), Cousin's initial wait (**Visit**), and Cousin's evening meal (**Eat**). Tacos duration label (**Pickup**) rather than generic Stay. Other active spending/meal labels retain their meaning.
+- Wednesday tacos food budget **$15**, Wednesday total **$90**, default trip budget **$745** (Weekend + user-paid expenses + $35 haircut + $50 contingency). The other Dizzy scenarios remain **$550 solo** and **$680 Friday-only** with default choices.
+
+### Validation
+- Custom mock-DOM runtime suite, **16 passed scenarios**: all six real-time header subtotals; the Wednesday first-open default; condensed stop summary including the $15 expense with no exposed reset arrow; nonwarning status hidden; day disclosure; exclusive stop disclosure; corrected Cousin arrival and reactive stop summary; 20→35-minute pickup adjustment; after-midnight warning; reset preserving chosen stop duration; Dizzy None/Friday/Weekend; Saturday Grandpa-pays and karaoke; Sunday arrival override with correct California→Arizona hour shift. All selected time and spending input handlers remain connected.
+- JavaScript parses; all native IDs except intentionally removed obsolete pickup-clock ID/text remain, no duplicate IDs, all original day/route/budget formulas unaffected except explicit 20-minute pickup semantics. CSS uses original colors/materials/type, no new decorative design language. No private family addresses in public source. The final device-wide visual feel **still requires physical iPhone review** and cannot be certified by mock tests alone.
+- Release only after PR merge and **GitHub Pages success for the exact merge SHA**. The only user-facing URL stays `https://babedrums.github.io/babel-trip/`. Do not create a competing preview URL unless user explicitly requests one.
 
