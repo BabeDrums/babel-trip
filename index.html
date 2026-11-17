@@ -300,7 +300,7 @@
   var $=function(s){return r.querySelector(s)}, allNodes=function(s){return Array.from(r.querySelectorAll(s))};
   var state={dizzy:'weekend',momPaid:'yes',ticketCount:2,satDinner:'tbd',satKaraoke:'no'};
   var arrivalOverrides={ehrenberg:null,cousin:null};
-  var clockOverrides={},savedStopBeforeOverride={},pickupTargetManual=null;
+  var clockOverrides={},savedStopBeforeOverride={};
   var checkpointIds=["homeArrival","quartzDepart","tacoStartDrive","tacoArrival","tacoDepart","tacoReturn","breakfastDepart","breakfastArrival","breakfastLeave","breakfastReturn","lunchDepart","lunchArrival","lunchLeave","lunchReturn","cousinDepart","momArrival1","momDepartDinner","dinnerArrival","dinnerDepartDirect","momArrivalDirect","momWalkDepart","rudeArrivalWalk","rudeDepartWalk","momReturnWalk","fridayPickupArrival","fridayPickupDeparture","fridayHanagiArrivalPickup","fridayHanagiArrivalSolo","fridayHanagiDeparture","fridayGardenArrival","fridayEventDeparture","fridayGrandpaArrival","fridayDropArrival","fridayDropDeparture","fridayReturnArrival","saturdayGrandpaArrival","saturdayGrandpaStart","saturdayHangoutLeave","saturdayHangoutArrival","saturdayKaraokeLeave","saturdayKaraokeArrival","saturdayKaraokeDeparture","saturdayTemeculaArrival","saturdayTemeculaDepart","saturdayCousinArrivalWithDizzy","saturdayCousinArrivalSolo","sundayBreakfastArrival","sundayBreakfastEnd","sundayCousinReturn","sundayLeaveCalifornia","sundayEhrenbergArrival","sundayEhrenbergDeparture","sundayHomeArrival"];
   function fmt(n){n=((n%1440)+1440)%1440;var h=Math.floor(n/60),m=n%60;return (((h+11)%12)+1)+':'+String(m).padStart(2,'0')+' '+(h>=12?'PM':'AM')}
   function closeChoices(except){
@@ -339,20 +339,13 @@
     var opened=allNodes('.choice').find(function(c){return !c.querySelector('.choiceMenu').classList.contains('hidden')});
     if(opened){e.preventDefault();closeChoices();opened.querySelector('.choiceTrigger').focus()}
   });
-  var pf=$('#prepFuel'),qf=$('#qsFuel'),sn=$('#snacks'),stop=$('#stopMinutes'),dep=$('#departure'),tt=$('#tacoTarget'),
+  var pf=$('#prepFuel'),qf=$('#qsFuel'),sn=$('#snacks'),stop=$('#stopMinutes'),dep=$('#departure'),
       hs=$('#homeStopMinutes'),hd=$('#homeDepartInput'),ea=$('#quartzArrivalInput'),caInput=$('#cousinArrivalInput'),
       ts=$('#tacoSpend'),tp=$('#tacoPickupMinutes'),cs=$('#cousinSettleMinutes'),bs=$('#breakfastSpend'),ls=$('#lunchSpend'),rs=$('#rudeSpend');
   // Automatic timing is a planning preference, not a restriction on actual stop length.
   // Editing Home stay holds duration; editing Leave Home holds departure clock time.
   var homeMode='auto',homeDepartureManual=null;
   [pf,qf,sn,ts,bs,ls,rs].forEach(function(x){x.addEventListener('input',render)});
-  // Pickup recommendation follows actual arrival unless the user chose a clock time.
-  tt.addEventListener('change',function(){
-    var actual=timeMinutes(tt.value);
-    if(actual===null)return;
-    pickupTargetManual=actual;
-    render();
-  });
   var workEdited=false,sundayEdited=false;
   dep.addEventListener('input',function(){workEdited=true;render()});
   stop.addEventListener('input',function(){delete clockOverrides.quartzDepart;delete savedStopBeforeOverride.quartzDepart;render()});
@@ -449,7 +442,7 @@
   function hasTimeOverrides(){
     return Object.keys(clockOverrides).length>0
       ||arrivalOverrides.ehrenberg!==null||arrivalOverrides.cousin!==null
-      ||pickupTargetManual!==null||homeMode!=='auto'
+      ||homeMode!=='auto'
       ||workEdited||fridayDepartEdited||saturdayDepartEdited||sundayEdited;
   }
   $('#resetTimings').addEventListener('click',function(){
@@ -461,7 +454,6 @@
     savedStopBeforeOverride={};
     clockOverrides={};
     arrivalOverrides={ehrenberg:null,cousin:null};
-    pickupTargetManual=null;
     homeMode='auto';
     homeDepartureManual=null;
     workEdited=false;fridayDepartEdited=false;saturdayDepartEdited=false;sundayEdited=false;
@@ -469,6 +461,96 @@
     $('#sundayBreakfastDeparture').value='09:50';
     render();
   });
+
+  // Only one day's itinerary is expanded at a time. Budget remains independently accessible.
+  allNodes('.dayToggle').forEach(function(button){
+    button.addEventListener('click',function(){
+      var day=button.closest('.day'),open=!day.classList.contains('isOpen');
+      if(!day.classList.contains('budgetDay')){
+        allNodes('.day:not(.budgetDay)').forEach(function(other){
+          other.classList.remove('isOpen');other.classList.add('isClosed');
+          other.querySelector('.dayToggle').setAttribute('aria-expanded','false');
+        });
+      }
+      day.classList.toggle('isOpen',open);
+      day.classList.toggle('isClosed',!open);
+      button.setAttribute('aria-expanded',open?'true':'false');
+    });
+  });
+  allNodes('.stopToggle').forEach(function(button){
+    button.addEventListener('click',function(){
+      var group=button.closest('.stopGroup'),open=!group.classList.contains('expanded');
+      group.classList.toggle('expanded',open);
+      button.setAttribute('aria-expanded',open?'true':'false');
+      var title=button.querySelector('.stopTitle').textContent;
+      button.setAttribute('aria-label',(open?'Hide ':'Show ')+title+' details');
+    });
+  });
+  allNodes('.supportToggle').forEach(function(button){
+    button.addEventListener('click',function(){
+      var group=button.closest('.supportGroup'),open=!group.classList.contains('expanded');
+      group.classList.toggle('expanded',open);
+      button.setAttribute('aria-expanded',open?'true':'false');
+      button.querySelector('.supportHint').textContent=open?'Close':'Details ›';
+    });
+  });
+  function directRows(group){
+    return Array.from(group.children).filter(function(child){
+      return child.classList.contains('row')&&!child.classList.contains('hidden');
+    });
+  }
+  function rowLabel(row){
+    var label=row.querySelector('.label');
+    return label?label.textContent.trim():'';
+  }
+  function rowValue(row){
+    if(!row)return'';
+    var trailing=row.querySelector('.trailing');
+    if(!trailing)return'';
+    var editable=trailing.querySelector('label.editable > span')
+      ||trailing.querySelector('.editable > span');
+    // Reading only the displayed value avoids including the hidden reset-arrow label.
+    return (editable||trailing).textContent.trim().replace(/^↺\s*/,'');
+  }
+  function updateCompactPanels(){
+    allNodes('.day').forEach(function(day){
+      var cost=$('#'+day.dataset.costRef),out=day.querySelector('.dayAmount');
+      if(cost&&out)out.textContent=cost.textContent.trim();
+      if(day.dataset.day==='fri'){
+        day.querySelector('.dayRoute').textContent=state.dizzy==='none'?'Covina · Anaheim':'Temecula · Anaheim';
+      }
+    });
+    allNodes('.stopGroup').forEach(function(group){
+      var rows=directRows(group),title=group.querySelector('.stopTitle');
+      if(!rows.length||!title)return;
+      var primary=rows.find(function(row){
+        return row.querySelector('.label.placeLabel')&&/\d{1,2}:\d{2}/.test(rowValue(row));
+      })||rows.find(function(row){return /\d{1,2}:\d{2}/.test(rowValue(row))})||rows[0];
+      var main=rowValue(primary),activity=rows.find(function(row){
+        return /^(Stay|Pickup|Family time|Drop-off)$/.test(rowLabel(row))&&row!==primary;
+      }),departure=rows.find(function(row){return rowLabel(row)==='Leave'}),overnight=rows.find(function(row){return rowLabel(row)==='Overnight'});
+      var meta=[];
+      var choice=group.querySelector('.decisionValueText');
+      if(choice&&choice.textContent.trim())meta.push(choice.textContent.trim());
+      if(activity){
+        var value=rowValue(activity);
+        if(value)meta.push((rowLabel(activity)==='Stay'?'Stay':rowLabel(activity))+' '+value);
+      }
+      if(departure&&departure!==primary){
+        var leave=rowValue(departure);
+        if(leave)meta.push('Leave '+leave);
+      }else if(overnight)meta.push('Overnight');
+      if(!meta.length){
+        var money=rows.find(function(row){return /^(Food|Dinner|Sushi|Lunch|Parking|Fuel|Spend|Budget)$/.test(rowLabel(row))&&/^\$/.test(rowValue(row))});
+        if(money)meta.push(rowLabel(money)+' '+rowValue(money));
+      }
+      var hint=group.querySelector('.stopHint'),clock=group.querySelector('.stopTime');
+      if(hint)hint.textContent=meta.join(' · ')||'Tap to edit';
+      if(clock)clock.textContent=main;
+      var warning=rows.some(function(row){return !!row.querySelector('.red')});
+      group.classList.toggle('hasWarning',warning);
+    });
+  }
   function render(){
     var fuel=amount(pf,'prepFuel'),topoff=amount(qf,'qsFuel'),snacks=amount(sn,'snacks'),
         tacoCost=amount(ts,'tacoSpend'),breakfastCost=amount(bs,'breakfastSpend'),
@@ -514,15 +596,10 @@
       cs.value=String(cousinStay);
     }
     var tacoArr=checkpoint('tacoArrival',tacoDriveOut+10,'',tacoDriveOut);
-    // Previous default was 9:00 PM for an 8:56 PM arrival. Preserve the
-    // four-minute preparation margin, but attach it to the live arrival.
-    var pickupSuggested=tacoArr+4;
-    var tacoTarget=pickupTargetManual===null
-      ? pickupSuggested
-      : nearClock(pickupTargetManual,pickupSuggested);
-    var pickupStart=Math.max(tacoTarget,tacoArr),pickupDur=Math.max(0,Number(tp.value)||0);
-    var tacoLeave=checkpoint('tacoDepart',pickupStart+pickupDur,'',tacoArr);
-    if(Object.prototype.hasOwnProperty.call(clockOverrides,'tacoDepart'))pickupDur=Math.max(0,tacoLeave-pickupStart);
+    // No scheduled pickup is confirmed: plan one editable order-and-collect stop.
+    var pickupDur=Math.max(0,Number(tp.value)||0);
+    var tacoLeave=checkpoint('tacoDepart',tacoArr+pickupDur,'',tacoArr);
+    if(Object.prototype.hasOwnProperty.call(clockOverrides,'tacoDepart'))pickupDur=Math.max(0,tacoLeave-tacoArr);
     var tacoBack=checkpoint('tacoReturn',tacoLeave+10,'',tacoLeave);
     var closeMargin=1440-tacoLeave;
     $('#departureText').textContent=fmt(d0);
@@ -544,9 +621,6 @@
     $('#cousinArrivalReset').classList.toggle('hidden',arrivalOverrides.cousin===null);
     $('#cousinArrival').classList.toggle('red',ca<qd-60);
     $('#cousinSettle').textContent=formatDuration(cousinStay);
-    $('#tacoTargetText').textContent=fmtDay(tacoTarget);
-    tt.value=timeInput(tacoTarget);
-    $('#tacoTargetText').classList.toggle('red',tacoTarget<tacoArr);
     $('#tacoStay').textContent=pickupDur+' min';
     if(Object.prototype.hasOwnProperty.call(clockOverrides,'tacoDepart'))tp.value=String(pickupDur);
     $('#tacoEat').textContent='25 min';
@@ -756,6 +830,7 @@
     put('budgetFuel','$'+(fuel+topoff+friFuel+sunFuel).toFixed(0));
     put('budgetTickets','$'+ticketCost.toFixed(0));
     show('resetBar',hasTimeOverrides());
+    updateCompactPanels();
   }
 })();
 </script></div>
