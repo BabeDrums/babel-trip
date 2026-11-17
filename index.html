@@ -150,7 +150,7 @@
 <div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>GardenWalk</div><div id="fridayGardenArrival" class="trailing">6:35 PM</div></div>
 <div class="row"><div class="label">Parking</div><label class="trailing blue editable"><span id="fridayParkingText">$30</span><input id="fridayParking" type="number" min="0" value="30" aria-label="Parking amount"></label></div>
 <div class="row infoRow"><div class="infoLeft">P4 Purple · arrival goal</div><div class="infoRight">7:30 PM</div></div></div>
-<div class="group"><div class="row"><div class="label">Event start · 18+</div><div id="fridayEventTarget" class="trailing">8:00 PM</div></div>
+<div class="group"><div class="row"><div class="label">Olivia Rodrigo Night</div><div id="fridayEventTarget" class="trailing">8:00 PM</div></div><div class="row infoRow"><div class="infoLeft">Stan Society DJ night · 18+</div><div class="infoRight">Not live concert</div></div>
 <div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4 M12.4 6.8v6.4"></path></svg></span>House of Blues</div><label class="trailing blue editable"><span id="fridayEventMinutesText">150 min</span><input id="fridayEventMinutes" type="number" min="0" step="5" value="150" aria-label="House of Blues duration in minutes"></label></div>
 <div class="row"><div class="label">Event spend</div><label class="trailing blue editable"><span id="fridayEventSpendText">$20</span><input id="fridayEventSpend" type="number" min="0" value="20" aria-label="Event spend amount"></label></div>
 <div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>House of Blues</div><div id="fridayEventDeparture" class="trailing">10:30 PM</div></div></div>
@@ -440,7 +440,7 @@
     put('fridayHanagiArrivalPickup',fmtDay(hanagiArr));
     put('fridayHanagiArrivalSolo',fmtDay(hanagiArr));
     var sushiStart=Math.max(17*60,hanagiArr),sushiEnd=sushiStart+duration('fridaySushiMinutes');
-    var gardenArr=sushiEnd+20,venueStart=Math.max(20*60,gardenArr),venueEnd=venueStart+duration('fridayEventMinutes');
+    var gardenArr=sushiEnd+20,venueEnd=Math.max(gardenArr,20*60+duration('fridayEventMinutes'));
     var buffer=19*60+30-gardenArr;
     put('fridayStatus',buffer>0?'-'+buffer+' min':buffer<0?'+'+(-buffer)+' min':'GOOD');
     $('#fridayStatus').classList.toggle('good',buffer>0);$('#fridayStatus').classList.toggle('red',buffer<0);
