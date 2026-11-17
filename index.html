@@ -26,6 +26,72 @@
 #babel-trip-current .resetBar{display:flex;justify-content:center;padding-top:12px}
 #babel-trip-current .resetBar button{font:inherit;font-size:13px;font-weight:500;color:var(--secondary);background:transparent;border:0;min-height:44px;padding:0 16px;cursor:pointer}
 #babel-trip-current .resetBar button:focus-visible{outline:2px solid var(--blue);border-radius:8px}
+
+/* v1.7: one surface per day. A stop is concise until its original editor is opened. */
+#babel-trip-current{padding:14px 14px 24px}
+#babel-trip-current .day,#babel-trip-current .budgetDay{background:var(--group);border-radius:18px;overflow:visible}
+#babel-trip-current .day+.day{margin-top:14px}
+#babel-trip-current .day .header{padding:0}
+#babel-trip-current .dayToggle{border:0;background:transparent;color:var(--text);font:inherit;text-align:left;width:100%;min-height:78px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;border-radius:18px;appearance:none;-webkit-appearance:none}
+#babel-trip-current .dayToggle:focus-visible,#babel-trip-current .stopToggle:focus-visible,#babel-trip-current .supportToggle:focus-visible{outline:2px solid var(--blue);outline-offset:-2px;border-radius:12px}
+#babel-trip-current .dayTitle{display:flex;flex-direction:column;gap:3px;min-width:0}
+#babel-trip-current .day .date{font-size:19px;font-weight:700;letter-spacing:-.02em;line-height:1.22}
+#babel-trip-current .dayRoute{font-size:13px;font-weight:400;color:var(--secondary);white-space:normal;line-height:1.3}
+#babel-trip-current .dayRight{display:flex;align-items:center;gap:10px;flex:none}
+#babel-trip-current .dayAmount{font-size:17px;font-weight:650;color:var(--text);font-variant-numeric:tabular-nums}
+#babel-trip-current .dayChevron{color:var(--secondary);font-size:21px;display:inline-block;transition:transform .14s ease}
+#babel-trip-current .day.isOpen .dayChevron{transform:rotate(180deg)}
+#babel-trip-current .day.isClosed>.stack{display:none}
+#babel-trip-current .day>.stack{gap:0;border-top:1px solid var(--separator);padding-bottom:6px}
+#babel-trip-current .day .group{background:transparent;border-radius:0;overflow:visible}
+#babel-trip-current .day .journeyBranch{display:flex;flex-direction:column;gap:0}
+#babel-trip-current .day .stopGroup{border:0;min-width:0}
+#babel-trip-current .stopToggle{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:70px;gap:12px;border:0;background:transparent;color:var(--text);padding:12px 16px;font:inherit;text-align:left;appearance:none;-webkit-appearance:none;cursor:pointer}
+#babel-trip-current .stopMain{display:flex;flex-direction:column;min-width:0;flex:1;gap:4px}
+#babel-trip-current .stopTitle{font-size:16px;font-weight:600;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#babel-trip-current .stopHint{font-size:13px;line-height:1.25;color:var(--secondary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#babel-trip-current .stopRight{display:flex;align-items:center;gap:9px;flex:none}
+#babel-trip-current .stopTime{font-size:16px;font-weight:560;color:var(--text);font-variant-numeric:tabular-nums;white-space:nowrap}
+#babel-trip-current .stopChevron{color:var(--secondary);font-size:17px;transition:transform .14s ease}
+#babel-trip-current .stopGroup.expanded>.stopToggle .stopChevron{transform:rotate(180deg)}
+#babel-trip-current .stopGroup:not(.expanded)>.row{display:none}
+#babel-trip-current .stopGroup.expanded{padding-bottom:5px}
+#babel-trip-current .stopGroup.expanded>.row:first-of-type{border-top:1px solid var(--separator)}
+#babel-trip-current .stopGroup.expanded>.row+.row:before{left:44px}
+#babel-trip-current .stopGroup>.row.roleRow .label{color:var(--secondary);font-weight:500}
+#babel-trip-current .stopGroup>.row.placeEntry .label{color:var(--secondary)}
+#babel-trip-current .stopGroup.hasWarning .stopTime{color:var(--red)}
+#babel-trip-current .day .travelLeg{padding:1px 0;margin:0;min-height:24px}
+#babel-trip-current .day .travelLeg .row{height:24px;min-height:24px;padding:0 17px 0 29px;gap:6px;display:flex;justify-content:space-between}
+#babel-trip-current .travelLeg .infoLeft{font-size:12px;opacity:.85}
+#babel-trip-current .travelLeg .infoRight{font-size:12px;opacity:.75}
+#babel-trip-current .travelLeg .infoRight:empty{display:none}
+#babel-trip-current .day .supportGroup:not(.expanded)>.row{display:none}
+#babel-trip-current .supportToggle{width:100%;min-height:48px;border:0;background:transparent;display:flex;justify-content:space-between;align-items:center;color:var(--secondary);font:inherit;font-size:13px;padding:10px 16px;cursor:pointer}
+#babel-trip-current .supportGroup.expanded>.supportToggle{border-bottom:1px solid var(--separator)}
+#babel-trip-current .supportGroup .supportHint{font-variant-numeric:tabular-nums}
+#babel-trip-current .day .statusGroup:not(:has(.red)){display:none}
+#babel-trip-current .day .statusGroup .row{height:40px;min-height:40px;background:var(--bg);color:var(--red);padding:0 16px}
+#babel-trip-current .day .statusGroup .label{font-size:13px;color:var(--red)}
+#babel-trip-current .day .statusGroup .trailing{font-size:13px}
+#babel-trip-current .day .totalGroup{display:none}
+#babel-trip-current .budgetDay .stack>.group{border-bottom:1px solid var(--separator)}
+#babel-trip-current .budgetDay .stack>.group:last-child{border-bottom:0}
+#babel-trip-current .day .menuGroup .choiceMenu{z-index:90}
+#babel-trip-current .day .menuGroup{overflow:visible}
+#babel-trip-current .day .row.infoRow .infoLeft,#babel-trip-current .day .row.infoRow .infoRight{white-space:normal}
+@media(max-width:390px){
+#babel-trip-current{padding:12px}
+#babel-trip-current .dayToggle{padding:12px 14px;min-height:73px}
+#babel-trip-current .stopToggle{padding:11px 14px;gap:9px}
+#babel-trip-current .stopTitle,#babel-trip-current .stopTime{font-size:15px}
+#babel-trip-current .stopHint{font-size:12px}
+#babel-trip-current .day .date{font-size:18px}
+#babel-trip-current .day .travelLeg .infoRight{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+#babel-trip-current .dayChevron,#babel-trip-current .stopChevron{transition:none}
+}
 </style>
 
 
@@ -44,7 +110,7 @@
 <section class="day isOpen" data-day="wed" data-cost-ref="wednesdayTotal"><div class="header"><button type="button" class="dayToggle" aria-expanded="true" aria-label="Show Wednesday, Nov 18 itinerary"><span class="dayTitle"><span class="date">Wednesday, Nov 18</span><span class="dayRoute">Arizona → California</span></span><span class="dayRight"><span id="dayAmount-wed" class="dayAmount"></span><span class="dayChevron" aria-hidden="true">⌄</span></span></button></div>
   <div class="stack flowStack">
 <div class="group statusGroup"><div class="row"><div class="label">Status</div><div id="statusValue" class="trailing good">-170 min</div></div></div>
-<div class="group supportGroup"><div class="row"><div class="label">Lunch</div><div class="trailing">12:00 PM</div></div>
+<div class="group supportGroup"><button class="supportToggle" type="button" aria-expanded="false"><span>Before leaving</span><span class="supportHint">Details ›</span></button><div class="row"><div class="label">Lunch</div><div class="trailing">12:00 PM</div></div>
 <div class="row"><div class="label">Fuel</div><label class="trailing blue editable"><span id="prepFuelText">$45</span><input id="prepFuel" type="number" min="0" value="45"></label></div>
 <div class="row infoRow"><div class="infoLeft">Full tank</div><div class="infoRight">300 mi left</div></div></div>
 <div class="group stopGroup"><button type="button" class="stopToggle" aria-expanded="false" aria-label="Show Work details"><span class="stopMain"><span class="stopTitle">Work</span><span class="stopHint">Tap to edit</span></span><span class="stopRight"><span class="stopTime"></span><span class="stopChevron" aria-hidden="true">⌄</span></span></button><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Work</div><div class="trailing timeControl"><button id="departureReset" class="timeReset hidden" type="button" aria-label="Reset departure to recommended time" title="Use estimated time">↺</button><label class="blue editable"><span id="departureText">3:15 PM</span><input id="departure" type="time" value="15:15"></label></div></div></div>
@@ -189,7 +255,7 @@
 <div class="group stopGroup"><button type="button" class="stopToggle" aria-expanded="false" aria-label="Show Cousin's details"><span class="stopMain"><span class="stopTitle">Cousin's</span><span class="stopHint">Tap to edit</span></span><span class="stopRight"><span class="stopTime"></span><span class="stopChevron" aria-hidden="true">⌄</span></span></button><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Cousin's</div><div class="trailing timeControl"><button id="saturdayCousinArrivalWithDizzyReset" class="timeReset hidden" type="button" aria-label="Reset saturdayCousinArrivalWithDizzy to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayCousinArrivalWithDizzy">10:20 PM</span><input id="saturdayCousinArrivalWithDizzyInput" type="time" value="22:20" aria-label="Adjust saturday Cousin Arrival With Dizzy, California time"></label></div></div></div></div>
 <div class="journeyBranch hidden" id="saturdayDirectReturn"><div class="travelLeg"><div class="row infoRow"><div class="infoLeft">45 min drive</div><div class="infoRight"></div></div></div>
 <div class="group stopGroup"><button type="button" class="stopToggle" aria-expanded="false" aria-label="Show Cousin's details"><span class="stopMain"><span class="stopTitle">Cousin's</span><span class="stopHint">Tap to edit</span></span><span class="stopRight"><span class="stopTime"></span><span class="stopChevron" aria-hidden="true">⌄</span></span></button><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Cousin's</div><div class="trailing timeControl"><button id="saturdayCousinArrivalSoloReset" class="timeReset hidden" type="button" aria-label="Reset saturdayCousinArrivalSolo to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayCousinArrivalSolo">8:15 PM</span><input id="saturdayCousinArrivalSoloInput" type="time" value="20:15" aria-label="Adjust saturday Cousin Arrival Solo, California time"></label></div></div></div></div>
-<div class="group supportGroup"><div class="row"><div class="label">Overnight</div><div id="saturdayOvernight" class="trailing">Cousin's</div></div></div>
+<div class="group supportGroup"><button class="supportToggle" type="button" aria-expanded="false"><span>Other details</span><span class="supportHint">Details ›</span></button><div class="row"><div class="label">Overnight</div><div id="saturdayOvernight" class="trailing">Cousin's</div></div></div>
 <div class="group totalGroup"><div class="row"><div class="label">Total</div><div id="saturdayTotal" class="trailing">$135</div></div></div>
 </div></section>
 
@@ -210,7 +276,7 @@
 <div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="sundayEhrenbergDepartureReset" class="timeReset hidden" type="button" aria-label="Reset sundayEhrenbergDeparture to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="sundayEhrenbergDeparture">4:05 PM AZ</span><input id="sundayEhrenbergDepartureInput" type="time" value="16:05" aria-label="Adjust sunday Ehrenberg Departure, Arizona time"></label></div></div></div>
 <div class="travelLeg"><div class="row infoRow"><div class="infoLeft">2 hr 11 min drive</div><div class="infoRight"></div></div></div>
 <div class="group stopGroup"><button type="button" class="stopToggle" aria-expanded="false" aria-label="Show Home details"><span class="stopMain"><span class="stopTitle">Home</span><span class="stopHint">Tap to edit</span></span><span class="stopRight"><span class="stopTime"></span><span class="stopChevron" aria-hidden="true">⌄</span></span></button><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Home</div><div class="trailing timeControl"><button id="sundayHomeArrivalReset" class="timeReset hidden" type="button" aria-label="Reset sundayHomeArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="sundayHomeArrival">6:16 PM AZ</span><input id="sundayHomeArrivalInput" type="time" value="18:16" aria-label="Adjust sunday Home Arrival, Arizona time"></label></div></div></div>
-<div class="group supportGroup"><div class="row"><div class="label">Fuel</div><label class="trailing blue editable"><span id="sundayFuelText">$85</span><input id="sundayFuel" type="number" min="0" value="85" aria-label="Remaining trip fuel amount"></label></div>
+<div class="group supportGroup"><button class="supportToggle" type="button" aria-expanded="false"><span>Fuel & snacks</span><span class="supportHint">Details ›</span></button><div class="row"><div class="label">Fuel</div><label class="trailing blue editable"><span id="sundayFuelText">$85</span><input id="sundayFuel" type="number" min="0" value="85" aria-label="Remaining trip fuel amount"></label></div>
 <div class="row infoRow"><div class="infoLeft">Later top-offs · locations TBD</div><div class="infoRight"></div></div>
 <div class="row"><div class="label">Road snacks</div><label class="trailing blue editable"><span id="sundaySnacksText">$10</span><input id="sundaySnacks" type="number" min="0" value="10" aria-label="Road snacks amount"></label></div></div>
 <div class="group totalGroup"><div class="row"><div class="label">Total</div><div id="sundayTotal" class="trailing">$140</div></div></div>
