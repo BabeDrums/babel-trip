@@ -68,6 +68,7 @@
 #babel-trip-current .dayPanel .row.decisionRow.menuOpen{z-index:95}
 #babel-trip-current .day:not(:last-of-type) .header{display:none}
 @media(prefers-reduced-motion:reduce){#babel-trip-current .dayChevron{transition:none}}
+#babel-trip-current .dayDisclaimer{font-size:12px;line-height:1.35;text-align:center;color:var(--secondary);padding:23px 4px 0}
 </style>
 
 
@@ -424,6 +425,125 @@
   function setTime(id,v){put(id+'Text',fmt(v));$('#'+id).value=timeInput(v)}
   function defaultAmount(id,n){if(!customAmounts[id])$('#'+id).value=n}
   function fmtDay(v){return fmt(v)+(v>=1440?' +1':'')}
+
+  // One open day at a time. This is presentation state only; hidden schedules
+  // are still calculated in full and feed the same single trip budget.
+  var daySpecs=[
+    ['prep','prepTotal'],['wed','wednesdayTotal'],['thu','travelTotal'],
+    ['fri','fridayTotal'],['sat','saturdayTotal'],['sun','sundayTotal']
+  ];
+  function setDayOpen(key,open){
+    daySpecs.forEach(function(spec){
+      var active=open&&spec[0]===key;
+      $('#dayToggle-'+spec[0]).setAttribute('aria-expanded',active?'true':'false');
+      $('#dayContent-'+spec[0]).classList.toggle('hidden',!active);
+    });
+  }
+  daySpecs.forEach(function(spec){
+    $('#dayToggle-'+spec[0]).addEventListener('click',function(){
+      var wasOpen=$('#dayToggle-'+spec[0]).getAttribute('aria-expanded')==='true';
+      setDayOpen(spec[0],!wasOpen);
+      closeChoices();
+    });
+  });
+  setDayOpen('wed',true); // Next travel day on the November 17 setup screen.
+
+  var stopDisclosures=[];
+  allNodes('.dayPanel .stopGroup').forEach(function(group,idx){
+    var rows=Array.from(group.children).filter(function(n){return n.classList.contains('row')});
+    if(rows.length<2)return;
+    var first=rows[0];
+    if(first.classList.contains('decisionRow'))return; // Keep primary decisions accessible.
+    var primaries=rows.filter(function(n){return n.classList.contains('placeEntry')});
+    if(!primaries.length)primaries=[first];
+    var triggers=[];
+    primaries.forEach(function(row){
+      var label=row.querySelector('.label');
+      if(!label)return;
+      row.classList.add('stopPrimary');
+      var toggle=document.createElement('button');
+      toggle.type='button';toggle.className='stopToggle';
+      toggle.setAttribute('aria-expanded','false');
+      toggle.setAttribute('aria-label','Show '+label.textContent.trim()+' details');
+      var name=document.createElement('span');name.className='stopName';
+      while(label.firstChild){
+        var item=label.firstChild;
+        if(item.nodeType===1 && item.classList.contains('miniIcon'))toggle.appendChild(item);
+        else name.appendChild(item);
+      }
+      toggle.appendChild(name);label.appendChild(toggle);
+      toggle.addEventListener('click',function(){
+        var expanding=!group.classList.contains('isExpanded');
+        stopDisclosures.forEach(function(ref){
+          if(ref.group===group)return;
+          ref.group.classList.remove('isExpanded');
+          ref.group.classList.add('isCollapsed');
+          ref.triggers.forEach(function(t){t.setAttribute('aria-expanded','false')});
+        });
+        group.classList.toggle('isExpanded',expanding);
+        group.classList.toggle('isCollapsed',!expanding);
+        triggers.forEach(function(t){t.setAttribute('aria-expanded',expanding?'true':'false')});
+        closeChoices();
+      });
+      triggers.push(toggle);
+    });
+    if(!triggers.length)return;
+    var summary=document.createElement('div');
+    summary.className='stopSummary';
+    group.appendChild(summary);
+    group.classList.add('isCollapsed');
+    stopDisclosures.push({group:group,summary:summary,triggers:triggers});
+  });
+  function stopRowLabel(row){
+    var label=row.querySelector('.label');
+    return label?label.textContent.trim().replace(/\\s+/g,' '):'';
+  }
+  function stopRowValue(row){
+    var target=row.querySelector('.trailing');
+    if(!target)return'';
+    return target.textContent.trim().replace(/\\s+/g,' ');
+  }
+  function updateItineraryPresentation(){
+    daySpecs.forEach(function(spec){
+      var total=$('#'+spec[1]);
+      $('#dayAmount-'+spec[0]).textContent=total?total.textContent.trim():'—';
+    });
+    stopDisclosures.forEach(function(ref){
+      var candidates=Array.from(ref.group.children).filter(function(node){
+        return node.classList.contains('row')&&!node.classList.contains('hidden')
+          &&!node.classList.contains('stopPrimary');
+      });
+      var collect=function(names){
+        return candidates.find(function(row){return names.indexOf(stopRowLabel(row))>=0});
+      };
+      var parts=[];
+      var duration=collect(['Pickup','Stay','Family time','Dinner','Breakfast','Lunch','Sushi']);
+      var end=collect(['Leave']);
+      var overnight=collect(['Overnight']);
+      var spend=collect(['Fuel','Dinner','Breakfast','Lunch','Sushi','Food','Spend','Budget','Parking']);
+      if(duration){
+        var label=stopRowLabel(duration),value=stopRowValue(duration);
+        if(value && !/^\\$/.test(value)){
+          parts.push((label==='Stay'?'Visit':label)+' '+value);
+        }
+      }
+      if(end)parts.push('Leave '+stopRowValue(end));
+      if(overnight)parts.push('Overnight');
+      if(spend && spend!==duration){
+        var covered=!!spend.querySelector('.coveredPrice');
+        var price=stopRowValue(spend);
+        if(covered)parts.push('Covered');
+        else if(/^\\$/.test(price))parts.push(price);
+      }
+      if(!parts.length){
+        var next=candidates.find(function(row){return !!stopRowValue(row)});
+        if(next)parts.push(stopRowLabel(next)+' '+stopRowValue(next));
+      }
+      ref.summary.textContent=parts.slice(0,3).join(' · ');
+      ref.summary.classList.toggle('hidden',!ref.summary.textContent);
+    });
+  }
+
   function hasTimeOverrides(){
     return Object.keys(clockOverrides).length>0
       ||arrivalOverrides.ehrenberg!==null||arrivalOverrides.cousin!==null
@@ -725,6 +845,7 @@
     put('budgetFuel','$'+(fuel+topoff+friFuel+sunFuel).toFixed(0));
     put('budgetTickets','$'+ticketCost.toFixed(0));
     show('resetBar',hasTimeOverrides());
+    updateItineraryPresentation();
   }
 })();
 </script></div>
