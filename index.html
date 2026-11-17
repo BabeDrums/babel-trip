@@ -116,8 +116,7 @@
 <div class="group stopGroup">
 <div class="stopCore"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Tacos Nogales</div><div class="trailing timeControl"><button id="tacoArrivalReset" class="timeReset hidden" type="button" aria-label="Reset tacoArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="tacoArrival">8:56 PM</span><input id="tacoArrivalInput" type="time" value="20:56" aria-label="Adjust taco Arrival, California time"></label></div></div></div>
 <button id="stop_wed_4_toggle" class="stopSummaryButton" type="button" aria-expanded="false" aria-controls="stop_wed_4_details"><span id="stop_wed_4_summary" class="stopSummaryText">Details</span><span class="stopChevron" aria-hidden="true"></span></button>
-<div id="stop_wed_4_details" class="stopExtra hidden"><div class="row"><div class="label">Pickup</div><label class="trailing blue editable"><span id="tacoTargetText">9:00 PM</span><input id="tacoTarget" type="time" value="21:00" aria-label="Tacos Nogales pickup target California time"></label></div>
-<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Stay</div><label class="trailing blue editable"><span id="tacoStay">10 min</span><input id="tacoPickupMinutes" type="number" min="0" step="5" value="10" aria-label="Tacos Nogales pickup stop duration in minutes"></label></div>
+<div id="stop_wed_4_details" class="stopExtra hidden"><div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Pickup</div><label class="trailing blue editable"><span id="tacoStay">20 min</span><input id="tacoPickupMinutes" type="number" min="0" step="5" value="20" aria-label="Tacos Nogales order and pickup duration in minutes"></label></div>
 <div class="row"><div class="label">Dinner</div><label class="trailing blue editable"><span id="tacoSpendText">$15</span><input id="tacoSpend" type="number" min="0" value="15"></label></div>
 <div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="tacoDepartReset" class="timeReset hidden" type="button" aria-label="Reset tacoDepart to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="tacoDepart">9:10 PM</span><input id="tacoDepartInput" type="time" value="21:10" aria-label="Adjust taco Depart, California time"></label></div></div></div>
 </div>
@@ -364,7 +363,7 @@
   var $=function(s){return r.querySelector(s)}, allNodes=function(s){return Array.from(r.querySelectorAll(s))};
   var state={dizzy:'weekend',momPaid:'yes',ticketCount:2,satDinner:'tbd',satKaraoke:'no'};
   var arrivalOverrides={ehrenberg:null,cousin:null};
-  var clockOverrides={},savedStopBeforeOverride={},pickupTargetManual=null;
+  var clockOverrides={},savedStopBeforeOverride={};
   var checkpointIds=["homeArrival","quartzDepart","tacoStartDrive","tacoArrival","tacoDepart","tacoReturn","breakfastDepart","breakfastArrival","breakfastLeave","breakfastReturn","lunchDepart","lunchArrival","lunchLeave","lunchReturn","cousinDepart","momArrival1","momDepartDinner","dinnerArrival","dinnerDepartDirect","momArrivalDirect","momWalkDepart","rudeArrivalWalk","rudeDepartWalk","momReturnWalk","fridayPickupArrival","fridayPickupDeparture","fridayHanagiArrivalPickup","fridayHanagiArrivalSolo","fridayHanagiDeparture","fridayGardenArrival","fridayEventDeparture","fridayGrandpaArrival","fridayDropArrival","fridayDropDeparture","fridayReturnArrival","saturdayGrandpaArrival","saturdayGrandpaStart","saturdayHangoutLeave","saturdayHangoutArrival","saturdayKaraokeLeave","saturdayKaraokeArrival","saturdayKaraokeDeparture","saturdayTemeculaArrival","saturdayTemeculaDepart","saturdayCousinArrivalWithDizzy","saturdayCousinArrivalSolo","sundayBreakfastArrival","sundayBreakfastEnd","sundayCousinReturn","sundayLeaveCalifornia","sundayEhrenbergArrival","sundayEhrenbergDeparture","sundayHomeArrival"];
   function fmt(n){n=((n%1440)+1440)%1440;var h=Math.floor(n/60),m=n%60;return (((h+11)%12)+1)+':'+String(m).padStart(2,'0')+' '+(h>=12?'PM':'AM')}
   function closeChoices(except){
@@ -403,20 +402,13 @@
     var opened=allNodes('.choice').find(function(c){return !c.querySelector('.choiceMenu').classList.contains('hidden')});
     if(opened){e.preventDefault();closeChoices();opened.querySelector('.choiceTrigger').focus()}
   });
-  var pf=$('#prepFuel'),qf=$('#qsFuel'),sn=$('#snacks'),stop=$('#stopMinutes'),dep=$('#departure'),tt=$('#tacoTarget'),
+  var pf=$('#prepFuel'),qf=$('#qsFuel'),sn=$('#snacks'),stop=$('#stopMinutes'),dep=$('#departure'),
       hs=$('#homeStopMinutes'),hd=$('#homeDepartInput'),ea=$('#quartzArrivalInput'),caInput=$('#cousinArrivalInput'),
       ts=$('#tacoSpend'),tp=$('#tacoPickupMinutes'),cs=$('#cousinSettleMinutes'),bs=$('#breakfastSpend'),ls=$('#lunchSpend'),rs=$('#rudeSpend');
   // Automatic timing is a planning preference, not a restriction on actual stop length.
   // Editing Home stay holds duration; editing Leave Home holds departure clock time.
   var homeMode='auto',homeDepartureManual=null;
   [pf,qf,sn,ts,bs,ls,rs].forEach(function(x){x.addEventListener('input',render)});
-  // Pickup recommendation follows actual arrival unless the user chose a clock time.
-  tt.addEventListener('change',function(){
-    var actual=timeMinutes(tt.value);
-    if(actual===null)return;
-    pickupTargetManual=actual;
-    render();
-  });
   var workEdited=false,sundayEdited=false;
   dep.addEventListener('input',function(){workEdited=true;render()});
   stop.addEventListener('input',function(){delete clockOverrides.quartzDepart;delete savedStopBeforeOverride.quartzDepart;render()});
@@ -513,7 +505,7 @@
   function hasTimeOverrides(){
     return Object.keys(clockOverrides).length>0
       ||arrivalOverrides.ehrenberg!==null||arrivalOverrides.cousin!==null
-      ||pickupTargetManual!==null||homeMode!=='auto'
+      ||homeMode!=='auto'
       ||workEdited||fridayDepartEdited||saturdayDepartEdited||sundayEdited;
   }
   $('#resetTimings').addEventListener('click',function(){
@@ -525,7 +517,6 @@
     savedStopBeforeOverride={};
     clockOverrides={};
     arrivalOverrides={ehrenberg:null,cousin:null};
-    pickupTargetManual=null;
     homeMode='auto';
     homeDepartureManual=null;
     workEdited=false;fridayDepartEdited=false;saturdayDepartEdited=false;sundayEdited=false;
@@ -578,13 +569,9 @@
       cs.value=String(cousinStay);
     }
     var tacoArr=checkpoint('tacoArrival',tacoDriveOut+10,'',tacoDriveOut);
-    // Previous default was 9:00 PM for an 8:56 PM arrival. Preserve the
-    // four-minute preparation margin, but attach it to the live arrival.
-    var pickupSuggested=tacoArr+4;
-    var tacoTarget=pickupTargetManual===null
-      ? pickupSuggested
-      : nearClock(pickupTargetManual,pickupSuggested);
-    var pickupStart=Math.max(tacoTarget,tacoArr),pickupDur=Math.max(0,Number(tp.value)||0);
+    // No timed pickup has been confirmed. A 20-minute editable wait
+    // starts on arrival; if food is ready sooner, adjust this duration.
+    var pickupStart=tacoArr,pickupDur=Math.max(0,Number(tp.value)||0);
     var tacoLeave=checkpoint('tacoDepart',pickupStart+pickupDur,'',tacoArr);
     if(Object.prototype.hasOwnProperty.call(clockOverrides,'tacoDepart'))pickupDur=Math.max(0,tacoLeave-pickupStart);
     var tacoBack=checkpoint('tacoReturn',tacoLeave+10,'',tacoLeave);
@@ -608,9 +595,6 @@
     $('#cousinArrivalReset').classList.toggle('hidden',arrivalOverrides.cousin===null);
     $('#cousinArrival').classList.toggle('red',ca<qd-60);
     $('#cousinSettle').textContent=formatDuration(cousinStay);
-    $('#tacoTargetText').textContent=fmtDay(tacoTarget);
-    tt.value=timeInput(tacoTarget);
-    $('#tacoTargetText').classList.toggle('red',tacoTarget<tacoArr);
     $('#tacoStay').textContent=pickupDur+' min';
     if(Object.prototype.hasOwnProperty.call(clockOverrides,'tacoDepart'))tp.value=String(pickupDur);
     $('#tacoEat').textContent='25 min';
