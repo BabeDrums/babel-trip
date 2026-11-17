@@ -240,6 +240,8 @@
   var $=function(s){return r.querySelector(s)}, allNodes=function(s){return Array.from(r.querySelectorAll(s))};
   var state={dizzy:'weekend',momPaid:'yes',ticketCount:2,satDinner:'tbd',satKaraoke:'no'};
   var arrivalOverrides={ehrenberg:null,cousin:null};
+  var clockOverrides={};
+  var checkpointIds=["homeArrival","quartzDepart","tacoStartDrive","tacoArrival","tacoDepart","tacoReturn","breakfastDepart","breakfastArrival","breakfastLeave","breakfastReturn","lunchDepart","lunchArrival","lunchLeave","lunchReturn","cousinDepart","momArrival1","momDepartDinner","dinnerArrival","dinnerDepartDirect","momArrivalDirect","momWalkDepart","rudeArrivalWalk","rudeDepartWalk","momReturnWalk","fridayPickupArrival","fridayPickupDeparture","fridayHanagiArrivalPickup","fridayHanagiArrivalSolo","fridayHanagiDeparture","fridayGardenArrival","fridayEventDeparture","fridayGrandpaArrival","fridayDropArrival","fridayDropDeparture","fridayReturnArrival","saturdayGrandpaArrival","saturdayGrandpaStart","saturdayHangoutLeave","saturdayHangoutArrival","saturdayKaraokeLeave","saturdayKaraokeArrival","saturdayKaraokeDeparture","saturdayTemeculaArrival","saturdayTemeculaDepart","saturdayCousinArrivalWithDizzy","saturdayCousinArrivalSolo","sundayBreakfastArrival","sundayBreakfastEnd","sundayCousinReturn","sundayLeaveCalifornia","sundayEhrenbergArrival","sundayEhrenbergDeparture","sundayHomeArrival"];
   function fmt(n){n=((n%1440)+1440)%1440;var h=Math.floor(n/60),m=n%60;return (((h+11)%12)+1)+':'+String(m).padStart(2,'0')+' '+(h>=12?'PM':'AM')}
   function closeChoices(except){
     allNodes('.choice').forEach(function(choice){
@@ -283,7 +285,9 @@
   // Automatic timing is a planning preference, not a restriction on actual stop length.
   // Editing Home stay holds duration; editing Leave Home holds departure clock time.
   var homeMode='auto',homeDepartureManual=null;
-  [pf,qf,sn,stop,tt,ts,tp,bs,ls,rs,dep].forEach(function(x){x.addEventListener('input',render)});
+  [pf,qf,sn,tt,ts,bs,ls,rs,dep].forEach(function(x){x.addEventListener('input',render)});
+  stop.addEventListener('input',function(){delete clockOverrides.quartzDepart;render()});
+  tp.addEventListener('input',function(){delete clockOverrides.tacoDepart;render()});
   hs.addEventListener('input',function(){homeMode='stay';render()});
   hd.addEventListener('change',function(){
     var n=timeMinutes(hd.value);
@@ -293,7 +297,28 @@
   $('#homeDepartReset').addEventListener('click',function(){homeMode='auto';homeDepartureManual=null;render()});
   var fridayDepartEdited=false,saturdayDepartEdited=false,customAmounts={};
   var newControlIds=['fridayDeparture','fridayPickupMinutes','fridayFuel','fridaySushiMinutes','fridaySushiSpend','fridayParking','fridayEventMinutes','fridayEventSpend','fridayDropMinutes','saturdayDeparture','saturdayLunch','saturdayDinnerSpend','saturdayDinnerTime','saturdayDinnerMinutes','saturdayKaraokeMinutes','saturdayKaraokeSpend','saturdayDropMinutes','sundayBreakfastDeparture','sundayBreakfastMinutes','sundayBreakfastSpend','sundayPackMinutes','sundayStopMinutes','sundayFuel','sundaySnacks','tripBuffer'];
-  newControlIds.forEach(function(id){$('#'+id).addEventListener('input',function(){if(id==='fridayDeparture')fridayDepartEdited=true;if(id==='saturdayDeparture')saturdayDepartEdited=true;if(['fridayFuel','fridaySushiSpend','fridayEventSpend','saturdayLunch','saturdayDinnerSpend','saturdayKaraokeSpend'].indexOf(id)>=0)customAmounts[id]=true;render()})});
+  newControlIds.forEach(function(id){$('#'+id).addEventListener('input',function(){if(id==='fridayDeparture')fridayDepartEdited=true;if(id==='saturdayDeparture')saturdayDepartEdited=true;if(['fridayFuel','fridaySushiSpend','fridayEventSpend','saturdayLunch','saturdayDinnerSpend','saturdayKaraokeSpend'].indexOf(id)>=0)customAmounts[id]=true;if(pauseDependencies[id])delete clockOverrides[pauseDependencies[id]];render()})});
+
+  var pauseDependencies={
+    fridayPickupMinutes:'fridayPickupDeparture',
+    fridaySushiMinutes:'fridayHanagiDeparture',
+    fridayEventMinutes:'fridayEventDeparture',
+    fridayDropMinutes:'fridayDropDeparture',
+    saturdayKaraokeMinutes:'saturdayKaraokeDeparture',
+    saturdayDropMinutes:'saturdayTemeculaDepart',
+    sundayBreakfastMinutes:'sundayBreakfastEnd',
+    sundayPackMinutes:'sundayLeaveCalifornia',
+    sundayStopMinutes:'sundayEhrenbergDeparture'
+  };
+  checkpointIds.forEach(function(id){
+    var field=$('#'+id+'Input'),reset=$('#'+id+'Reset');
+    field.addEventListener('change',function(){
+      var value=timeMinutes(field.value);
+      if(value===null)return;
+      clockOverrides[id]=value;render();
+    });
+    reset.addEventListener('click',function(){delete clockOverrides[id];render()});
+  });
   function timeMinutes(value){if(!/^\d\d:\d\d$/.test(value))return null;var a=value.split(':').map(Number);return a[0]*60+a[1]}
   function timeInput(n){n=((n%1440)+1440)%1440;return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
   // Place a clock-only adjustment on the nearest plausible day, including just past midnight.
@@ -306,6 +331,23 @@
     var v=Math.max(0,Number(input.value)||0);
     $('#'+id+'Text').textContent='$'+v.toFixed(0);
     return v;
+  }
+
+  function formatDuration(n){
+    n=Math.max(0,Math.round(n));
+    var h=Math.floor(n/60),m=n%60;
+    return (h?h+' hr'+(m?' ':''):'')+(m?m+' min':'');
+  }
+  // Use the recommendation unless reality was manually recorded here.
+  // Actual overrides do not rewrite upstream history or change route mileage.
+  function checkpoint(id,recommended,zone,earliest){
+    var custom=Object.prototype.hasOwnProperty.call(clockOverrides,id);
+    var n=custom?nearClock(clockOverrides[id],recommended):recommended;
+    $('#'+id).textContent=fmtDay(n)+(zone?' '+zone:'');
+    $('#'+id+'Input').value=timeInput(n);
+    $('#'+id+'Reset').classList.toggle('hidden',!custom);
+    $('#'+id).classList.toggle('red',earliest!==undefined&&n<earliest);
+    return n;
   }
   function show(id,yes){$('#'+id).classList.toggle('hidden',!yes)}
   function put(id,v){$('#'+id).textContent=v}
@@ -333,12 +375,13 @@
     $('#ticketsValue').textContent='$'+(state.ticketCount===1?25:50);
     $('#prepTotal').textContent='$'+(35+(state.ticketCount===1?25:50)).toFixed(0);
 
-    // Wednesday: noon full tank, Work → Home → Ehrenberg → Cousin's.
-    // Work → Home is a provisional reverse-commute estimate. Home → Ehrenberg mileage is unverified.
-    var d0=timeMinutes(dep.value);if(d0===null)d0=15*60+15;
-    var homeArr=d0+16,homeStay,homeDep;
+
+    // Wednesday · AZ travel to Cousin's (PT), then grab Tacos Nogales.
+    var d0=timeMinutes(dep.value);if(d0===null)d0=915;
+    var homeArr=checkpoint('homeArrival',d0+16,'',d0);
+    var homeStay,homeDep;
     if(homeMode==='auto'){
-      homeStay=Math.max(5,Math.min(30,16*60-homeArr));
+      homeStay=Math.max(5,Math.min(30,960-homeArr));
       homeDep=homeArr+homeStay;
     }else if(homeMode==='depart'){
       homeDep=Math.max(homeArr,nearClock(homeDepartureManual,homeArr+15));
@@ -348,80 +391,82 @@
       homeDep=homeArr+homeStay;
     }
     var qaEstimate=homeDep+131,qa=nearClock(arrivalOverrides.ehrenberg,qaEstimate);
-    var stopDur=Math.max(0,Number(stop.value)||0),qd=qa+stopDur;
+    var stopDur=Math.max(0,Number(stop.value)||0);
+    var qd=checkpoint('quartzDepart',qa+stopDur,'',qa);
+    if(Object.prototype.hasOwnProperty.call(clockOverrides,'quartzDepart'))stopDur=Math.max(0,qd-qa);
     var caEstimate=qd+190-60,ca=nearClock(arrivalOverrides.cousin,caEstimate);
-    var targetHm=tt.value.split(':').map(Number),tacoTarget=targetHm[0]*60+targetHm[1];
-    // Pickup, not a sit-down dinner: 10-minute provisional travel each way,
-    // editable collection time, then 25 minutes eating back at Cousin's.
-    var tacoDriveOut=ca+10,tacoArr=tacoDriveOut+10,pickupStart=Math.max(tacoTarget,tacoArr);
-    var pickupDur=Math.max(0,Number(tp.value)||0),tacoLeave=pickupStart+pickupDur;
-    var tacoBack=tacoLeave+10,closeMargin=24*60-tacoLeave;
+    var tacoTarget=timeMinutes(tt.value);if(tacoTarget===null)tacoTarget=1260;
+    var tacoDriveOut=checkpoint('tacoStartDrive',ca+10,'',ca);
+    var tacoArr=checkpoint('tacoArrival',tacoDriveOut+10,'',tacoDriveOut);
+    var pickupStart=Math.max(tacoTarget,tacoArr),pickupDur=Math.max(0,Number(tp.value)||0);
+    var tacoLeave=checkpoint('tacoDepart',pickupStart+pickupDur,'',tacoArr);
+    if(Object.prototype.hasOwnProperty.call(clockOverrides,'tacoDepart'))pickupDur=Math.max(0,tacoLeave-pickupStart);
+    var tacoBack=checkpoint('tacoReturn',tacoLeave+10,'',tacoLeave);
+    var closeMargin=1440-tacoLeave;
     $('#departureText').textContent=fmt(d0);
-    $('#homeArrival').textContent=fmt(homeArr);
     $('#homeStopText').textContent=homeStay+' min';
     hs.value=String(homeStay);
-    $('#homeDepart').textContent=fmt(homeDep);
+    $('#homeDepart').textContent=fmtDay(homeDep);
     hd.value=timeInput(homeDep);
     $('#homeDepartReset').classList.toggle('hidden',homeMode==='auto');
-    $('#homeDepart').classList.toggle('red',homeDep>16*60);
-    $('#quartzArrival').textContent=fmt(qa);
+    $('#homeDepart').classList.toggle('red',homeDep>960);
+    $('#quartzArrival').textContent=fmtDay(qa);
     ea.value=timeInput(qa);
     $('#quartzArrivalReset').classList.toggle('hidden',arrivalOverrides.ehrenberg===null);
     $('#quartzArrival').classList.toggle('red',qa<homeDep);
     $('#stopText').textContent=stopDur+' min';
-    $('#quartzDepart').textContent=fmt(qd);
-    $('#cousinArrival').textContent=fmt(ca)+' PT';
+    if(Object.prototype.hasOwnProperty.call(clockOverrides,'quartzDepart'))stop.value=String(stopDur);
+    $('#cousinArrival').textContent=fmtDay(ca)+' PT';
     caInput.value=timeInput(ca);
     $('#cousinArrivalReset').classList.toggle('hidden',arrivalOverrides.cousin===null);
     $('#cousinArrival').classList.toggle('red',ca<qd-60);
-    $('#tacoStartDrive').textContent=fmt(tacoDriveOut);
-    $('#tacoArrival').textContent=fmt(tacoArr);
+    $('#cousinSettle').textContent=formatDuration(tacoDriveOut-ca);
     $('#tacoTargetText').textContent=fmt(tacoTarget);
     $('#tacoStay').textContent=pickupDur+' min';
+    if(Object.prototype.hasOwnProperty.call(clockOverrides,'tacoDepart'))tp.value=String(pickupDur);
     $('#tacoEat').textContent='25 min';
-    $('#tacoDepart').textContent=fmt(tacoLeave);
-    $('#tacoReturn').textContent=fmt(tacoBack);
     $('#wednesdayTotal').textContent='$'+(fuel+topoff+snacks+tacoCost).toFixed(0);
     $('#statusValue').textContent=closeMargin>0?'-'+closeMargin+' min':closeMargin<0?'+'+(-closeMargin)+' min':'GOOD';
     $('#statusValue').classList.toggle('good',closeMargin>0);
     $('#statusValue').classList.toggle('red',closeMargin<0);
-    $('#tacoArrival').classList.toggle('red',tacoArr>=24*60);
-    $('#tacoDepart').classList.toggle('red',tacoLeave>24*60);
+    $('#tacoArrival').classList.toggle('red',tacoArr<tacoDriveOut||tacoArr>=1440);
+    $('#tacoDepart').classList.toggle('red',tacoLeave<tacoArr||tacoLeave>1440);
 
-    // Thursday's food stops are independent of Wednesday's editable departure.
-    // Drive estimates are planning allowances; local miles remain TBD until routed.
-    var breakfastArr=10*60,breakfastDep=breakfastArr-10,breakfastLeave=breakfastArr+60,
-        breakfastBack=breakfastLeave+10,lunchArr=13*60,lunchDep=lunchArr-10,
-        lunchLeave=lunchArr+45,lunchBack=lunchLeave+10;
-    var cd=18*60+30,ma=cd+20,md=ma+30,da=md+5,dinner=19*60+30;
-    var dd=Math.max(da,dinner)+60,mom2=dd+5,momDep=mom2+5;
-    var rudeA=momDep+18,rudeD=rudeA+150,walkBack=rudeD+18;
-    $('#breakfastDepart').textContent=fmt(breakfastDep);
-    $('#breakfastArrival').textContent=fmt(breakfastArr);
-    $('#breakfastLeave').textContent=fmt(breakfastLeave);
-    $('#breakfastReturn').textContent=fmt(breakfastBack);
-    $('#lunchDepart').textContent=fmt(lunchDep);
-    $('#lunchArrival').textContent=fmt(lunchArr);
-    $('#lunchLeave').textContent=fmt(lunchLeave);
-    $('#lunchReturn').textContent=fmt(lunchBack);
-    var freeTime=cd-lunchBack,h=Math.floor(freeTime/60),m=freeTime%60;
-    $('#cousinAfternoon').textContent=(h?h+' hr'+(m?' ':''):'')+(m?m+' min':'');
-    $('#cousinDepart').textContent=fmt(cd);
-    $('#momArrival1').textContent=fmt(ma);
-    $('#momSettle').textContent='30 min';
-    $('#momDepartDinner').textContent=fmt(md);
-    $('#dinnerArrival').textContent=fmt(da);
+    // Thursday · breakfast/lunch keep their preferred clock targets,
+    // while real arrival/departure corrections flow through each leg.
+    var breakfastDep=checkpoint('breakfastDepart',590);
+    var breakfastArr=checkpoint('breakfastArrival',breakfastDep+10,'',breakfastDep);
+    var breakfastStart=Math.max(600,breakfastArr);
+    var breakfastLeave=checkpoint('breakfastLeave',breakfastStart+60,'',breakfastArr);
+    var breakfastBack=checkpoint('breakfastReturn',breakfastLeave+10,'',breakfastLeave);
+    var lunchDep=checkpoint('lunchDepart',Math.max(770,breakfastBack),'',breakfastBack);
+    var lunchArr=checkpoint('lunchArrival',lunchDep+10,'',lunchDep);
+    var lunchStart=Math.max(780,lunchArr);
+    var lunchLeave=checkpoint('lunchLeave',lunchStart+45,'',lunchArr);
+    var lunchBack=checkpoint('lunchReturn',lunchLeave+10,'',lunchLeave);
+    var cd=checkpoint('cousinDepart',Math.max(1110,lunchBack),'',lunchBack);
+    var ma=checkpoint('momArrival1',cd+20,'',cd);
+    var md=checkpoint('momDepartDinner',ma+30,'',ma);
+    var da=checkpoint('dinnerArrival',md+5,'',md),dinner=1170;
+    var dd=checkpoint('dinnerDepartDirect',Math.max(da,dinner)+60,'',da);
+    var mom2=checkpoint('momArrivalDirect',dd+5,'',dd);
+    var momDep=checkpoint('momWalkDepart',mom2+5,'',mom2);
+    var rudeA=checkpoint('rudeArrivalWalk',momDep+18,'',momDep);
+    var rudeD=checkpoint('rudeDepartWalk',rudeA+150,'',rudeA);
+    var walkBack=checkpoint('momReturnWalk',rudeD+18,'',rudeD);
+    $('#breakfastStay').textContent=formatDuration(breakfastLeave-breakfastStart);
+    $('#lunchStay').textContent=formatDuration(lunchLeave-lunchStart);
+    $('#cousinAfternoon').textContent=formatDuration(cd-lunchBack);
+    $('#cousinAfternoon').classList.toggle('red',cd<lunchBack);
+    $('#momSettle').textContent=formatDuration(md-ma);
+    $('#rosalieStay').textContent=formatDuration(dd-Math.max(da,dinner));
+    $('#momParkDuration').textContent=formatDuration(momDep-mom2);
+    $('#rudeDuration').textContent=formatDuration(rudeD-rudeA);
     $('#dinnerReservation').textContent=fmt(dinner);
-    $('#dinnerDepartDirect').textContent=fmt(dd);
-    $('#momArrivalDirect').textContent=fmt(mom2);
-    $('#momWalkDepart').textContent=fmt(momDep);
-    $('#rudeArrivalWalk').textContent=fmt(rudeA);
-    $('#rudeDepartWalk').textContent=fmt(rudeD);
-    $('#momReturnWalk').textContent=fmt(walkBack);
     $('#restaurantTotal').textContent='$50';
     $('#restaurantTotal').classList.toggle('coveredPrice',state.momPaid==='yes');
-    $('#dinnerArrival').classList.toggle('red',da>dinner);
-    $('#rudeArrivalWalk').classList.toggle('red',rudeA>1290);
+    $('#dinnerArrival').classList.toggle('red',da>dinner||da<md);
+    $('#rudeArrivalWalk').classList.toggle('red',rudeA>1290||rudeA<momDep);
     $('#travelTotal').textContent='$'+(breakfastCost+lunchCost+rudeCost+(state.momPaid==='yes'?0:50)).toFixed(0);
     renderRest(fuel,topoff,snacks,tacoCost,breakfastCost,lunchCost,rudeCost);
   }
