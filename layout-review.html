@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f2f2f7"><title>Babel Trip · Layout Preview</title><style>html,body{margin:0;min-height:100%;background:#f2f2f7}body{max-width:760px;margin:auto}@media(prefers-color-scheme:dark){html,body{background:#000}}</style></head><body>
+<div id="babel-trip-current"><style>
+#babel-trip-current{color-scheme:light dark;--bg:#f2f2f7;--group:#fff;--text:#111114;--secondary:#6e6e73;--separator:#d1d1d6;--blue:#007aff;--green:#34c759;--red:#ff3b30;--seg:#e5e5ea;color:var(--text);font:17px system-ui,-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;background:var(--bg);padding:18px;border-radius:28px;overflow:hidden}
+#babel-trip-current *{box-sizing:border-box}
+@media(prefers-color-scheme:dark){#babel-trip-current{--bg:#000;--group:#1c1c1e;--text:#f5f5f7;--secondary:#98989d;--separator:#38383a;--blue:#0a84ff;--green:#30d158;--red:#ff453a;--seg:#2c2c2e}}
+.day+.day{margin-top:28px}.header{padding:0 2px 12px}.date{font-size:27px;font-weight:780;letter-spacing:-.025em}.subtitle{font-size:15px;color:var(--secondary);margin-top:2px}.stack{display:flex;flex-direction:column;gap:12px}.group{background:var(--group);border-radius:14px;overflow:hidden}.row{height:56px;padding:0 16px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:18px;position:relative}.row+.row:before{content:'';position:absolute;left:16px;right:0;top:0;height:1px;background:var(--separator)}.label{font-size:17px;font-weight:500;line-height:1.2;display:flex;align-items:center}.trailing{font-size:17px;color:var(--secondary);white-space:nowrap}.totalValue{color:var(--text);font-weight:600}.coveredPrice{color:var(--secondary);font-weight:400;opacity:.65;position:relative}.coveredPrice::after{content:'';position:absolute;left:0;right:0;top:50%;height:1px;background:currentColor;transform:translateY(-50%);pointer-events:none}.blue{color:var(--blue);font-weight:560}.good{color:var(--green)!important;font-weight:560}.red{color:var(--red)!important;font-weight:560}.row > .trailing{justify-self:end;text-align:right;min-width:0}.editable,.nativeChoice{position:relative}.editable{display:inline-flex;align-items:center;justify-content:flex-end;max-width:100%}.editable input{min-width:0}.editable input,.nativeChoice select{position:absolute;inset:-10px;opacity:0;width:calc(100% + 20px);height:calc(100% + 20px)}.infoRow{font-size:13px;color:var(--secondary)}.infoLeft,.infoRight{white-space:nowrap}.infoRight{text-align:right}.menuGroup{overflow:visible;min-width:0;width:100%}.row.decisionRow{padding:0;grid-template-columns:minmax(0,1fr);gap:0;min-width:0;width:100%}.decisionTrigger{display:flex;align-items:center;justify-content:space-between;gap:18px;width:100%;max-width:100%;min-width:0;height:56px;min-height:44px;margin:0;padding:0 16px;border:0;border-radius:0;-webkit-appearance:none;appearance:none;background:transparent;color:var(--text);font:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}.decisionTrigger:focus-visible{outline:2px solid var(--blue);outline-offset:-2px;border-radius:12px}.decisionValue{display:inline-flex;align-items:center;flex:none;color:var(--blue);font-size:17px;font-weight:560;white-space:nowrap}.choiceMenu{position:absolute;right:8px;top:calc(100% - 2px);z-index:80;width:210px;max-width:calc(100vw - 48px);background:var(--group);border:1px solid var(--separator);border-radius:12px;padding:4px;display:grid;gap:2px;box-shadow:0 12px 28px rgba(0,0,0,.22)}.choiceOption{height:44px;display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;border:0;border-radius:8px;background:transparent;color:var(--text);font:inherit;font-size:15px;text-align:left;padding:0 12px;cursor:pointer}.choiceOption.sel{background:var(--seg);font-weight:600}.choiceOption.sel:after{content:'✓';color:var(--blue);font-size:17px;font-weight:600}.choiceOption:focus-visible{outline:2px solid var(--blue);outline-offset:-2px}.row.menuOpen{z-index:90}@media(max-width:390px){#babel-trip-current .decisionTrigger{padding-left:15px;padding-right:15px}}.miniIcon{display:inline-flex;width:16px;height:16px;margin-left:6px;align-items:center;justify-content:center;color:var(--secondary);opacity:.55;flex:0 0 auto;transform:translateY(.15px)}.placeLabel{gap:8px}.placeLabel>.miniIcon{margin-left:0;transform:translateY(.15px)}.miniIcon svg{display:block;width:16px;height:16px;overflow:visible;flex:none}.miniIcon{font-family:inherit}.miniIcon circle,.miniIcon path{fill:none;stroke:currentColor;stroke-width:1.35;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}.timeControl{display:inline-flex;align-items:center;gap:6px}.timeReset{width:36px;height:44px;padding:0;border:0;background:transparent;color:var(--blue);font:inherit;font-size:23px;cursor:pointer}.timeReset:focus-visible{outline:2px solid var(--blue);border-radius:6px}.buildVersion{padding:28px 0 4px;text-align:center;font-size:12px;line-height:1.3;color:var(--secondary);opacity:.75;letter-spacing:.02em;user-select:text}.hidden{display:none!important}@media(max-width:390px){#babel-trip-current{padding:14px}.row{padding-left:15px;padding-right:15px}.row+.row:before{left:15px}}
+
+/* Standalone preview only: stop cards, quieter travel legs; original controls and theme retained. */
+#babel-trip-current .stopGroup>.row.placeEntry .label{font-weight:600;color:var(--text)}
+
+#babel-trip-current .flowStack{gap:12px}
+#babel-trip-current .journeyBranch{display:flex;flex-direction:column;gap:12px}
+#babel-trip-current .travelLeg{padding:0 2px;margin:-5px 0}
+#babel-trip-current .travelLeg .row{height:26px;min-height:26px;padding:0 14px;gap:12px;background:transparent}
+#babel-trip-current .travelLeg .row:before{display:none}
+#babel-trip-current .travelLeg .infoLeft,#babel-trip-current .travelLeg .infoRight{color:var(--secondary);font-size:13px}
+#babel-trip-current .stopGroup>.row.roleRow .label{color:var(--secondary);font-weight:500}
+#babel-trip-current .stopGroup>.row:first-child .label{color:var(--text);font-weight:600}
+#babel-trip-current .stopGroup>.row.roleRow .miniIcon{opacity:.48}
+#babel-trip-current .statusGroup>.row{height:44px}
+#babel-trip-current .previewHint{font-size:12px;color:var(--secondary);text-align:center;padding:0 4px 16px}
+</style>
+
+
+
+<div class="previewHint">Layout preview · original itinerary unchanged</div>
+<section class="day">
+  <div class="header"><div class="date">Tuesday, Nov 17</div></div>
+  <div class="stack">
+    <div class="group menuGroup">
+      <div class="row"><div class="label">Haircut</div><div class="trailing">$35</div></div>
+      <div class="row decisionRow choice" data-key="dizzy"><button class="decisionTrigger choiceTrigger" type="button" aria-expanded="false" aria-controls="dizzyOptions"><span class="label">Dizzy</span><span class="decisionValue"><span id="dizzyChoiceText" class="decisionValueText">Weekend</span></span></button><div id="dizzyOptions" class="choiceMenu hidden" role="group" aria-label="Dizzy options"><button class="choiceOption sel" data-v="weekend" type="button" aria-pressed="true">Weekend</button><button class="choiceOption" data-v="friday" type="button" aria-pressed="false">Friday</button><button class="choiceOption" data-v="none" type="button" aria-pressed="false">None</button></div></div>
+      <div class="row"><div id="ticketLabel" class="label">Tickets</div><div id="ticketsValue" class="trailing">$50</div></div>
+    </div>
+    <div class="group"><div class="row"><div class="label">Total</div><div id="prepTotal" class="trailing totalValue">$85</div></div></div>
+  </div>
+</section>
+
+<section class="day">
+  <div class="header"><div class="date">Wednesday, Nov 18</div></div>
+  <div class="stack flowStack">
+<div class="group statusGroup"><div class="row"><div class="label">Status</div><div id="statusValue" class="trailing good">-170 min</div></div></div>
+<div class="group supportGroup"><div class="row"><div class="label">Lunch</div><div class="trailing">12:00 PM</div></div>
+<div class="row"><div class="label">Fuel</div><label class="trailing blue editable"><span id="prepFuelText">$45</span><input id="prepFuel" type="number" min="0" value="45"></label></div>
+<div class="row infoRow"><div class="infoLeft">Full tank</div><div class="infoRight">300 mi left</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Work</div><div class="trailing timeControl"><button id="departureReset" class="timeReset hidden" type="button" aria-label="Reset departure to recommended time" title="Use estimated time">↺</button><label class="blue editable"><span id="departureText">3:15 PM</span><input id="departure" type="time" value="15:15"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">16 min drive · planned</div><div class="infoRight">7.1 mi · 293 mi left</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Home</div><div class="trailing timeControl"><button id="homeArrivalReset" class="timeReset hidden" type="button" aria-label="Reset homeArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="homeArrival">3:31 PM</span><input id="homeArrivalInput" type="time" value="15:31" aria-label="Adjust home Arrival, California time"></label></div></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Stay</div><label class="trailing blue editable"><span id="homeStopText">29 min</span><input id="homeStopMinutes" aria-label="Minutes at home" type="number" min="0" step="1" value="29"></label></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="homeDepartReset" class="timeReset hidden" type="button" aria-label="Reset home stop to automatic timing" title="Use automatic home stop">↺</button><label class="blue editable"><span id="homeDepart">4:00 PM</span><input id="homeDepartInput" type="time" value="16:00" aria-label="Adjust departure from home, Arizona time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">2 hr 11 min · provisional</div><div class="infoRight">mi TBD · range TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Ehrenberg</div><div class="trailing timeControl"><button id="quartzArrivalReset" class="timeReset hidden" type="button" aria-label="Reset Ehrenberg arrival to estimate" title="Use estimated arrival">↺</button><label class="blue editable"><span id="quartzArrival">6:11 PM</span><input id="quartzArrivalInput" type="time" value="18:11" aria-label="Adjust Ehrenberg arrival time, Arizona time"></label></div></div>
+<div class="row"><div class="label">Fuel</div><label class="trailing blue editable"><span id="qsFuelText">$20</span><input id="qsFuel" type="number" min="0" value="20"></label></div>
+<div class="row infoRow"><div class="infoLeft">Full tank</div><div class="infoRight">300 mi left</div></div>
+<div class="row"><div class="label">Snacks</div><label class="trailing blue editable"><span id="snacksText">$10</span><input id="snacks" type="number" min="0" value="10"></label></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Stay</div><label class="trailing blue editable"><span id="stopText">15 min</span><input id="stopMinutes" type="number" min="0" step="1" value="15"></label></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="quartzDepartReset" class="timeReset hidden" type="button" aria-label="Reset quartzDepart to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="quartzDepart">5:43 PM</span><input id="quartzDepartInput" type="time" value="17:43" aria-label="Adjust quartz Depart, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">3 hr 10 min drive</div><div class="infoRight">210 mi · 90 mi left</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Cousin's</div><div class="trailing timeControl"><button id="cousinArrivalReset" class="timeReset hidden" type="button" aria-label="Reset Cousin arrival to estimate" title="Use estimated arrival">↺</button><label class="blue editable"><span id="cousinArrival">8:36 PM PT</span><input id="cousinArrivalInput" type="time" value="20:36" aria-label="Adjust Cousin arrival time, California time"></label></div></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Stay</div><label class="trailing blue editable"><span id="cousinSettle">15 min</span><input id="cousinSettleMinutes" type="number" min="0" step="1" value="15" aria-label="Minutes at Cousin’s before leaving for tacos"></label></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="tacoStartDriveReset" class="timeReset hidden" type="button" aria-label="Reset tacoStartDrive to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="tacoStartDrive">8:46 PM</span><input id="tacoStartDriveInput" type="time" value="20:46" aria-label="Adjust taco Start Drive, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">10 min drive · planned</div><div class="infoRight">mi TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Tacos Nogales</div><div class="trailing timeControl"><button id="tacoArrivalReset" class="timeReset hidden" type="button" aria-label="Reset tacoArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="tacoArrival">8:56 PM</span><input id="tacoArrivalInput" type="time" value="20:56" aria-label="Adjust taco Arrival, California time"></label></div></div>
+<div class="row"><div class="label">Pickup</div><label class="trailing blue editable"><span id="tacoTargetText">9:00 PM</span><input id="tacoTarget" type="time" value="21:00" aria-label="Tacos Nogales pickup target California time"></label></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Stay</div><label class="trailing blue editable"><span id="tacoStay">10 min</span><input id="tacoPickupMinutes" type="number" min="0" step="5" value="10" aria-label="Tacos Nogales pickup stop duration in minutes"></label></div>
+<div class="row"><div class="label">Dinner</div><label class="trailing blue editable"><span id="tacoSpendText">$15</span><input id="tacoSpend" type="number" min="0" value="15"></label></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="tacoDepartReset" class="timeReset hidden" type="button" aria-label="Reset tacoDepart to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="tacoDepart">9:10 PM</span><input id="tacoDepartInput" type="time" value="21:10" aria-label="Adjust taco Depart, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">10 min drive · planned</div><div class="infoRight">mi TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Cousin's</div><div class="trailing timeControl"><button id="tacoReturnReset" class="timeReset hidden" type="button" aria-label="Reset tacoReturn to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="tacoReturn">9:20 PM</span><input id="tacoReturnInput" type="time" value="21:20" aria-label="Adjust taco Return, California time"></label></div></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Stay</div><div id="tacoEat" class="trailing">25 min</div></div>
+<div class="row"><div class="label">Overnight</div><div class="trailing">Cousin's</div></div></div>
+<div class="group totalGroup"><div class="row"><div class="label">Total</div><div id="wednesdayTotal" class="trailing totalValue">$90</div></div></div>
+</div>
+</section>
+
+<section class="day">
+  <div class="header"><div class="date">Thursday, Nov 19</div></div>
+  <div class="stack flowStack">
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Cousin's</div><div class="trailing timeControl"><button id="breakfastDepartReset" class="timeReset hidden" type="button" aria-label="Reset breakfastDepart to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="breakfastDepart">9:50 AM</span><input id="breakfastDepartInput" type="time" value="09:50" aria-label="Adjust breakfast Depart, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">10 min drive · planned</div><div class="infoRight">mi TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Caramelo Café</div><div class="trailing timeControl"><button id="breakfastArrivalReset" class="timeReset hidden" type="button" aria-label="Reset breakfastArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="breakfastArrival">10:00 AM</span><input id="breakfastArrivalInput" type="time" value="10:00" aria-label="Adjust breakfast Arrival, California time"></label></div></div>
+<div class="row"><div class="label">Target</div><div class="trailing">10:00 AM</div></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Stay</div><div id="breakfastStay" class="trailing">1 hr</div></div>
+<div class="row"><div class="label">Breakfast</div><label class="trailing blue editable"><span id="breakfastSpendText">$20</span><input id="breakfastSpend" type="number" min="0" value="20"></label></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="breakfastLeaveReset" class="timeReset hidden" type="button" aria-label="Reset breakfastLeave to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="breakfastLeave">11:00 AM</span><input id="breakfastLeaveInput" type="time" value="11:00" aria-label="Adjust breakfast Leave, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">10 min drive · planned</div><div class="infoRight">mi TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Cousin's</div><div class="trailing timeControl"><button id="breakfastReturnReset" class="timeReset hidden" type="button" aria-label="Reset breakfastReturn to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="breakfastReturn">11:10 AM</span><input id="breakfastReturnInput" type="time" value="11:10" aria-label="Adjust breakfast Return, California time"></label></div></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="lunchDepartReset" class="timeReset hidden" type="button" aria-label="Reset lunchDepart to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="lunchDepart">12:50 PM</span><input id="lunchDepartInput" type="time" value="12:50" aria-label="Adjust lunch Depart, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">10 min drive · planned</div><div class="infoRight">mi TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Jim's Burgers</div><div class="trailing timeControl"><button id="lunchArrivalReset" class="timeReset hidden" type="button" aria-label="Reset lunchArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="lunchArrival">1:00 PM</span><input id="lunchArrivalInput" type="time" value="13:00" aria-label="Adjust lunch Arrival, California time"></label></div></div>
+<div class="row"><div class="label">Target</div><div class="trailing">1:00 PM</div></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Stay</div><div id="lunchStay" class="trailing">45 min</div></div>
+<div class="row"><div class="label">Lunch</div><label class="trailing blue editable"><span id="lunchSpendText">$15</span><input id="lunchSpend" type="number" min="0" value="15"></label></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="lunchLeaveReset" class="timeReset hidden" type="button" aria-label="Reset lunchLeave to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="lunchLeave">1:45 PM</span><input id="lunchLeaveInput" type="time" value="13:45" aria-label="Adjust lunch Leave, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">10 min drive · planned</div><div class="infoRight">mi TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Cousin's</div><div class="trailing timeControl"><button id="lunchReturnReset" class="timeReset hidden" type="button" aria-label="Reset lunchReturn to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="lunchReturn">1:55 PM</span><input id="lunchReturnInput" type="time" value="13:55" aria-label="Adjust lunch Return, California time"></label></div></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Stay</div><div id="cousinAfternoon" class="trailing">4 hr 35 min</div></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="cousinDepartReset" class="timeReset hidden" type="button" aria-label="Reset cousinDepart to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="cousinDepart">6:30 PM</span><input id="cousinDepartInput" type="time" value="18:30" aria-label="Adjust cousin Depart, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">20 min drive</div><div class="infoRight">5.5 mi · range TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Mom's</div><div class="trailing timeControl"><button id="momArrival1Reset" class="timeReset hidden" type="button" aria-label="Reset momArrival1 to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="momArrival1">6:50 PM</span><input id="momArrival1Input" type="time" value="18:50" aria-label="Adjust mom Arrival1, California time"></label></div></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Stay</div><div id="momSettle" class="trailing">30 min</div></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="momDepartDinnerReset" class="timeReset hidden" type="button" aria-label="Reset momDepartDinner to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="momDepartDinner">7:20 PM</span><input id="momDepartDinnerInput" type="time" value="19:20" aria-label="Adjust mom Depart Dinner, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div id="momDinnerDrive" class="infoLeft">5 min drive · my car</div><div id="momDinnerMiles" class="infoRight">1.0 mi</div></div></div>
+<div class="group stopGroup menuGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span><span class="restaurantName">Rosalie</span></div><div class="trailing timeControl"><button id="dinnerArrivalReset" class="timeReset hidden" type="button" aria-label="Reset dinnerArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="dinnerArrival">7:25 PM</span><input id="dinnerArrivalInput" type="time" value="19:25" aria-label="Adjust dinner Arrival, California time"></label></div></div>
+<div class="row"><div class="label">Target</div><div id="dinnerReservation" class="trailing">7:30 PM</div></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span><span class="stopRole">Stay</span></div><div id="rosalieStay" class="trailing">1 hr</div></div>
+<div class="row decisionRow choice" data-key="momPaid"><button class="decisionTrigger choiceTrigger" type="button" aria-expanded="false" aria-controls="momPaidOptions"><span class="label">Pays</span><span class="decisionValue"><span id="momPaidChoiceText" class="decisionValueText">Mom</span></span></button><div id="momPaidOptions" class="choiceMenu hidden" role="group" aria-label="Pays options"><button class="choiceOption sel" data-v="yes" type="button" aria-pressed="true">Mom</button><button class="choiceOption" data-v="no" type="button" aria-pressed="false">Me</button></div></div>
+<div class="row"><div class="label">Total</div><div id="restaurantTotal" class="trailing totalValue coveredPrice">$50</div></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span><span class="stopRole">Leave</span></div><div class="trailing timeControl"><button id="dinnerDepartDirectReset" class="timeReset hidden" type="button" aria-label="Reset dinnerDepartDirect to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="dinnerDepartDirect">8:30 PM</span><input id="dinnerDepartDirectInput" type="time" value="20:30" aria-label="Adjust dinner Depart Direct, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">5 min drive · my car</div><div class="infoRight">1.0 mi</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Mom's</div><div class="trailing timeControl"><button id="momArrivalDirectReset" class="timeReset hidden" type="button" aria-label="Reset momArrivalDirect to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="momArrivalDirect">8:35 PM</span><input id="momArrivalDirectInput" type="time" value="20:35" aria-label="Adjust mom Arrival Direct, California time"></label></div></div>
+<div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Parking</div><div id="momParkDuration" class="trailing">5 min</div></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="momWalkDepartReset" class="timeReset hidden" type="button" aria-label="Reset momWalkDepart to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="momWalkDepart">8:40 PM</span><input id="momWalkDepartInput" type="time" value="20:40" aria-label="Adjust mom Walk Depart, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">18 min walk · 0.8 mi</div><div></div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Rude Dogs</div><div class="trailing timeControl"><button id="rudeArrivalWalkReset" class="timeReset hidden" type="button" aria-label="Reset rudeArrivalWalk to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="rudeArrivalWalk">8:58 PM</span><input id="rudeArrivalWalkInput" type="time" value="20:58" aria-label="Adjust rude Arrival Walk, California time"></label></div></div>
+<div class="row"><div class="label">Spend</div><label class="trailing blue editable"><span id="rudeSpendText">$0</span><input id="rudeSpend" type="number" value="0"></label></div>
+<div class="row"><div class="label">Stay</div><div id="rudeDuration" class="trailing">2 hr 30 min</div></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="rudeDepartWalkReset" class="timeReset hidden" type="button" aria-label="Reset rudeDepartWalk to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="rudeDepartWalk">11:28 PM</span><input id="rudeDepartWalkInput" type="time" value="23:28" aria-label="Adjust rude Depart Walk, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">18 min walk · 0.8 mi</div><div></div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Mom's</div><div class="trailing timeControl"><button id="momReturnWalkReset" class="timeReset hidden" type="button" aria-label="Reset momReturnWalk to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="momReturnWalk">11:46 PM</span><input id="momReturnWalkInput" type="time" value="23:46" aria-label="Adjust mom Return Walk, California time"></label></div></div>
+<div class="row"><div class="label">Overnight</div><div class="trailing">Mom's</div></div></div>
+<div class="group totalGroup"><div class="row"><div class="label">Total</div><div id="travelTotal" class="trailing totalValue">$35</div></div></div>
+</div>
+</section>
+
+<section class="day"><div class="header"><div class="date">Friday, Nov 20</div></div><div class="stack flowStack">
+<div class="group statusGroup"><div class="row"><div class="label">Status</div><div id="fridayStatus" class="trailing">-55 min</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Mom's</div><div class="trailing timeControl"><button id="fridayDepartureReset" class="timeReset hidden" type="button" aria-label="Reset fridayDeparture to recommended time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayDepartureText">1:15 PM</span><input id="fridayDeparture" type="time" value="13:15" aria-label="Mom's time"></label></div></div>
+<div class="row infoRow"><div class="infoLeft">PT · editable departure</div><div class="infoRight"></div></div></div>
+<div class="journeyBranch hidden" id="fridayPickupBlock"><div class="travelLeg"><div class="row infoRow"><div class="infoLeft">1 hr 30 min drive · planned</div><div class="infoRight">mi TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Temecula</div><div class="trailing timeControl"><button id="fridayPickupArrivalReset" class="timeReset hidden" type="button" aria-label="Reset fridayPickupArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayPickupArrival">2:45 PM</span><input id="fridayPickupArrivalInput" type="time" value="14:45" aria-label="Adjust friday Pickup Arrival, California time"></label></div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4 M12.4 6.8v6.4"></path></svg></span>Pickup</div><label class="trailing blue editable"><span id="fridayPickupMinutesText">30 min</span><input id="fridayPickupMinutes" type="number" min="0" step="5" value="30" aria-label="Pickup + fuel duration in minutes"></label></div>
+<div class="row"><div class="label">Fuel</div><label class="trailing blue editable"><span id="fridayFuelText">$50</span><input id="fridayFuel" type="number" min="0" value="50" aria-label="Fuel amount"></label></div>
+<div class="row infoRow"><div class="infoLeft">Top off planned</div><div class="infoRight">300 mi target</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Temecula</div><div class="trailing timeControl"><button id="fridayPickupDepartureReset" class="timeReset hidden" type="button" aria-label="Reset fridayPickupDeparture to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayPickupDeparture">3:15 PM</span><input id="fridayPickupDepartureInput" type="time" value="15:15" aria-label="Adjust friday Pickup Departure, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">1 hr 20 min drive · planned</div><div class="infoRight">mi TBD</div></div></div></div>
+<div class="journeyBranch hidden" id="fridaySoloBlock"><div class="travelLeg"><div class="row infoRow"><div class="infoLeft">45 min drive · planned</div><div class="infoRight">mi TBD</div></div></div></div>
+<div class="group stopGroup"><div class="row placeEntry hidden" id="fridayHanagiPickupVisible"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Hanagi</div><div class="trailing timeControl"><button id="fridayHanagiArrivalPickupReset" class="timeReset hidden" type="button" aria-label="Reset fridayHanagiArrivalPickup to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayHanagiArrivalPickup">4:35 PM</span><input id="fridayHanagiArrivalPickupInput" type="time" value="16:35" aria-label="Adjust friday Hanagi Arrival Pickup, California time"></label></div></div>
+<div class="row placeEntry hidden" id="fridayHanagiSoloVisible"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Hanagi</div><div class="trailing timeControl"><button id="fridayHanagiArrivalSoloReset" class="timeReset hidden" type="button" aria-label="Reset fridayHanagiArrivalSolo to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayHanagiArrivalSolo">4:55 PM</span><input id="fridayHanagiArrivalSoloInput" type="time" value="16:55" aria-label="Adjust friday Hanagi Arrival Solo, California time"></label></div></div>
+<div class="row"><div class="label">Target</div><div id="fridayDinnerTarget" class="trailing">5:00 PM</div></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4 M12.4 6.8v6.4"></path></svg></span>Stay</div><label class="trailing blue editable"><span id="fridaySushiMinutesText">75 min</span><input id="fridaySushiMinutes" type="number" min="0" step="5" value="75" aria-label="Hanagi duration in minutes"></label></div>
+<div class="row"><div class="label">Sushi</div><label class="trailing blue editable"><span id="fridaySushiSpendText">$110</span><input id="fridaySushiSpend" type="number" min="0" value="110" aria-label="Sushi amount"></label></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="fridayHanagiDepartureReset" class="timeReset hidden" type="button" aria-label="Reset fridayHanagiDeparture to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayHanagiDeparture">6:15 PM</span><input id="fridayHanagiDepartureInput" type="time" value="18:15" aria-label="Adjust friday Hanagi Departure, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">20 min drive · planned</div><div class="infoRight">mi TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>GardenWalk</div><div class="trailing timeControl"><button id="fridayGardenArrivalReset" class="timeReset hidden" type="button" aria-label="Reset fridayGardenArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayGardenArrival">6:35 PM</span><input id="fridayGardenArrivalInput" type="time" value="18:35" aria-label="Adjust friday Garden Arrival, California time"></label></div></div>
+<div class="row"><div class="label">Parking</div><label class="trailing blue editable"><span id="fridayParkingText">$30</span><input id="fridayParking" type="number" min="0" value="30" aria-label="Parking amount"></label></div>
+<div class="row infoRow"><div class="infoLeft">P4 Purple · arrival goal</div><div class="infoRight">7:30 PM</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label">Olivia Rodrigo Night</div><div id="fridayEventTarget" class="trailing">8:00 PM</div></div>
+<div class="row infoRow"><div class="infoLeft">Stan Society DJ night · 18+</div><div class="infoRight">Not live concert</div></div>
+<div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4 M12.4 6.8v6.4"></path></svg></span>House of Blues</div><label class="trailing blue editable"><span id="fridayEventMinutesText">150 min</span><input id="fridayEventMinutes" type="number" min="0" step="5" value="150" aria-label="House of Blues duration in minutes"></label></div>
+<div class="row"><div class="label">Spend</div><label class="trailing blue editable"><span id="fridayEventSpendText">$20</span><input id="fridayEventSpend" type="number" min="0" value="20" aria-label="Event spend amount"></label></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="fridayEventDepartureReset" class="timeReset hidden" type="button" aria-label="Reset fridayEventDeparture to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayEventDeparture">10:30 PM</span><input id="fridayEventDepartureInput" type="time" value="22:30" aria-label="Adjust friday Event Departure, California time"></label></div></div></div>
+<div class="journeyBranch hidden" id="fridayGrandpaBlock"><div class="travelLeg"><div class="row infoRow"><div class="infoLeft">35 min drive · planned</div><div class="infoRight">mi TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Grandpa's</div><div class="trailing timeControl"><button id="fridayGrandpaArrivalReset" class="timeReset hidden" type="button" aria-label="Reset fridayGrandpaArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayGrandpaArrival">11:05 PM</span><input id="fridayGrandpaArrivalInput" type="time" value="23:05" aria-label="Adjust friday Grandpa Arrival, California time"></label></div></div>
+<div class="row"><div class="label">Overnight</div><div id="fridayGrandpaOvernight" class="trailing">Grandpa's</div></div></div></div>
+<div class="journeyBranch hidden" id="fridayReturnDizzyBlock"><div class="travelLeg"><div class="row infoRow"><div class="infoLeft">80 min drive · planned</div><div class="infoRight">mi TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Temecula</div><div class="trailing timeControl"><button id="fridayDropArrivalReset" class="timeReset hidden" type="button" aria-label="Reset fridayDropArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayDropArrival">11:50 PM</span><input id="fridayDropArrivalInput" type="time" value="23:50" aria-label="Adjust friday Drop Arrival, California time"></label></div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4 M12.4 6.8v6.4"></path></svg></span>Drop-off</div><label class="trailing blue editable"><span id="fridayDropMinutesText">10 min</span><input id="fridayDropMinutes" type="number" min="0" step="5" value="10" aria-label="Drop off Dizzy duration in minutes"></label></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Temecula</div><div class="trailing timeControl"><button id="fridayDropDepartureReset" class="timeReset hidden" type="button" aria-label="Reset fridayDropDeparture to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayDropDeparture">12:00 AM +1</span><input id="fridayDropDepartureInput" type="time" value="00:00" aria-label="Adjust friday Drop Departure, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">75 min drive · planned</div><div class="infoRight">mi TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Cousin's</div><div class="trailing timeControl"><button id="fridayReturnArrivalReset" class="timeReset hidden" type="button" aria-label="Reset fridayReturnArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayReturnArrival">1:15 AM +1</span><input id="fridayReturnArrivalInput" type="time" value="01:15" aria-label="Adjust friday Return Arrival, California time"></label></div></div>
+<div class="row"><div class="label">Overnight</div><div id="fridayReturnOvernight" class="trailing">Cousin's</div></div></div></div>
+<div class="group totalGroup"><div class="row"><div class="label">Total</div><div id="fridayTotal" class="trailing">$210</div></div></div>
+</div></section>
+
+<section class="day"><div class="header"><div class="date">Saturday, Nov 21</div></div><div class="stack flowStack">
+<div class="journeyBranch hidden" id="saturdayFromCousin"><div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Cousin's</div><div class="trailing timeControl"><button id="saturdayDepartureReset" class="timeReset hidden" type="button" aria-label="Reset saturdayDeparture to recommended time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayDepartureText">11:20 AM</span><input id="saturdayDeparture" type="time" value="11:20" aria-label="Cousin's time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">40 min drive · planned</div><div class="infoRight">mi TBD</div></div></div></div>
+<div class="group stopGroup"><div class="row placeEntry hidden" id="saturdayGrandpaFromCousinVisible"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Grandpa's</div><div class="trailing timeControl"><button id="saturdayGrandpaArrivalReset" class="timeReset hidden" type="button" aria-label="Reset saturdayGrandpaArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayGrandpaArrival">12:00 PM</span><input id="saturdayGrandpaArrivalInput" type="time" value="12:00" aria-label="Adjust saturday Grandpa Arrival, California time"></label></div></div>
+<div class="row placeEntry hidden" id="saturdayGrandpaStartVisible"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Grandpa's</div><div class="trailing timeControl"><button id="saturdayGrandpaStartReset" class="timeReset hidden" type="button" aria-label="Reset saturdayGrandpaStart to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayGrandpaStart">11:00 AM</span><input id="saturdayGrandpaStartInput" type="time" value="11:00" aria-label="Adjust saturday Grandpa Start, California time"></label></div></div>
+<div class="row"><div class="label">Family time</div><div id="saturdayFamilyTime" class="trailing">6 hr 30 min</div></div>
+<div class="row"><div class="label">Lunch</div><label class="trailing blue editable"><span id="saturdayLunchText">$50</span><input id="saturdayLunch" type="number" min="0" value="50" aria-label="Lunch + snacks amount"></label></div></div>
+<div class="journeyBranch hidden" id="saturdayHangoutTravel"><div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Grandpa's</div><div class="trailing timeControl"><button id="saturdayHangoutLeaveReset" class="timeReset hidden" type="button" aria-label="Reset saturdayHangoutLeave to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayHangoutLeave">6:10 PM</span><input id="saturdayHangoutLeaveInput" type="time" value="18:10" aria-label="Adjust saturday Hangout Leave, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">20 min drive · planned</div><div class="infoRight">mi TBD</div></div></div></div>
+<div class="group stopGroup menuGroup"><div class="row placeEntry hidden" id="saturdayHangoutArrivalVisible"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>The Hangout</div><div class="trailing timeControl"><button id="saturdayHangoutArrivalReset" class="timeReset hidden" type="button" aria-label="Reset saturdayHangoutArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayHangoutArrival">6:30 PM</span><input id="saturdayHangoutArrivalInput" type="time" value="18:30" aria-label="Adjust saturday Hangout Arrival, California time"></label></div></div>
+<div class="row decisionRow choice" data-key="satDinner"><button class="decisionTrigger choiceTrigger" type="button" aria-expanded="false" aria-controls="satDinnerOptions"><span class="label">Dinner</span><span class="decisionValue"><span id="satDinnerChoiceText" class="decisionValueText">TBD</span></span></button><div id="satDinnerOptions" class="choiceMenu hidden" role="group" aria-label="Dinner options"><button class="choiceOption sel" data-v="tbd" type="button" aria-pressed="true">TBD</button><button class="choiceOption" data-v="grandpa" type="button" aria-pressed="false">Grandpa</button><button class="choiceOption" data-v="hangout" type="button" aria-pressed="false">Hangout</button></div></div>
+<div class="row"><div class="label">Budget</div><label class="trailing blue editable"><span id="saturdayDinnerSpendText">$85</span><input id="saturdayDinnerSpend" type="number" min="0" value="85" aria-label="Dinner reserve amount"></label></div>
+<div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4 M12.4 6.8v6.4"></path></svg></span>Dinner</div><label class="trailing blue editable"><span id="saturdayDinnerMinutesText">60 min</span><input id="saturdayDinnerMinutes" type="number" min="0" step="5" value="60" aria-label="Dinner duration in minutes"></label></div>
+<div class="row"><div class="label">Target</div><label class="trailing blue editable"><span id="saturdayDinnerTimeText">6:30 PM</span><input id="saturdayDinnerTime" type="time" value="18:30" aria-label="Dinner target time"></label></div></div>
+<div class="group menuGroup"><div class="row decisionRow choice" data-key="satKaraoke"><button class="decisionTrigger choiceTrigger" type="button" aria-expanded="false" aria-controls="satKaraokeOptions"><span class="label">Karaoke</span><span class="decisionValue"><span id="satKaraokeChoiceText" class="decisionValueText">No</span></span></button><div id="satKaraokeOptions" class="choiceMenu hidden" role="group" aria-label="Karaoke options"><button class="choiceOption sel" data-v="no" type="button" aria-pressed="true">No</button><button class="choiceOption" data-v="yes" type="button" aria-pressed="false">Yes</button></div></div></div>
+<div class="journeyBranch hidden" id="saturdayKaraokeBlock"><div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Dinner</div><div class="trailing timeControl"><button id="saturdayKaraokeLeaveReset" class="timeReset hidden" type="button" aria-label="Reset saturdayKaraokeLeave to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayKaraokeLeave">7:30 PM</span><input id="saturdayKaraokeLeaveInput" type="time" value="19:30" aria-label="Adjust saturday Karaoke Leave, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">15 min drive · planned</div><div class="infoRight">mi TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Shanghai'd Room</div><div class="trailing timeControl"><button id="saturdayKaraokeArrivalReset" class="timeReset hidden" type="button" aria-label="Reset saturdayKaraokeArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayKaraokeArrival">7:45 PM</span><input id="saturdayKaraokeArrivalInput" type="time" value="19:45" aria-label="Adjust saturday Karaoke Arrival, California time"></label></div></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4 M12.4 6.8v6.4"></path></svg></span>Stay</div><label class="trailing blue editable"><span id="saturdayKaraokeMinutesText">90 min</span><input id="saturdayKaraokeMinutes" type="number" min="0" step="5" value="90" aria-label="Shanghai'd Room duration in minutes"></label></div>
+<div class="row"><div class="label">Spend</div><label class="trailing blue editable"><span id="saturdayKaraokeSpendText">$35</span><input id="saturdayKaraokeSpend" type="number" min="0" value="35" aria-label="Karaoke spend amount"></label></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="saturdayKaraokeDepartureReset" class="timeReset hidden" type="button" aria-label="Reset saturdayKaraokeDeparture to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayKaraokeDeparture">9:30 PM</span><input id="saturdayKaraokeDepartureInput" type="time" value="21:30" aria-label="Adjust saturday Karaoke Departure, California time"></label></div></div></div></div>
+<div class="journeyBranch hidden" id="saturdayTemeculaReturn"><div class="travelLeg"><div class="row infoRow"><div class="infoLeft">85 min drive · planned</div><div class="infoRight">mi TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Temecula</div><div class="trailing timeControl"><button id="saturdayTemeculaArrivalReset" class="timeReset hidden" type="button" aria-label="Reset saturdayTemeculaArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayTemeculaArrival">8:55 PM</span><input id="saturdayTemeculaArrivalInput" type="time" value="20:55" aria-label="Adjust saturday Temecula Arrival, California time"></label></div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4 M12.4 6.8v6.4"></path></svg></span>Drop-off</div><label class="trailing blue editable"><span id="saturdayDropMinutesText">10 min</span><input id="saturdayDropMinutes" type="number" min="0" step="5" value="10" aria-label="Drop off Dizzy duration in minutes"></label></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Temecula</div><div class="trailing timeControl"><button id="saturdayTemeculaDepartReset" class="timeReset hidden" type="button" aria-label="Reset saturdayTemeculaDepart to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayTemeculaDepart">9:05 PM</span><input id="saturdayTemeculaDepartInput" type="time" value="21:05" aria-label="Adjust saturday Temecula Depart, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">75 min drive · planned</div><div class="infoRight">mi TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Cousin's</div><div class="trailing timeControl"><button id="saturdayCousinArrivalWithDizzyReset" class="timeReset hidden" type="button" aria-label="Reset saturdayCousinArrivalWithDizzy to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayCousinArrivalWithDizzy">10:20 PM</span><input id="saturdayCousinArrivalWithDizzyInput" type="time" value="22:20" aria-label="Adjust saturday Cousin Arrival With Dizzy, California time"></label></div></div></div></div>
+<div class="journeyBranch hidden" id="saturdayDirectReturn"><div class="travelLeg"><div class="row infoRow"><div class="infoLeft">45 min drive · planned</div><div class="infoRight">mi TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Cousin's</div><div class="trailing timeControl"><button id="saturdayCousinArrivalSoloReset" class="timeReset hidden" type="button" aria-label="Reset saturdayCousinArrivalSolo to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayCousinArrivalSolo">8:15 PM</span><input id="saturdayCousinArrivalSoloInput" type="time" value="20:15" aria-label="Adjust saturday Cousin Arrival Solo, California time"></label></div></div></div></div>
+<div class="group supportGroup"><div class="row"><div class="label">Overnight</div><div id="saturdayOvernight" class="trailing">Cousin's</div></div></div>
+<div class="group totalGroup"><div class="row"><div class="label">Total</div><div id="saturdayTotal" class="trailing">$135</div></div></div>
+</div></section>
+
+<section class="day"><div class="header"><div class="date">Sunday, Nov 22</div></div><div class="stack flowStack">
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Cousin's</div><div class="trailing timeControl"><button id="sundayBreakfastDepartureReset" class="timeReset hidden" type="button" aria-label="Reset sundayBreakfastDeparture to recommended time" title="Use estimated time">↺</button><label class="blue editable"><span id="sundayBreakfastDepartureText">9:50 AM</span><input id="sundayBreakfastDeparture" type="time" value="09:50" aria-label="Cousin's time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">10 min drive · planned</div><div class="infoRight">mi TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Caramelo Café</div><div class="trailing timeControl"><button id="sundayBreakfastArrivalReset" class="timeReset hidden" type="button" aria-label="Reset sundayBreakfastArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="sundayBreakfastArrival">10:00 AM</span><input id="sundayBreakfastArrivalInput" type="time" value="10:00" aria-label="Adjust sunday Breakfast Arrival, California time"></label></div></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4 M12.4 6.8v6.4"></path></svg></span>Stay</div><label class="trailing blue editable"><span id="sundayBreakfastMinutesText">60 min</span><input id="sundayBreakfastMinutes" type="number" min="0" step="5" value="60" aria-label="Caramelo Café duration in minutes"></label></div>
+<div class="row"><div class="label">Breakfast</div><label class="trailing blue editable"><span id="sundayBreakfastSpendText">$45</span><input id="sundayBreakfastSpend" type="number" min="0" value="45" aria-label="Breakfast amount"></label></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="sundayBreakfastEndReset" class="timeReset hidden" type="button" aria-label="Reset sundayBreakfastEnd to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="sundayBreakfastEnd">11:00 AM</span><input id="sundayBreakfastEndInput" type="time" value="11:00" aria-label="Adjust sunday Breakfast End, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">10 min drive · planned</div><div class="infoRight">mi TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Cousin's</div><div class="trailing timeControl"><button id="sundayCousinReturnReset" class="timeReset hidden" type="button" aria-label="Reset sundayCousinReturn to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="sundayCousinReturn">11:10 AM</span><input id="sundayCousinReturnInput" type="time" value="11:10" aria-label="Adjust sunday Cousin Return, California time"></label></div></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4 M12.4 6.8v6.4"></path></svg></span>Stay</div><label class="trailing blue editable"><span id="sundayPackMinutesText">30 min</span><input id="sundayPackMinutes" type="number" min="0" step="5" value="30" aria-label="Cousin's duration in minutes"></label></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="sundayLeaveCaliforniaReset" class="timeReset hidden" type="button" aria-label="Reset sundayLeaveCalifornia to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="sundayLeaveCalifornia">11:40 AM</span><input id="sundayLeaveCaliforniaInput" type="time" value="11:40" aria-label="Adjust sunday Leave California, California time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">3 hr 10 min drive · planned</div><div class="infoRight">mi TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Ehrenberg</div><div class="trailing timeControl"><button id="sundayEhrenbergArrivalReset" class="timeReset hidden" type="button" aria-label="Reset sundayEhrenbergArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="sundayEhrenbergArrival">3:50 PM AZ</span><input id="sundayEhrenbergArrivalInput" type="time" value="15:50" aria-label="Adjust sunday Ehrenberg Arrival, Arizona time"></label></div></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4 M12.4 6.8v6.4"></path></svg></span>Stay</div><label class="trailing blue editable"><span id="sundayStopMinutesText">15 min</span><input id="sundayStopMinutes" type="number" min="0" step="5" value="15" aria-label="Ehrenberg duration in minutes"></label></div>
+<div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="sundayEhrenbergDepartureReset" class="timeReset hidden" type="button" aria-label="Reset sundayEhrenbergDeparture to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="sundayEhrenbergDeparture">4:05 PM AZ</span><input id="sundayEhrenbergDepartureInput" type="time" value="16:05" aria-label="Adjust sunday Ehrenberg Departure, Arizona time"></label></div></div></div>
+<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">2 hr 11 min drive · planned</div><div class="infoRight">mi TBD</div></div></div>
+<div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Home</div><div class="trailing timeControl"><button id="sundayHomeArrivalReset" class="timeReset hidden" type="button" aria-label="Reset sundayHomeArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="sundayHomeArrival">6:16 PM AZ</span><input id="sundayHomeArrivalInput" type="time" value="18:16" aria-label="Adjust sunday Home Arrival, Arizona time"></label></div></div></div>
+<div class="group supportGroup"><div class="row"><div class="label">Fuel</div><label class="trailing blue editable"><span id="sundayFuelText">$85</span><input id="sundayFuel" type="number" min="0" value="85" aria-label="Remaining trip fuel amount"></label></div>
+<div class="row infoRow"><div class="infoLeft">Later top-offs · locations TBD</div><div class="infoRight"></div></div>
+<div class="row"><div class="label">Road snacks</div><label class="trailing blue editable"><span id="sundaySnacksText">$10</span><input id="sundaySnacks" type="number" min="0" value="10" aria-label="Road snacks amount"></label></div></div>
+<div class="group totalGroup"><div class="row"><div class="label">Total</div><div id="sundayTotal" class="trailing">$140</div></div></div>
+</div></section>
+
+<section class="day"><div class="header"><div class="date">Trip budget</div></div><div class="stack">
+<div class="group"><div class="row"><div class="label">Trip expenses</div><div id="tripExpenses" class="trailing">$660</div></div>
+<div class="row"><div class="label">Haircut · prep</div><div id="budgetHaircut" class="trailing">$35</div></div>
+<div class="row"><div class="label">Contingency</div><label class="trailing blue editable"><span id="tripBufferText">$50</span><input id="tripBuffer" type="number" min="0" value="50" aria-label="Contingency amount"></label></div></div>
+<div class="group"><div class="row"><div class="label">Grand total</div><div id="grandTotal" class="trailing">$745</div></div></div>
+<div class="group"><div class="row"><div class="label">Fuel included</div><div id="budgetFuel" class="trailing">$200</div></div>
+<div class="row"><div class="label">Tickets included</div><div id="budgetTickets" class="trailing">$50</div></div>
+<div class="row"><div class="label">Planned lodging</div><div id="budgetLodging" class="trailing">$0</div></div></div>
+</div></section>
+
+<div class="buildVersion" aria-label="Babel Trip preview version">v1.6.0-preview</div>
+<script>
+(function(){
+  var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
+  var $=function(s){return r.querySelector(s)}, allNodes=function(s){return Array.from(r.querySelectorAll(s))};
+  var state={dizzy:'weekend',momPaid:'yes',ticketCount:2,satDinner:'tbd',satKaraoke:'no'};
+  var arrivalOverrides={ehrenberg:null,cousin:null};
+  var clockOverrides={},savedStopBeforeOverride={};
+  var checkpointIds=["homeArrival","quartzDepart","tacoStartDrive","tacoArrival","tacoDepart","tacoReturn","breakfastDepart","breakfastArrival","breakfastLeave","breakfastReturn","lunchDepart","lunchArrival","lunchLeave","lunchReturn","cousinDepart","momArrival1","momDepartDinner","dinnerArrival","dinnerDepartDirect","momArrivalDirect","momWalkDepart","rudeArrivalWalk","rudeDepartWalk","momReturnWalk","fridayPickupArrival","fridayPickupDeparture","fridayHanagiArrivalPickup","fridayHanagiArrivalSolo","fridayHanagiDeparture","fridayGardenArrival","fridayEventDeparture","fridayGrandpaArrival","fridayDropArrival","fridayDropDeparture","fridayReturnArrival","saturdayGrandpaArrival","saturdayGrandpaStart","saturdayHangoutLeave","saturdayHangoutArrival","saturdayKaraokeLeave","saturdayKaraokeArrival","saturdayKaraokeDeparture","saturdayTemeculaArrival","saturdayTemeculaDepart","saturdayCousinArrivalWithDizzy","saturdayCousinArrivalSolo","sundayBreakfastArrival","sundayBreakfastEnd","sundayCousinReturn","sundayLeaveCalifornia","sundayEhrenbergArrival","sundayEhrenbergDeparture","sundayHomeArrival"];
+  function fmt(n){n=((n%1440)+1440)%1440;var h=Math.floor(n/60),m=n%60;return (((h+11)%12)+1)+':'+String(m).padStart(2,'0')+' '+(h>=12?'PM':'AM')}
+  function closeChoices(except){
+    allNodes('.choice').forEach(function(choice){
+      if(choice===except)return;
+      choice.querySelector('.choiceMenu').classList.add('hidden');
+      choice.querySelector('.choiceTrigger').setAttribute('aria-expanded','false');
+      choice.classList.remove('menuOpen');
+    });
+  }
+  allNodes('.choice').forEach(function(choice){
+    var trigger=choice.querySelector('.choiceTrigger'),menu=choice.querySelector('.choiceMenu'),key=choice.dataset.key;
+    trigger.addEventListener('click',function(e){
+      e.stopPropagation();
+      var opening=menu.classList.contains('hidden');
+      closeChoices(choice);
+      menu.classList.toggle('hidden',!opening);
+      trigger.setAttribute('aria-expanded',opening?'true':'false');
+      choice.classList.toggle('menuOpen',opening);
+    });
+    choice.querySelectorAll('.choiceOption').forEach(function(button){
+      button.addEventListener('click',function(e){
+        e.stopPropagation();
+        state[key]=key==='dinner'?Number(button.dataset.v):button.dataset.v;
+        if(key==='dizzy')state.ticketCount=state.dizzy==='none'?1:2;
+        closeChoices();
+        render();
+        trigger.focus();
+      });
+    });
+  });
+  r.addEventListener('click',function(e){if(!e.target.closest('.choice'))closeChoices()});
+  document.addEventListener('click',function(e){if(!r.contains(e.target))closeChoices()});
+  r.addEventListener('keydown',function(e){
+    if(e.key!=='Escape')return;
+    var opened=allNodes('.choice').find(function(c){return !c.querySelector('.choiceMenu').classList.contains('hidden')});
+    if(opened){e.preventDefault();closeChoices();opened.querySelector('.choiceTrigger').focus()}
+  });
+  var pf=$('#prepFuel'),qf=$('#qsFuel'),sn=$('#snacks'),stop=$('#stopMinutes'),dep=$('#departure'),tt=$('#tacoTarget'),
+      hs=$('#homeStopMinutes'),hd=$('#homeDepartInput'),ea=$('#quartzArrivalInput'),caInput=$('#cousinArrivalInput'),
+      ts=$('#tacoSpend'),tp=$('#tacoPickupMinutes'),cs=$('#cousinSettleMinutes'),bs=$('#breakfastSpend'),ls=$('#lunchSpend'),rs=$('#rudeSpend');
+  // Automatic timing is a planning preference, not a restriction on actual stop length.
+  // Editing Home stay holds duration; editing Leave Home holds departure clock time.
+  var homeMode='auto',homeDepartureManual=null;
+  [pf,qf,sn,tt,ts,bs,ls,rs].forEach(function(x){x.addEventListener('input',render)});
+  var workEdited=false,sundayEdited=false;
+  dep.addEventListener('input',function(){workEdited=true;render()});
+  stop.addEventListener('input',function(){delete clockOverrides.quartzDepart;delete savedStopBeforeOverride.quartzDepart;render()});
+  tp.addEventListener('input',function(){delete clockOverrides.tacoDepart;delete savedStopBeforeOverride.tacoDepart;render()});
+  cs.addEventListener('input',function(){
+    // Last edit wins: an explicit stay changes the recommended departure.
+    delete clockOverrides.tacoStartDrive;
+    delete savedStopBeforeOverride.tacoStartDrive;
+    render();
+  });
+  hs.addEventListener('input',function(){homeMode='stay';render()});
+  hd.addEventListener('change',function(){
+    var n=timeMinutes(hd.value);
+    if(n===null)return;
+    homeDepartureManual=n;homeMode='depart';render();
+  });
+  $('#homeDepartReset').addEventListener('click',function(){homeMode='auto';homeDepartureManual=null;render()});
+  var fridayDepartEdited=false,saturdayDepartEdited=false,customAmounts={};
+  var newControlIds=['fridayDeparture','fridayPickupMinutes','fridayFuel','fridaySushiMinutes','fridaySushiSpend','fridayParking','fridayEventMinutes','fridayEventSpend','fridayDropMinutes','saturdayDeparture','saturdayLunch','saturdayDinnerSpend','saturdayDinnerTime','saturdayDinnerMinutes','saturdayKaraokeMinutes','saturdayKaraokeSpend','saturdayDropMinutes','sundayBreakfastDeparture','sundayBreakfastMinutes','sundayBreakfastSpend','sundayPackMinutes','sundayStopMinutes','sundayFuel','sundaySnacks','tripBuffer'];
+  newControlIds.forEach(function(id){$('#'+id).addEventListener('input',function(){if(id==='fridayDeparture')fridayDepartEdited=true;if(id==='saturdayDeparture')saturdayDepartEdited=true;if(id==='sundayBreakfastDeparture')sundayEdited=true;if(['fridayFuel','fridaySushiSpend','fridayEventSpend','saturdayLunch','saturdayDinnerSpend','saturdayKaraokeSpend'].indexOf(id)>=0)customAmounts[id]=true;if(pauseDependencies[id]){delete savedStopBeforeOverride[pauseDependencies[id]];delete clockOverrides[pauseDependencies[id]]}render()})});
+
+  var pauseDependencies={
+    fridayPickupMinutes:'fridayPickupDeparture',
+    fridaySushiMinutes:'fridayHanagiDeparture',
+    fridayEventMinutes:'fridayEventDeparture',
+    fridayDropMinutes:'fridayDropDeparture',
+    saturdayKaraokeMinutes:'saturdayKaraokeDeparture',
+    saturdayDropMinutes:'saturdayTemeculaDepart',
+    sundayBreakfastMinutes:'sundayBreakfastEnd',
+    sundayPackMinutes:'sundayLeaveCalifornia',
+    sundayStopMinutes:'sundayEhrenbergDeparture'
+  };
+  var departurePauseInputs={quartzDepart:'stopMinutes',tacoDepart:'tacoPickupMinutes',tacoStartDrive:'cousinSettleMinutes'};
+  Object.keys(pauseDependencies).forEach(function(pause){departurePauseInputs[pauseDependencies[pause]]=pause});
+  checkpointIds.forEach(function(id){
+    var field=$('#'+id+'Input'),reset=$('#'+id+'Reset');
+    field.addEventListener('change',function(){
+      var value=timeMinutes(field.value);
+      if(value===null)return;
+      if(!Object.prototype.hasOwnProperty.call(clockOverrides,id)&&departurePauseInputs[id])savedStopBeforeOverride[id]=$('#'+departurePauseInputs[id]).value;
+      clockOverrides[id]=value;render();
+    });
+    reset.addEventListener('click',function(){
+      delete clockOverrides[id];
+      if(departurePauseInputs[id]&&Object.prototype.hasOwnProperty.call(savedStopBeforeOverride,id)){
+        $('#'+departurePauseInputs[id]).value=savedStopBeforeOverride[id];
+        delete savedStopBeforeOverride[id];
+      }
+      render();
+    });
+  });
+  $('#departureReset').addEventListener('click',function(){workEdited=false;dep.value='15:15';render()});
+  $('#fridayDepartureReset').addEventListener('click',function(){fridayDepartEdited=false;render()});
+  $('#saturdayDepartureReset').addEventListener('click',function(){saturdayDepartEdited=false;render()});
+  $('#sundayBreakfastDepartureReset').addEventListener('click',function(){sundayEdited=false;$('#sundayBreakfastDeparture').value='09:50';render()});
+  function timeMinutes(value){if(!/^\d\d:\d\d$/.test(value))return null;var a=value.split(':').map(Number);return a[0]*60+a[1]}
+  function timeInput(n){n=((n%1440)+1440)%1440;return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
+  // Place a clock-only adjustment on the nearest plausible day, including just past midnight.
+  function nearClock(n,estimate){if(n===null)return estimate;return [n-1440,n,n+1440].reduce(function(best,v){return Math.abs(v-estimate)<Math.abs(best-estimate)?v:best},n)}
+  ea.addEventListener('change',function(){arrivalOverrides.ehrenberg=timeMinutes(ea.value);render()});
+  caInput.addEventListener('change',function(){arrivalOverrides.cousin=timeMinutes(caInput.value);render()});
+  $('#quartzArrivalReset').addEventListener('click',function(){arrivalOverrides.ehrenberg=null;render()});
+  $('#cousinArrivalReset').addEventListener('click',function(){arrivalOverrides.cousin=null;render()});
+  function amount(input,id){
+    var v=Math.max(0,Number(input.value)||0);
+    $('#'+id+'Text').textContent='$'+v.toFixed(0);
+    return v;
+  }
+
+  function formatDuration(n){
+    n=Math.max(0,Math.round(n));
+    var h=Math.floor(n/60),m=n%60;
+    return (h?h+' hr'+(m?' ':''):'')+(m?m+' min':'');
+  }
+  // Use the recommendation unless reality was manually recorded here.
+  // Actual overrides do not rewrite upstream history or change route mileage.
+  function checkpoint(id,recommended,zone,earliest){
+    var custom=Object.prototype.hasOwnProperty.call(clockOverrides,id);
+    var n=custom?nearClock(clockOverrides[id],recommended):recommended;
+    $('#'+id).textContent=fmtDay(n)+(zone?' '+zone:'');
+    $('#'+id+'Input').value=timeInput(n);
+    $('#'+id+'Reset').classList.toggle('hidden',!custom);
+    $('#'+id).classList.toggle('red',earliest!==undefined&&n<earliest);
+    return n;
+  }
+  function show(id,yes){$('#'+id).classList.toggle('hidden',!yes)}
+  function put(id,v){$('#'+id).textContent=v}
+  function minutes(id){return Math.max(0,Number($('#'+id).value)||0)}
+  function paid(id){return amount($('#'+id),id)}
+  function duration(id){var n=minutes(id);put(id+'Text',n+' min');return n}
+  function setTime(id,v){put(id+'Text',fmt(v));$('#'+id).value=timeInput(v)}
+  function defaultAmount(id,n){if(!customAmounts[id])$('#'+id).value=n}
+  function fmtDay(v){return fmt(v)+(v>=1440?' +1':'')}
+  function render(){
+    var fuel=amount(pf,'prepFuel'),topoff=amount(qf,'qsFuel'),snacks=amount(sn,'snacks'),
+        tacoCost=amount(ts,'tacoSpend'),breakfastCost=amount(bs,'breakfastSpend'),
+        lunchCost=amount(ls,'lunchSpend'),rudeCost=amount(rs,'rudeSpend');
+    allNodes('.choice').forEach(function(choice){
+      var key=choice.dataset.key,selected=null;
+      choice.querySelectorAll('.choiceOption').forEach(function(button){
+        var isSelected=state[key]===button.dataset.v;
+        button.classList.toggle('sel',isSelected);
+        button.setAttribute('aria-pressed',isSelected?'true':'false');
+        if(isSelected)selected=button;
+      });
+      choice.querySelector('.decisionValueText').textContent=selected?selected.textContent:'';
+    });
+    $('#ticketLabel').textContent=state.ticketCount===1?'Ticket':'Tickets';
+    $('#ticketsValue').textContent='$'+(state.ticketCount===1?25:50);
+    $('#prepTotal').textContent='$'+(35+(state.ticketCount===1?25:50)).toFixed(0);
+
+
+    // Wednesday · AZ travel to Cousin's (PT), then grab Tacos Nogales.
+    var d0=timeMinutes(dep.value);if(d0===null)d0=915;
+    var homeArr=checkpoint('homeArrival',d0+16,'',d0);
+    var homeStay,homeDep;
+    if(homeMode==='auto'){
+      homeStay=Math.max(5,Math.min(30,960-homeArr));
+      homeDep=homeArr+homeStay;
+    }else if(homeMode==='depart'){
+      homeDep=Math.max(homeArr,nearClock(homeDepartureManual,homeArr+15));
+      homeStay=homeDep-homeArr;
+    }else{
+      homeStay=Math.max(0,Number(hs.value)||0);
+      homeDep=homeArr+homeStay;
+    }
+    var qaEstimate=homeDep+131,qa=nearClock(arrivalOverrides.ehrenberg,qaEstimate);
+    var stopDur=Math.max(0,Number(stop.value)||0);
+    var qd=checkpoint('quartzDepart',qa+stopDur,'',qa);
+    if(Object.prototype.hasOwnProperty.call(clockOverrides,'quartzDepart'))stopDur=Math.max(0,qd-qa);
+    var caEstimate=qd+190-60,ca=nearClock(arrivalOverrides.cousin,caEstimate);
+    var tacoTarget=timeMinutes(tt.value);if(tacoTarget===null)tacoTarget=1260;
+    var cousinStay=Math.max(0,Number(cs.value)||0);
+    var tacoDriveOut=checkpoint('tacoStartDrive',ca+cousinStay,'',ca);
+    if(Object.prototype.hasOwnProperty.call(clockOverrides,'tacoStartDrive')){
+      cousinStay=Math.max(0,tacoDriveOut-ca);
+      cs.value=String(cousinStay);
+    }
+    var tacoArr=checkpoint('tacoArrival',tacoDriveOut+10,'',tacoDriveOut);
+    var pickupStart=Math.max(tacoTarget,tacoArr),pickupDur=Math.max(0,Number(tp.value)||0);
+    var tacoLeave=checkpoint('tacoDepart',pickupStart+pickupDur,'',tacoArr);
+    if(Object.prototype.hasOwnProperty.call(clockOverrides,'tacoDepart'))pickupDur=Math.max(0,tacoLeave-pickupStart);
+    var tacoBack=checkpoint('tacoReturn',tacoLeave+10,'',tacoLeave);
+    var closeMargin=1440-tacoLeave;
+    $('#departureText').textContent=fmt(d0);
+    $('#departureReset').classList.toggle('hidden',!workEdited);
+    $('#homeStopText').textContent=homeStay+' min';
+    hs.value=String(homeStay);
+    $('#homeDepart').textContent=fmtDay(homeDep);
+    hd.value=timeInput(homeDep);
+    $('#homeDepartReset').classList.toggle('hidden',homeMode==='auto');
+    $('#homeDepart').classList.toggle('red',homeDep>960);
+    $('#quartzArrival').textContent=fmtDay(qa);
+    ea.value=timeInput(qa);
+    $('#quartzArrivalReset').classList.toggle('hidden',arrivalOverrides.ehrenberg===null);
+    $('#quartzArrival').classList.toggle('red',qa<homeDep);
+    $('#stopText').textContent=stopDur+' min';
+    if(Object.prototype.hasOwnProperty.call(clockOverrides,'quartzDepart'))stop.value=String(stopDur);
+    $('#cousinArrival').textContent=fmtDay(ca)+' PT';
+    caInput.value=timeInput(ca);
+    $('#cousinArrivalReset').classList.toggle('hidden',arrivalOverrides.cousin===null);
+    $('#cousinArrival').classList.toggle('red',ca<qd-60);
+    $('#cousinSettle').textContent=formatDuration(cousinStay);
+    $('#tacoTargetText').textContent=fmt(tacoTarget);
+    $('#tacoStay').textContent=pickupDur+' min';
+    if(Object.prototype.hasOwnProperty.call(clockOverrides,'tacoDepart'))tp.value=String(pickupDur);
+    $('#tacoEat').textContent='25 min';
+    $('#wednesdayTotal').textContent='$'+(fuel+topoff+snacks+tacoCost).toFixed(0);
+    $('#statusValue').textContent=closeMargin>0?'-'+closeMargin+' min':closeMargin<0?'+'+(-closeMargin)+' min':'GOOD';
+    $('#statusValue').classList.toggle('good',closeMargin>0);
+    $('#statusValue').classList.toggle('red',closeMargin<0);
+    $('#tacoArrival').classList.toggle('red',tacoArr<tacoDriveOut||tacoArr>=1440);
+    $('#tacoDepart').classList.toggle('red',tacoLeave<tacoArr||tacoLeave>1440);
+
+    // Thursday · breakfast/lunch keep their preferred clock targets,
+    // while real arrival/departure corrections flow through each leg.
+    var breakfastDep=checkpoint('breakfastDepart',590);
+    var breakfastArr=checkpoint('breakfastArrival',breakfastDep+10,'',breakfastDep);
+    var breakfastStart=Math.max(600,breakfastArr);
+    var breakfastLeave=checkpoint('breakfastLeave',breakfastStart+60,'',breakfastArr);
+    var breakfastBack=checkpoint('breakfastReturn',breakfastLeave+10,'',breakfastLeave);
+    var lunchDep=checkpoint('lunchDepart',Math.max(770,breakfastBack),'',breakfastBack);
+    var lunchArr=checkpoint('lunchArrival',lunchDep+10,'',lunchDep);
+    var lunchStart=Math.max(780,lunchArr);
+    var lunchLeave=checkpoint('lunchLeave',lunchStart+45,'',lunchArr);
+    var lunchBack=checkpoint('lunchReturn',lunchLeave+10,'',lunchLeave);
+    var cd=checkpoint('cousinDepart',Math.max(1110,lunchBack),'',lunchBack);
+    var ma=checkpoint('momArrival1',cd+20,'',cd);
+    var md=checkpoint('momDepartDinner',ma+30,'',ma);
+    var da=checkpoint('dinnerArrival',md+5,'',md),dinner=1170;
+    var dd=checkpoint('dinnerDepartDirect',Math.max(da,dinner)+60,'',da);
+    var mom2=checkpoint('momArrivalDirect',dd+5,'',dd);
+    var momDep=checkpoint('momWalkDepart',mom2+5,'',mom2);
+    var rudeA=checkpoint('rudeArrivalWalk',momDep+18,'',momDep);
+    var rudeD=checkpoint('rudeDepartWalk',rudeA+150,'',rudeA);
+    var walkBack=checkpoint('momReturnWalk',rudeD+18,'',rudeD);
+    $('#breakfastStay').textContent=formatDuration(breakfastLeave-breakfastStart);
+    $('#lunchStay').textContent=formatDuration(lunchLeave-lunchStart);
+    $('#cousinAfternoon').textContent=formatDuration(cd-lunchBack);
+    $('#cousinAfternoon').classList.toggle('red',cd<lunchBack);
+    $('#momSettle').textContent=formatDuration(md-ma);
+    $('#rosalieStay').textContent=formatDuration(dd-Math.max(da,dinner));
+    $('#momParkDuration').textContent=formatDuration(momDep-mom2);
+    $('#rudeDuration').textContent=formatDuration(rudeD-rudeA);
+    $('#dinnerReservation').textContent=fmt(dinner);
+    $('#restaurantTotal').textContent='$50';
+    $('#restaurantTotal').classList.toggle('coveredPrice',state.momPaid==='yes');
+    $('#dinnerArrival').classList.toggle('red',da>dinner||da<md);
+    $('#rudeArrivalWalk').classList.toggle('red',rudeA>1290||rudeA<momDep);
+    $('#travelTotal').textContent='$'+(breakfastCost+lunchCost+rudeCost+(state.momPaid==='yes'?0:50)).toFixed(0);
+    renderRest(fuel,topoff,snacks,tacoCost,breakfastCost,lunchCost,rudeCost);
+  }
+  render();
+  function renderRest(fuel,topoff,snacks,tacoCost,breakfastCost,lunchCost,rudeCost){
+
+    // Friday · Mom's departure, optional Temecula pickup, event and overnight.
+    var withDizzy=state.dizzy!=='none',weekend=state.dizzy==='weekend';
+    if(!fridayDepartEdited)$('#fridayDeparture').value=withDizzy?'13:15':'16:10';
+    defaultAmount('fridaySushiSpend',withDizzy?110:65);
+    defaultAmount('fridayEventSpend',withDizzy?20:10);
+    defaultAmount('saturdayLunch',weekend?50:25);
+    defaultAmount('saturdayDinnerSpend',weekend?85:45);
+    defaultAmount('saturdayKaraokeSpend',weekend?35:20);
+    var fd=timeMinutes($('#fridayDeparture').value);if(fd===null)fd=withDizzy?795:970;
+    setTime('fridayDeparture',fd);
+    $('#fridayDepartureReset').classList.toggle('hidden',!fridayDepartEdited);
+    show('fridayPickupBlock',withDizzy);show('fridaySoloBlock',!withDizzy);show('fridayHanagiPickupVisible',withDizzy);show('fridayHanagiSoloVisible',!withDizzy);
+    var pickupArr=checkpoint('fridayPickupArrival',fd+90,'',fd);
+    var pickupDur=duration('fridayPickupMinutes');
+    var pickupLeave=checkpoint('fridayPickupDeparture',pickupArr+pickupDur,'',pickupArr);
+    if(Object.prototype.hasOwnProperty.call(clockOverrides,'fridayPickupDeparture')){
+      pickupDur=Math.max(0,pickupLeave-pickupArr);
+      $('#fridayPickupMinutes').value=String(pickupDur);
+      put('fridayPickupMinutesText',pickupDur+' min');
+    }
+    var hanagiPickup=checkpoint('fridayHanagiArrivalPickup',pickupLeave+80,'',pickupLeave);
+    var hanagiSolo=checkpoint('fridayHanagiArrivalSolo',fd+45,'',fd);
+    var hanagiArr=withDizzy?hanagiPickup:hanagiSolo;
+    var sushiStart=Math.max(1020,hanagiArr),sushiDuration=duration('fridaySushiMinutes');
+    var sushiEnd=checkpoint('fridayHanagiDeparture',sushiStart+sushiDuration,'',hanagiArr);
+    if(Object.prototype.hasOwnProperty.call(clockOverrides,'fridayHanagiDeparture')){
+      sushiDuration=Math.max(0,sushiEnd-sushiStart);
+      $('#fridaySushiMinutes').value=String(sushiDuration);
+      put('fridaySushiMinutesText',sushiDuration+' min');
+    }
+    var gardenArr=checkpoint('fridayGardenArrival',sushiEnd+20,'',sushiEnd);
+    // Event begins at a fixed 8 PM; an arrival edit does not move that anchor.
+    var eventDuration=duration('fridayEventMinutes');
+    var venueEnd=checkpoint('fridayEventDeparture',Math.max(gardenArr,1200+eventDuration),'',gardenArr);
+    if(Object.prototype.hasOwnProperty.call(clockOverrides,'fridayEventDeparture')){
+      eventDuration=Math.max(0,venueEnd-1200);
+      $('#fridayEventMinutes').value=String(eventDuration);
+      put('fridayEventMinutesText',eventDuration+' min');
+    }
+    var buffer=1170-gardenArr;
+    put('fridayStatus',buffer>0?'-'+buffer+' min':buffer<0?'+'+(-buffer)+' min':'GOOD');
+    $('#fridayStatus').classList.toggle('good',buffer>0);
+    $('#fridayStatus').classList.toggle('red',buffer<0);
+    $('#fridayGardenArrival').classList.toggle('red',gardenArr<sushiEnd||gardenArr>1200);
+    show('fridayGrandpaBlock',state.dizzy!=='friday');
+    show('fridayReturnDizzyBlock',state.dizzy==='friday');
+    var arriveGrandpa=checkpoint('fridayGrandpaArrival',venueEnd+35,'',venueEnd);
+    var dropFridayArr=checkpoint('fridayDropArrival',venueEnd+80,'',venueEnd);
+    var fridayDropDuration=duration('fridayDropMinutes');
+    var dropFridayDepart=checkpoint('fridayDropDeparture',dropFridayArr+fridayDropDuration,'',dropFridayArr);
+    if(Object.prototype.hasOwnProperty.call(clockOverrides,'fridayDropDeparture')){
+      fridayDropDuration=Math.max(0,dropFridayDepart-dropFridayArr);
+      $('#fridayDropMinutes').value=String(fridayDropDuration);
+      put('fridayDropMinutesText',fridayDropDuration+' min');
+    }
+    var returnFri=checkpoint('fridayReturnArrival',dropFridayDepart+75,'',dropFridayDepart);
+    $('#fridayReturnArrival').classList.toggle('red',returnFri<dropFridayDepart||returnFri>=1440);
+    var friFuel=withDizzy?paid('fridayFuel'):0,friSushi=paid('fridaySushiSpend'),
+        friParking=paid('fridayParking'),friEvent=paid('fridayEventSpend');
+    var friTotal=friFuel+friSushi+friParking+friEvent;
+    put('fridayTotal','$'+friTotal.toFixed(0));
+
+    // Saturday · Grandpa's day, choice-dependent evening and return.
+    var fromCousin=state.dizzy==='friday';
+    show('saturdayFromCousin',fromCousin);show('saturdayGrandpaFromCousinVisible',fromCousin);show('saturdayGrandpaStartVisible',!fromCousin);
+    if(!saturdayDepartEdited)$('#saturdayDeparture').value='11:20';
+    var sd=timeMinutes($('#saturdayDeparture').value);if(sd===null)sd=680;
+    setTime('saturdayDeparture',sd);
+    $('#saturdayDepartureReset').classList.toggle('hidden',!saturdayDepartEdited);
+    var grandpaArr=checkpoint('saturdayGrandpaArrival',sd+40,'',sd);
+    var grandpaStart=checkpoint('saturdayGrandpaStart',fromCousin?grandpaArr:660,'',fromCousin?grandpaArr:undefined);
+    var satDinnerTime=timeMinutes($('#saturdayDinnerTime').value);if(satDinnerTime===null)satDinnerTime=1110;
+    setTime('saturdayDinnerTime',satDinnerTime);
+    var hangout=state.satDinner==='hangout',atGrandpa=state.satDinner==='grandpa';
+    show('saturdayHangoutTravel',hangout);show('saturdayHangoutArrivalVisible',hangout);
+    var hangoutLeave=checkpoint('saturdayHangoutLeave',Math.max(grandpaStart,satDinnerTime-20),'',grandpaStart);
+    var hangoutArrival=checkpoint('saturdayHangoutArrival',hangoutLeave+20,'',hangoutLeave);
+    var dinnerStart=Math.max(satDinnerTime,hangout?hangoutArrival:grandpaStart);
+    var familyEnd=hangout?hangoutLeave:dinnerStart;
+    put('saturdayFamilyTime',formatDuration(familyEnd-grandpaStart));
+    var dinnerEnd=dinnerStart+duration('saturdayDinnerMinutes');
+    show('saturdayKaraokeBlock',state.satKaraoke==='yes');
+    var karaokeLeave=checkpoint('saturdayKaraokeLeave',dinnerEnd,'',dinnerStart);
+    var karaokeArrival=checkpoint('saturdayKaraokeArrival',karaokeLeave+15,'',karaokeLeave);
+    var karaokeStart=Math.max(1200,karaokeArrival),karaokeDur=duration('saturdayKaraokeMinutes');
+    var karaokeEnd=checkpoint('saturdayKaraokeDeparture',karaokeStart+karaokeDur,'',karaokeArrival);
+    if(Object.prototype.hasOwnProperty.call(clockOverrides,'saturdayKaraokeDeparture')){
+      karaokeDur=Math.max(0,karaokeEnd-karaokeStart);
+      $('#saturdayKaraokeMinutes').value=String(karaokeDur);
+      put('saturdayKaraokeMinutesText',karaokeDur+' min');
+    }
+    $('#saturdayKaraokeArrival').classList.toggle('red',karaokeArrival<karaokeLeave||karaokeArrival>1245);
+    var satFinish=state.satKaraoke==='yes'?karaokeEnd:dinnerEnd;
+    show('saturdayTemeculaReturn',weekend);
+    show('saturdayDirectReturn',!weekend);
+    var saturdayTemecula=checkpoint('saturdayTemeculaArrival',satFinish+85,'',satFinish);
+    var satDropMinutes=duration('saturdayDropMinutes');
+    var saturdayTemeculaDep=checkpoint('saturdayTemeculaDepart',saturdayTemecula+satDropMinutes,'',saturdayTemecula);
+    if(Object.prototype.hasOwnProperty.call(clockOverrides,'saturdayTemeculaDepart')){
+      satDropMinutes=Math.max(0,saturdayTemeculaDep-saturdayTemecula);
+      $('#saturdayDropMinutes').value=String(satDropMinutes);
+      put('saturdayDropMinutesText',satDropMinutes+' min');
+    }
+    var saturdayCousinWithDizzy=checkpoint('saturdayCousinArrivalWithDizzy',saturdayTemeculaDep+75,'',saturdayTemeculaDep);
+    var saturdayCousinSolo=checkpoint('saturdayCousinArrivalSolo',satFinish+45,'',satFinish);
+    $('#saturdayCousinArrivalWithDizzy').classList.toggle('red',saturdayCousinWithDizzy<saturdayTemeculaDep||saturdayCousinWithDizzy>=1440);
+    $('#saturdayCousinArrivalSolo').classList.toggle('red',saturdayCousinSolo<satFinish||saturdayCousinSolo>=1440);
+    var lunchSat=paid('saturdayLunch'),
+        dinnerSat=atGrandpa?0:paid('saturdayDinnerSpend'),
+        karaokeSat=state.satKaraoke==='yes'?paid('saturdayKaraokeSpend'):0;
+    var satTotal=lunchSat+dinnerSat+karaokeSat;
+    put('saturdayTotal','$'+satTotal.toFixed(0));
+    $('#saturdayDinnerSpend').closest('.row').classList.toggle('hidden',atGrandpa);
+
+    // Sunday · breakfast, packing and PT → AZ +60 minute clock shift.
+    var su=timeMinutes($('#sundayBreakfastDeparture').value);if(su===null)su=590;
+    setTime('sundayBreakfastDeparture',su);
+    $('#sundayBreakfastDepartureReset').classList.toggle('hidden',!sundayEdited);
+    var sbArr=checkpoint('sundayBreakfastArrival',su+10,'',su);
+    var sbStart=Math.max(600,sbArr),sbDuration=duration('sundayBreakfastMinutes');
+    var sbLeave=checkpoint('sundayBreakfastEnd',sbStart+sbDuration,'',sbArr);
+    if(Object.prototype.hasOwnProperty.call(clockOverrides,'sundayBreakfastEnd')){
+      sbDuration=Math.max(0,sbLeave-sbStart);
+      $('#sundayBreakfastMinutes').value=String(sbDuration);
+      put('sundayBreakfastMinutesText',sbDuration+' min');
+    }
+    var cousinBack=checkpoint('sundayCousinReturn',sbLeave+10,'',sbLeave);
+    var packDuration=duration('sundayPackMinutes');
+    var caLeave=checkpoint('sundayLeaveCalifornia',cousinBack+packDuration,'',cousinBack);
+    if(Object.prototype.hasOwnProperty.call(clockOverrides,'sundayLeaveCalifornia')){
+      packDuration=Math.max(0,caLeave-cousinBack);
+      $('#sundayPackMinutes').value=String(packDuration);
+      put('sundayPackMinutesText',packDuration+' min');
+    }
+    var ehrenbergBack=checkpoint('sundayEhrenbergArrival',caLeave+190+60,'AZ',caLeave+60);
+    var returnStop=duration('sundayStopMinutes');
+    var ehrenbergDeparture=checkpoint('sundayEhrenbergDeparture',ehrenbergBack+returnStop,'AZ',ehrenbergBack);
+    if(Object.prototype.hasOwnProperty.call(clockOverrides,'sundayEhrenbergDeparture')){
+      returnStop=Math.max(0,ehrenbergDeparture-ehrenbergBack);
+      $('#sundayStopMinutes').value=String(returnStop);
+      put('sundayStopMinutesText',returnStop+' min');
+    }
+    var homeBack=checkpoint('sundayHomeArrival',ehrenbergDeparture+131,'AZ',ehrenbergDeparture);
+    var sunFuel=paid('sundayFuel'),sunBreakfast=paid('sundayBreakfastSpend'),
+        sunSnacks=paid('sundaySnacks'),sunTotal=sunFuel+sunBreakfast+sunSnacks;
+    put('sundayTotal','$'+sunTotal.toFixed(0));
+
+    // Totals use each transaction once. Fuel/tickets are breakdown values.
+    var ticketCost=state.ticketCount===1?25:50,prep=35+ticketCost;
+    var wed=fuel+topoff+snacks+tacoCost;
+    var thu=breakfastCost+lunchCost+rudeCost+(state.momPaid==='yes'?0:50);
+    var trip=prep-35+wed+thu+friTotal+satTotal+sunTotal;
+    var contingency=paid('tripBuffer');
+    put('tripExpenses','$'+trip.toFixed(0));put('budgetHaircut','$35');
+    put('grandTotal','$'+(trip+35+contingency).toFixed(0));
+    put('budgetFuel','$'+(fuel+topoff+friFuel+sunFuel).toFixed(0));
+    put('budgetTickets','$'+ticketCost.toFixed(0));
+  }
+})();
+</script></div>
+</body></html>
