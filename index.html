@@ -402,6 +402,53 @@
     var opened=allNodes('.choice').find(function(c){return !c.querySelector('.choiceMenu').classList.contains('hidden')});
     if(opened){e.preventDefault();closeChoices();opened.querySelector('.choiceTrigger').focus()}
   });
+  // One day at a time keeps the route navigable without creating more
+  // independently floating cards. All original controls remain in the DOM.
+  allNodes('.dayToggle').forEach(function(button){
+    button.addEventListener('click',function(){
+      var wasOpen=button.getAttribute('aria-expanded')==='true';
+      allNodes('.dayToggle').forEach(function(other){
+        var active=other===button&&!wasOpen;
+        other.setAttribute('aria-expanded',active?'true':'false');
+        $('#'+other.getAttribute('aria-controls')).classList.toggle('hidden',!active);
+      });
+      closeChoices();
+    });
+  });
+  allNodes('.stopSummaryButton').forEach(function(button){
+    button.addEventListener('click',function(){
+      var details=$('#'+button.getAttribute('aria-controls'));
+      var expand=button.getAttribute('aria-expanded')!=='true';
+      button.setAttribute('aria-expanded',expand?'true':'false');
+      details.classList.toggle('hidden',!expand);
+    });
+  });
+  function updateDayPanels(){
+    allNodes('.dayPanel').forEach(function(panel){
+      var source=$('#'+panel.dataset.total);
+      var target=panel.querySelector('.dayAmount');
+      if(source&&target)target.textContent=source.textContent;
+    });
+    allNodes('.stopSummaryButton').forEach(function(button){
+      var group=button.closest('.stopGroup');
+      if(!group)return;
+      var rows=Array.from(group.querySelectorAll('.row'));
+      var leave='',stay='',cost='',overnight='';
+      rows.forEach(function(row){
+        if(row.classList.contains('hidden'))return;
+        var labelNode=row.querySelector('.label'),valueNode=row.querySelector('.trailing');
+        if(!labelNode||!valueNode)return;
+        var name=labelNode.textContent.trim(),value=valueNode.textContent.replace(/↺/g,'').trim();
+        if(name==='Leave')leave='Leave '+value;
+        else if(name==='Stay'||name==='Pickup')stay=(name==='Pickup'?'Pickup ':'Stay ')+value;
+        else if(name==='Overnight')overnight='Overnight';
+        else if(!cost&&/^(Dinner|Breakfast|Sushi|Lunch|Parking|Spend|Fuel)$/.test(name)&&value.indexOf('$')>=0)cost=value;
+      });
+      var parts=[stay,leave,cost].filter(Boolean);
+      if(!parts.length&&overnight)parts=['Overnight'];
+      button.querySelector('.stopSummaryText').textContent=parts.join(' · ')||'Details';
+    });
+  }
   var pf=$('#prepFuel'),qf=$('#qsFuel'),sn=$('#snacks'),stop=$('#stopMinutes'),dep=$('#departure'),
       hs=$('#homeStopMinutes'),hd=$('#homeDepartInput'),ea=$('#quartzArrivalInput'),caInput=$('#cousinArrivalInput'),
       ts=$('#tacoSpend'),tp=$('#tacoPickupMinutes'),cs=$('#cousinSettleMinutes'),bs=$('#breakfastSpend'),ls=$('#lunchSpend'),rs=$('#rudeSpend');
@@ -804,6 +851,7 @@
     put('budgetFuel','$'+(fuel+topoff+friFuel+sunFuel).toFixed(0));
     put('budgetTickets','$'+ticketCost.toFixed(0));
     show('resetBar',hasTimeOverrides());
+    updateDayPanels();
   }
 })();
 </script></div>
