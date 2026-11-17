@@ -30,6 +30,7 @@
 /* Unified date panels and concise stops, built on the existing iPhone-style palette. */
 #babel-trip-current .dayPanel{background:var(--group);border-radius:17px;overflow:visible;margin-top:14px}
 #babel-trip-current .dayPanel:first-of-type{margin-top:0}
+#babel-trip-current .dayPanel+.dayPanel{margin-top:12px}
 #babel-trip-current .dayFold{background:var(--group);border-radius:17px;overflow:visible}
 #babel-trip-current .dayTop{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:72px;padding:13px 17px;cursor:pointer;-webkit-tap-highlight-color:transparent}
 #babel-trip-current .dayTop::-webkit-details-marker,#babel-trip-current .stopTop::-webkit-details-marker{display:none}
@@ -53,7 +54,7 @@
 #babel-trip-current .stopTime{font-size:16px;font-weight:570;color:var(--text);white-space:nowrap;font-variant-numeric:tabular-nums}
 #babel-trip-current .stopFoot{display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:17px}
 #babel-trip-current .stopInfo{font-size:13px;color:var(--secondary);line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-#babel-trip-current .stopDetails{border-top:1px solid var(--separator);background:var(--bg)}
+#babel-trip-current .stopDetails{border-top:1px solid var(--separator);background:transparent}
 #babel-trip-current .stopDetails>.row{height:50px}
 #babel-trip-current .stopDetails>.row:first-child:before{display:none}
 #babel-trip-current .stopGroup .row.roleRow .label{color:var(--secondary)}
