@@ -171,7 +171,7 @@
 </div>
 </div></div></section>
 
-<section class="day"><div class="dayShell"><button class="dayToggle" type="button" id="dayToggle-fri" aria-expanded="false" aria-controls="dayContent-fri"><span class="dayIdentity"><span class="dayName">Friday, Nov 20</span><span class="dayRoute">Temecula · Anaheim</span></span><span class="dayRight"><span class="dayAmount" id="dayAmount-fri">—</span><span class="dayChevron" aria-hidden="true"></span></span></button><div id="dayContent-fri" class="dayPanel"><div class="stack flowStack">
+<section class="day"><div class="dayShell"><button class="dayToggle" type="button" id="dayToggle-fri" aria-expanded="false" aria-controls="dayContent-fri"><span class="dayIdentity"><span class="dayName">Friday, Nov 20</span><span class="dayRoute" id="fridayRoute">Temecula → Anaheim</span></span><span class="dayRight"><span class="dayAmount" id="dayAmount-fri">—</span><span class="dayChevron" aria-hidden="true"></span></span></button><div id="dayContent-fri" class="dayPanel"><div class="stack flowStack">
 <div class="group statusGroup"><div class="row"><div class="label">Status</div><div id="fridayStatus" class="trailing">-55 min</div></div></div>
 <div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Mom's</div><div class="trailing timeControl"><button id="fridayDepartureReset" class="timeReset hidden" type="button" aria-label="Reset fridayDeparture to recommended time" title="Use estimated time">↺</button><label class="blue editable"><span id="fridayDepartureText">1:15 PM</span><input id="fridayDeparture" type="time" value="13:15" aria-label="Mom's time"></label></div></div>
 <div class="row infoRow"><div class="infoLeft">PT · editable departure</div><div class="infoRight"></div></div></div>
@@ -211,7 +211,7 @@
 <div class="group totalGroup"><div class="row"><div class="label">Total</div><div id="fridayTotal" class="trailing">$210</div></div></div>
 </div></div></div></section>
 
-<section class="day"><div class="dayShell"><button class="dayToggle" type="button" id="dayToggle-sat" aria-expanded="false" aria-controls="dayContent-sat"><span class="dayIdentity"><span class="dayName">Saturday, Nov 21</span><span class="dayRoute">Grandpa · evening plans</span></span><span class="dayRight"><span class="dayAmount" id="dayAmount-sat">—</span><span class="dayChevron" aria-hidden="true"></span></span></button><div id="dayContent-sat" class="dayPanel"><div class="stack flowStack">
+<section class="day"><div class="dayShell"><button class="dayToggle" type="button" id="dayToggle-sat" aria-expanded="false" aria-controls="dayContent-sat"><span class="dayIdentity"><span class="dayName">Saturday, Nov 21</span><span class="dayRoute" id="saturdayRoute">Grandpa · evening plans</span></span><span class="dayRight"><span class="dayAmount" id="dayAmount-sat">—</span><span class="dayChevron" aria-hidden="true"></span></span></button><div id="dayContent-sat" class="dayPanel"><div class="stack flowStack">
 <div class="journeyBranch hidden" id="saturdayFromCousin"><div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Cousin's</div><div class="trailing timeControl"><button id="saturdayDepartureReset" class="timeReset hidden" type="button" aria-label="Reset saturdayDeparture to recommended time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayDepartureText">11:20 AM</span><input id="saturdayDeparture" type="time" value="11:20" aria-label="Cousin's time"></label></div></div></div>
 <div class="travelLeg"><div class="row infoRow"><div class="infoLeft">40 min drive</div><div class="infoRight"></div></div></div></div>
 <div class="group stopGroup"><div class="row placeEntry hidden" id="saturdayGrandpaFromCousinVisible"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Grandpa's</div><div class="trailing timeControl"><button id="saturdayGrandpaArrivalReset" class="timeReset hidden" type="button" aria-label="Reset saturdayGrandpaArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="saturdayGrandpaArrival">12:00 PM</span><input id="saturdayGrandpaArrivalInput" type="time" value="12:00" aria-label="Adjust saturday Grandpa Arrival, California time"></label></div></div>
@@ -506,6 +506,9 @@
     return (displayed||target).textContent.replace(/↺/g,'').trim().replace(/\s+/g,' ');
   }
   function updateItineraryPresentation(){
+    // The heading follows the chosen route, not the default fixture.
+    $('#fridayRoute').textContent=state.dizzy==='none'?'Covina → Anaheim':'Temecula → Anaheim';
+    $('#saturdayRoute').textContent=state.dizzy==='friday'?"Cousin's → Grandpa":"Grandpa · evening plans";
     daySpecs.forEach(function(spec){
       var total=$('#'+spec[1]);
       $('#dayAmount-'+spec[0]).textContent=total?total.textContent.trim():'—';
