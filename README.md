@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.1.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.2.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -361,7 +361,7 @@ At the existing **8:36 PM PT** Cousin arrival, 15 minutes yields departure **8:5
 - Device rendering must still be judged on a real iPhone for typographic rhythm, control accessibility, and scroll interactions; mock JavaScript tests alone are not a physical-device sign-off. Do not assert live until GitHub Pages workflow success for the exact merged commit.
 - If the new structure proves worse physically, the previous `v1.5.1` Git commit remains a **rollback reference**, not a competing user-facing website.
 
-## November 17 — Day-first itinerary and simplified walk-up pickup (v1.7.0; CURRENT)
+## November 17 — Day-first itinerary and simplified walk-up pickup (v1.7.0; historical layout)
 
 **User authorization:** "Whatever u think is best" in response to the proposed coherent one-panel-per-day simplification and the Tacos Nogales pickup discussion. This implementation changes the active `index.html` only, through branch/PR/test/merge; **one canonical site remains https://babedrums.github.io/babel-trip/** with no competing public preview.
 
@@ -383,9 +383,14 @@ At the existing **8:36 PM PT** Cousin arrival, 15 minutes yields departure **8:5
 - Final public release claims require the exact merge commit's GitHub Pages **deployment success**; on-device visual/VoiceOver examination must still be reviewed, not guessed from static code or mock tests. Avoid making a new preview URL for the user.
 
 
-## November 17 — Provisional Saturday dinner default (v1.7.1; current)
+## November 17 — Provisional Saturday dinner default (v1.7.1; historical layout)
 
 - Active v1.7 day-panel design, stop disclosure, native time controls, 20-minute unpreordered Tacos Nogales pickup and every calculation remain unchanged.
 - Change **Saturday dinner's default** from the unhelpful “TBD” to **The Hangout, Seal Beach**, already present as a selectable branch. Grandpa dinner and TBD remain selectable alternatives. The existing $85 Weekend / $45 solo dinner reserve, 6:30 PM target, estimated Hangout drive, Dizzy branches, karaoke setting and $745/$550/$680 scenario totals do not change. **This is a working plan, not a table booking.**
 - Official restaurant hours for the Seal Beach location at 901 Ocean Ave list Friday/Saturday lunch/dinner service through **10 PM**: https://www.thehangoutrestaurant.com/contact-the-hangout . The itinerary does not confirm table availability, actual driving time, or cost of an order.
 - **Only one site URL:** https://babedrums.github.io/babel-trip/ . No new preview or change to the day panel layout. Deploy only after PR merge + GitHub Pages exact commit success. An unmerged independent exploratory branch must never be promoted over newer `main` without reconciliation.
+
+## November 17 — Restore stop cards (v1.7.2)
+
+- Physical iPhone review rejected the continuous day surface and nested stop disclosures. Restore the v1.6.0 layout with separate rounded stop cards, quiet travel connectors and directly editable time and spending rows.
+- Keep the 20-minute editable Tacos Nogales order/pickup duration and Saturday's provisional Hangout dinner default. Preserve the single canonical itinerary URL. Revisit visual changes only after physical-device review.
