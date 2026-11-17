@@ -24,7 +24,7 @@
 <section class="day">
   <div class="header"><div class="date">Wednesday, Nov 18</div></div>
   <div class="stack">
-    <div class="group"><div class="row"><div class="label">Status</div><div id="statusValue" class="trailing good">-25 min</div></div></div>
+    <div class="group"><div class="row"><div class="label">Status</div><div id="statusValue" class="trailing good">-170 min</div></div></div>
 <div class="group"><div class="row"><div class="label">Lunch · Fuel</div><div class="trailing">12:00 PM</div></div>
 <div class="row"><div class="label">Fuel</div><label class="trailing blue editable"><span id="prepFuelText">$45</span><input id="prepFuel" type="number" min="0" value="45"></label></div>
 <div class="row infoRow"><div class="infoLeft">Full tank</div><div class="infoRight">300 mi left</div></div></div>
@@ -43,15 +43,16 @@
 <div class="row infoRow"><div class="infoLeft">3 hr 10 min drive</div><div class="infoRight">210 mi · 90 mi left</div></div>
 <div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Cousin's</div><div class="trailing timeControl"><button id="cousinArrivalReset" class="timeReset hidden" type="button" aria-label="Reset Cousin arrival to estimate" title="Use estimated arrival">↺</button><label class="blue editable"><span id="cousinArrival">8:36 PM PT</span><input id="cousinArrivalInput" type="time" value="20:36" aria-label="Adjust Cousin arrival time, California time"></label></div></div>
 <div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Cousin's</div><div id="cousinSettle" class="trailing">10 min</div></div></div>
-<div class="group"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Cousin's</div><div id="tacoStartDrive" class="trailing">8:03 PM</div></div>
-<div class="row infoRow"><div class="infoLeft">5 min drive · planned</div><div class="infoRight">mi TBD</div></div>
-<div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>La Baja Tacos</div><div id="tacoArrival" class="trailing">8:08 PM</div></div>
-<div class="row"><div class="label">Dinner target</div><label class="trailing blue editable"><span id="tacoTargetText">8:10 PM</span><input id="tacoTarget" type="time" value="20:10"></label></div>
-<div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>La Baja Tacos</div><div id="tacoStay" class="trailing">25 min</div></div></div>
+<div class="group"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Cousin's</div><div id="tacoStartDrive" class="trailing">8:46 PM</div></div>
+<div class="row infoRow"><div class="infoLeft">10 min drive · planned</div><div class="infoRight">mi TBD</div></div>
+<div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Tacos Nogales</div><div id="tacoArrival" class="trailing">8:56 PM</div></div>
+<div class="row"><div class="label">Pickup target</div><label class="trailing blue editable"><span id="tacoTargetText">9:00 PM</span><input id="tacoTarget" type="time" value="21:00" aria-label="Tacos Nogales pickup target California time"></label></div>
+<div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Tacos Nogales</div><label class="trailing blue editable"><span id="tacoStay">10 min</span><input id="tacoPickupMinutes" type="number" min="0" step="5" value="10" aria-label="Tacos Nogales pickup stop duration in minutes"></label></div></div>
 <div class="group"><div class="row"><div class="label">Dinner</div><label class="trailing blue editable"><span id="tacoSpendText">$15</span><input id="tacoSpend" type="number" min="0" value="15"></label></div>
-<div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>La Baja Tacos</div><div id="tacoDepart" class="trailing">8:35 PM</div></div>
-<div class="row infoRow"><div class="infoLeft">5 min drive · planned</div><div class="infoRight">mi TBD</div></div>
-<div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Cousin's</div><div id="tacoReturn" class="trailing">8:40 PM</div></div>
+<div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Tacos Nogales</div><div id="tacoDepart" class="trailing">9:10 PM</div></div>
+<div class="row infoRow"><div class="infoLeft">10 min drive · planned</div><div class="infoRight">mi TBD</div></div>
+<div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Cousin's</div><div id="tacoReturn" class="trailing">9:20 PM</div></div>
+<div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Cousin's</div><div id="tacoEat" class="trailing">25 min</div></div>
 <div class="row"><div class="label">Overnight</div><div class="trailing">Cousin's</div></div></div>
 <div class="group"><div class="row"><div class="label">Total</div><div id="wednesdayTotal" class="trailing totalValue">$90</div></div></div>
   </div>
@@ -232,7 +233,7 @@
 <div class="row"><div class="label">Planned lodging</div><div id="budgetLodging" class="trailing">$0</div></div></div>
 </div></section>
 
-<div class="buildVersion" aria-label="Babel Trip version">v1.4.1</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.4.2</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
@@ -278,11 +279,11 @@
   });
   var pf=$('#prepFuel'),qf=$('#qsFuel'),sn=$('#snacks'),stop=$('#stopMinutes'),dep=$('#departure'),tt=$('#tacoTarget'),
       hs=$('#homeStopMinutes'),hd=$('#homeDepartInput'),ea=$('#quartzArrivalInput'),caInput=$('#cousinArrivalInput'),
-      ts=$('#tacoSpend'),bs=$('#breakfastSpend'),ls=$('#lunchSpend'),rs=$('#rudeSpend');
+      ts=$('#tacoSpend'),tp=$('#tacoPickupMinutes'),bs=$('#breakfastSpend'),ls=$('#lunchSpend'),rs=$('#rudeSpend');
   // Automatic timing is a planning preference, not a restriction on actual stop length.
   // Editing Home stay holds duration; editing Leave Home holds departure clock time.
   var homeMode='auto',homeDepartureManual=null;
-  [pf,qf,sn,stop,tt,ts,bs,ls,rs,dep].forEach(function(x){x.addEventListener('input',render)});
+  [pf,qf,sn,stop,tt,ts,tp,bs,ls,rs,dep].forEach(function(x){x.addEventListener('input',render)});
   hs.addEventListener('input',function(){homeMode='stay';render()});
   hd.addEventListener('change',function(){
     var n=timeMinutes(hd.value);
@@ -350,8 +351,11 @@
     var stopDur=Math.max(0,Number(stop.value)||0),qd=qa+stopDur;
     var caEstimate=qd+190-60,ca=nearClock(arrivalOverrides.cousin,caEstimate);
     var targetHm=tt.value.split(':').map(Number),tacoTarget=targetHm[0]*60+targetHm[1];
-    var tacoDriveOut=ca+10,tacoArr=tacoDriveOut+5,mealStart=Math.max(tacoTarget,tacoArr);
-    var tacoLeave=mealStart+25,tacoBack=tacoLeave+5,closeMargin=21*60-tacoLeave;
+    // Pickup, not a sit-down dinner: 10-minute provisional travel each way,
+    // editable collection time, then 25 minutes eating back at Cousin's.
+    var tacoDriveOut=ca+10,tacoArr=tacoDriveOut+10,pickupStart=Math.max(tacoTarget,tacoArr);
+    var pickupDur=Math.max(0,Number(tp.value)||0),tacoLeave=pickupStart+pickupDur;
+    var tacoBack=tacoLeave+10,closeMargin=24*60-tacoLeave;
     $('#departureText').textContent=fmt(d0);
     $('#homeArrival').textContent=fmt(homeArr);
     $('#homeStopText').textContent=homeStay+' min';
@@ -373,15 +377,16 @@
     $('#tacoStartDrive').textContent=fmt(tacoDriveOut);
     $('#tacoArrival').textContent=fmt(tacoArr);
     $('#tacoTargetText').textContent=fmt(tacoTarget);
-    $('#tacoStay').textContent='25 min';
+    $('#tacoStay').textContent=pickupDur+' min';
+    $('#tacoEat').textContent='25 min';
     $('#tacoDepart').textContent=fmt(tacoLeave);
     $('#tacoReturn').textContent=fmt(tacoBack);
     $('#wednesdayTotal').textContent='$'+(fuel+topoff+snacks+tacoCost).toFixed(0);
     $('#statusValue').textContent=closeMargin>0?'-'+closeMargin+' min':closeMargin<0?'+'+(-closeMargin)+' min':'GOOD';
     $('#statusValue').classList.toggle('good',closeMargin>0);
     $('#statusValue').classList.toggle('red',closeMargin<0);
-    $('#tacoArrival').classList.toggle('red',tacoArr>=21*60);
-    $('#tacoDepart').classList.toggle('red',tacoLeave>21*60);
+    $('#tacoArrival').classList.toggle('red',tacoArr>=24*60);
+    $('#tacoDepart').classList.toggle('red',tacoLeave>24*60);
 
     // Thursday's food stops are independent of Wednesday's editable departure.
     // Drive estimates are planning allowances; local miles remain TBD until routed.
