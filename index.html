@@ -496,14 +496,14 @@
   });
   function stopRowLabel(row){
     var label=row.querySelector('.label');
-    return label?label.textContent.trim().replace(/\\s+/g,' '):'';
+    return label?label.textContent.trim().replace(/\s+/g,' '):'';
   }
   function stopRowValue(row){
     var target=row.querySelector('.trailing');
     if(!target)return'';
     var displayed=target.querySelector('.editable span');
     // Reset button text is visually hidden; never put its arrow in a summary.
-    return (displayed||target).textContent.replace(/↺/g,'').trim().replace(/\\s+/g,' ');
+    return (displayed||target).textContent.replace(/↺/g,'').trim().replace(/\s+/g,' ');
   }
   function updateItineraryPresentation(){
     daySpecs.forEach(function(spec){
@@ -525,7 +525,7 @@
       var spend=collect(['Fuel','Dinner','Breakfast','Lunch','Sushi','Food','Spend','Budget','Parking']);
       if(duration){
         var label=stopRowLabel(duration),value=stopRowValue(duration);
-        if(value && !/^\\$/.test(value)){
+        if(value && !/^\$/.test(value)){
           parts.push(label+' '+value);
         }
       }
@@ -535,7 +535,7 @@
         var covered=!!spend.querySelector('.coveredPrice');
         var price=stopRowValue(spend);
         if(covered)parts.push('Covered');
-        else if(/^\\$/.test(price))parts.push(price);
+        else if(/^\$/.test(price))parts.push(price);
       }
       if(!parts.length){
         var next=candidates.find(function(row){return !!stopRowValue(row)});
