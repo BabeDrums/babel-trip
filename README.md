@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.10.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.11.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -433,3 +433,7 @@ At the existing **8:36 PM PT** Cousin arrival, 15 minutes yields departure **8:5
 ## November 18 — Consistent itinerary row labels (v1.7.10)
 
 - Supporting labels such as Fuel, Snacks, and Stay use the same regular-weight text. Departure labels use the existing semibold weight throughout the itinerary. Arrival and destination labels retain their hierarchy.
+
+## November 18 — Mileage information (v1.7.11)
+
+Full-tank range rows show only 300 miles left. Driving connectors show the duration without a drive suffix.
