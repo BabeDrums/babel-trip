@@ -261,7 +261,7 @@
 
 
 <div id="resetBar" class="resetBar hidden"><button id="resetTimings" type="button" title="Restore arrival and departure estimates without changing durations or costs" aria-label="Reset edited arrival and departure clocks">Reset clocks</button></div>
-<div class="buildVersion" aria-label="Babel Trip version">v1.7.44</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.7.45</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
@@ -328,6 +328,7 @@
     var active=document.activeElement;
     return !!(active&&active.dataset&&active.dataset.inlineNumberEditor==='1');
   }
+  var structureReady=false;
   var qf=$('#qsFuel'),sn=$('#snacks'),stop=$('#stopMinutes'),dep=$('#departure'),
       hs=$('#homeStopMinutes'),hd=$('#homeDepartInput'),ea=$('#quartzArrivalInput'),caInput=$('#cousinArrivalInput'),
       ts=$('#tacoSpend'),tp=$('#tacoPickupMinutes'),cs=$('#cousinSettleMinutes'),bm=$('#breakfastMinutes'),bs=$('#breakfastSpend'),ls=$('#lunchSpend'),rs=$('#rudeSpend');
@@ -624,7 +625,7 @@
     });
   }
   function render(){
-    var editingNumber=isInlineNumberEditing();
+    var editingNumber=structureReady&&isInlineNumberEditing();
     if(!editingNumber)restoreTravelCards();
     var topoff=amount(qf,'qsFuel'),snacks=amount(sn,'snacks'),
         tacoCost=amount(ts,'tacoSpend'),breakfastCost=amount(bs,'breakfastSpend'),
@@ -926,6 +927,7 @@
     if(!editingNumber){
       buildTravelCards();
       normalizeActivityOrder();
+      structureReady=true;
     }
   }
 })();

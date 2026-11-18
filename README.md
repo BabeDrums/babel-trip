@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.44.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.45.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -635,3 +635,11 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - On blur, a normal render restores/rebuilds the itinerary structure.
 - This is shared behavior for editable numeric values across costs, durations, fuel, buffer, and other number fields.
 - No default values, calculation formulas, route/timing semantics, or budget logic changes.
+
+
+## November 18 — Force initial itinerary structure (v1.7.45)
+- Fix a v1.7.44 regression where iOS/Safari could restore focus to an inline numeric editor during page load, causing the first `render()` to incorrectly skip travel-card/activity regrouping.
+- Add a `structureReady` invariant: the **first render always performs the full structural build** regardless of editor focus.
+- Only after that initial build may active numeric editing temporarily suppress subsequent DOM restore/rebuild work.
+- This restores the current travel-card model, origin/destination labels, activity ordering, Stay placement, and other recent structural updates while preserving stable multi-digit numeric editing.
+- No itinerary values, route/timing math, mileage/range, fuel, budget math, or decision semantics changed.
