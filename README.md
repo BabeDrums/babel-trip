@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.3.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.4.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -398,3 +398,7 @@ At the existing **8:36 PM PT** Cousin arrival, 15 minutes yields departure **8:5
 ## November 17 — Day and budget shortcuts (v1.7.3)
 
 - The existing continuous itinerary has date links and a Budget shortcut at the top. Use native in-page links so dates can be bookmarked and browser Back works. All stops and editors stay directly visible and the schedule and budget script is unchanged.
+
+## November 17 — Simplified typography (v1.7.4)
+
+- Physical iPhone feedback identified too many competing text treatments. Use 22px semibold for day headings and 16px for itinerary text. Reserve semibold within rows for stop names, totals, and selected navigation or decisions. Use existing color to distinguish editable values and secondary details. Card structure, controls, timing, and budget logic are unchanged.
