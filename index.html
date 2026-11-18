@@ -12,9 +12,9 @@
 #babel-trip-current .flowStack{gap:12px}
 #babel-trip-current .journeyBranch{display:flex;flex-direction:column;gap:12px}
 /* Adjacent stopGroup blocks at one place still read as one activity card. */
-#babel-trip-current .stopGroup:has(+ .stopGroup){border-bottom-left-radius:0;border-bottom-right-radius:0}
-#babel-trip-current .stopGroup + .stopGroup{margin-top:-12px;border-top-left-radius:0;border-top-right-radius:0}
-#babel-trip-current .stopGroup + .stopGroup>.row:first-child:before{content:'';position:absolute;left:16px;right:0;top:0;height:1px;background:var(--separator);display:block}
+#babel-trip-current .stopGroup:not(.travelVacated):has(+ .stopGroup:not(.travelVacated)){border-bottom-left-radius:0;border-bottom-right-radius:0}
+#babel-trip-current .stopGroup:not(.travelVacated) + .stopGroup:not(.travelVacated){margin-top:-12px;border-top-left-radius:0;border-top-right-radius:0}
+#babel-trip-current .stopGroup:not(.travelVacated) + .stopGroup:not(.travelVacated)>.row:first-child:before{content:'';position:absolute;left:16px;right:0;top:0;height:1px;background:var(--separator);display:block}
 /* Travel becomes a true segment card: departure → route info → arrival. */
 #babel-trip-current .travelLeg{padding:0;background:var(--group);border-radius:14px;overflow:hidden}
 #babel-trip-current .travelLeg .row{height:56px;min-height:56px;padding:0 16px;gap:12px;background:var(--group)}
