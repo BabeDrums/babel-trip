@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.29.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.30.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -514,3 +514,10 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - An active planned fuel stop resets the planning range to **300 miles** only when that fuel amount is greater than zero.
 - Current reset points: outbound Ehrenberg, Friday Temecula when that branch is active, Saturday Grandpa’s or Saturday Temecula depending the active Dizzy branch, and Sunday Ehrenberg.
 - This is **planning range to the next refill target**, not the Sentra’s live dashboard DTE. The observed **360-mile** full-tank DTE remains preserved separately as real-world evidence.
+
+
+## November 18 — Range runtime regression fix (v1.7.30)
+- Removing the completed Wednesday fuel transaction in v1.7.28 left two stale JavaScript references to the deleted `fuel` variable.
+- Those references caused `render()` to throw before `updateDriveRanges()` could paint the running `mi left` text introduced in v1.7.29.
+- Wednesday totals now exclude the completed fuel transaction correctly, and `renderRest()` no longer receives the deleted variable.
+- No route, mileage, timing, budget semantics, or range-reset logic changed in this fix.
