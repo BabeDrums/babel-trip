@@ -41,13 +41,13 @@
 #babel-trip-current .day[id]{scroll-margin-top:12px}
 #homePacking{position:relative;border:0;padding-inline:16px}
 #homePacking:before{content:'';position:absolute;left:16px;right:0;top:0;height:1px;background:var(--separator)}
-#homePacking summary{display:flex;align-items:center;justify-content:space-between;min-height:56px;list-style:none;cursor:pointer;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;touch-action:manipulation;background:transparent;outline:none}
+#homePacking summary{display:flex;align-items:center;justify-content:space-between;height:56px;min-height:56px;list-style:none;cursor:pointer;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;touch-action:manipulation;background:transparent;outline:none}
 #homePacking summary::-webkit-details-marker{display:none}
 #homePacking summary:active{background:transparent}
 #homePacking summary:focus{outline:none}
 #homePacking summary:focus-visible{outline:2px solid var(--blue);outline-offset:-2px;border-radius:10px}
 #homePacking[open] summary:after{content:'';position:absolute;left:16px;right:0;top:56px;height:1px;background:var(--separator)}
-#homePacking label{display:flex;align-items:center;gap:10px;min-height:44px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#homePacking label{display:flex;align-items:center;gap:10px;height:56px;min-height:56px;cursor:pointer;-webkit-tap-highlight-color:transparent}
 #homePacking label+label{border-top:1px solid var(--separator)}
 #homePacking input{accent-color:var(--blue)}
 #restaurantCostText.coveredPrice{color:inherit}
@@ -77,13 +77,13 @@
 <div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Home</div><div class="trailing timeControl"><button id="homeArrivalReset" class="timeReset hidden" type="button" aria-label="Reset homeArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="homeArrival">3:31 PM</span><input id="homeArrivalInput" type="time" value="15:31" aria-label="Adjust home Arrival, California time"></label></div></div>
 <div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Pack</div><label class="trailing blue editable"><span id="homeStopText">29 min</span><input id="homeStopMinutes" aria-label="Packing time in minutes" type="number" min="0" step="1" value="29"></label></div>
 <details id="homePacking"><summary>Checklist <span id="packedCount" class="trailing blue">0 of 7</span></summary>
-<label><input type="checkbox" value="wallet"> Wallet & ID</label>
+<label><input type="checkbox" value="wallet"> Wallet</label>
 <label><input type="checkbox" value="keys"> Keys</label>
-<label><input type="checkbox" value="charger"> Phone charger</label>
-<label><input type="checkbox" value="clothes"> Clothes & pajamas</label>
-<label><input type="checkbox" value="socks"> Socks & underwear</label>
+<label><input type="checkbox" value="charger"> Charger</label>
+<label><input type="checkbox" value="clothes"> Clothes</label>
+<label><input type="checkbox" value="underwear"> Underwear</label>
 <label><input type="checkbox" value="toiletries"> Toiletries</label>
-<label><input type="checkbox" value="tickets"> Tickets</label>
+<label><input type="checkbox" value="snacks"> Snacks</label>
 </details>
 <div class="row roleRow departureRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Leave</div><div class="trailing timeControl"><button id="homeDepartReset" class="timeReset hidden" type="button" aria-label="Reset home stop to automatic timing" title="Use automatic home stop">↺</button><label class="blue editable"><span id="homeDepart">4:00 PM</span><input id="homeDepartInput" type="time" value="16:00" aria-label="Adjust departure from home, Arizona time"></label></div></div></div>
 <div class="travelLeg" data-car-miles="144"><div class="row infoRow"><div class="infoLeft">144 mi</div><div class="infoRight">2 hr 11 min</div></div></div>
@@ -261,7 +261,7 @@
 
 
 <div id="resetBar" class="resetBar hidden"><button id="resetTimings" type="button" title="Restore arrival and departure estimates without changing durations or costs" aria-label="Reset edited arrival and departure clocks">Reset clocks</button></div>
-<div class="buildVersion" aria-label="Babel Trip version">v1.7.42</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.7.43</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
@@ -913,7 +913,14 @@
   }
   for (const box of boxes) {
     const key = 'babel-trip.2026-11.packed.' + box.value;
-    try { box.checked = localStorage.getItem(key) === '1'; } catch {}
+    try {
+      var saved = localStorage.getItem(key);
+      if (saved === null && box.value === 'underwear') {
+        saved = localStorage.getItem('babel-trip.2026-11.packed.socks');
+        if (saved !== null) localStorage.setItem(key, saved);
+      }
+      box.checked = saved === '1';
+    } catch {}
     box.addEventListener('change', () => {
       try { localStorage.setItem(key, box.checked ? '1' : '0'); } catch {}
       updateCount();
