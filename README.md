@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.37.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.38.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -564,7 +564,7 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - Row height remains **56 px**. No route distances, timing math, fuel math, budget math, or decision semantics changed.
 
 
-## November 18 — Destination-named departures (v1.7.36)
+## November 18 — Destination-named departures (v1.7.36, superseded by v1.7.38)
 - In each travel segment card, the **departure row text now uses the destination name** rather than generic `Leave` text or the origin name.
 - The departure icon continues to communicate the action/direction, so the label can carry the more useful place information.
 - The destination name is derived dynamically from the active arrival row, so Dizzy/return branch changes rename departure rows automatically.
@@ -577,3 +577,13 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - Example: Ehrenberg `Fuel` and `Snacks` now remain in one continuous activity card **with the standard divider between rows**.
 - Standalone activity cards still suppress an unnecessary top divider.
 - No travel-card structure, timing, mileage, range, fuel, budget, or decision logic changed.
+
+
+## November 18 — Origin-named departures (v1.7.38)
+- Correct the travel-card label rule: the **departure row names the place being left**, while the arrival row names the destination.
+- The departure icon communicates the departure action; the text identifies the location where that departure time occurs.
+- Origin names are resolved from the latest visible real place row before each departure, ignoring role rows such as Stay, Pack, Parking, and generic Leave.
+- This also handles split activity groups such as Ehrenberg, where Arrival/Fuel and Snacks/Stay/Departure live in adjacent source groups.
+- Examples: **Home → Ehrenberg**, then **Ehrenberg → Cousin’s**.
+- Conditional routes rebuild from the active visible itinerary, so origin labels remain correct when Dizzy/return choices change.
+- No route distances, timing math, fuel math, budget math, or decision semantics changed.
