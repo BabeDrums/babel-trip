@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.45.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.46.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -643,3 +643,11 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - Only after that initial build may active numeric editing temporarily suppress subsequent DOM restore/rebuild work.
 - This restores the current travel-card model, origin/destination labels, activity ordering, Stay placement, and other recent structural updates while preserving stable multi-digit numeric editing.
 - No itinerary values, route/timing math, mileage/range, fuel, budget math, or decision semantics changed.
+
+
+## November 18 — Restore last known-good runtime (v1.7.46)
+- Restore `index.html` to the exact **v1.7.43 runtime** (with only the visible build version advanced to v1.7.46).
+- This intentionally removes the v1.7.44 inline-number editing experiment and the v1.7.45 first-render guard after they caused iOS to expose the raw fallback layout instead of the current regrouped itinerary.
+- Preserved known-good features include: Budget + weekday-only headers, Departure → route → Arrival travel cards, origin-named departures, activity ordering with Stay near the top, bold Stay/Pack labels, Checklist interaction fixes, 56 px checklist rhythm, and Wallet/Keys/Charger/Clothes/Underwear/Toiletries/Snacks labels.
+- Numeric editing returns temporarily to the pre-v1.7.44 behavior until it can be redesigned without touching structural render behavior.
+- v1.7.44 and v1.7.45 are superseded and should not be used as implementation references for numeric editing.
