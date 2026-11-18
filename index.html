@@ -26,43 +26,16 @@
 #babel-trip-current .resetBar{display:flex;justify-content:center;padding-top:12px}
 #babel-trip-current .resetBar button{font:inherit;font-weight:400;color:var(--secondary);background:transparent;border:0;min-height:44px;padding:0 16px;cursor:pointer}
 #babel-trip-current .resetBar button:focus-visible{outline:2px solid var(--blue);border-radius:8px}
-#babel-trip-current .tripJump{margin:0 0 24px}
-#babel-trip-current .tripJump summary{display:list-item;list-style-position:inside;min-height:44px;padding:11px 14px;border-radius:14px;background:var(--group);cursor:pointer}
-#babel-trip-current .tripJump summary:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
-#babel-trip-current .tripDays{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin:4px 0 0}
-#babel-trip-current .tripDays a{display:grid;place-items:center;min-height:44px;padding:4px;background:var(--group);color:var(--text);border-radius:10px;text-decoration:none;font-weight:600}
-#babel-trip-current .tripDays a:last-child{grid-column:span 2}
-#babel-trip-current .tripDays a:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
 #babel-trip-current .day[id]{scroll-margin-top:12px}
 </style>
-
-<details class="tripJump">
-<summary>Jump</summary>
-<nav class="tripDays" aria-label="Jump to a trip day or budget">
-  <a href="#tuesday">Tue 17</a>
-  <a href="#wednesday">Wed 18</a>
-  <a href="#thursday">Thu 19</a>
-  <a href="#friday">Fri 20</a>
-  <a href="#saturday">Sat 21</a>
-  <a href="#sunday">Sun 22</a>
-  <a href="#budget">Budget</a>
-</nav>
-</details>
-
-<section class="day" id="tuesday" tabindex="-1">
-  <div class="header"><div class="date">Tuesday, Nov 17</div></div>
-  <div class="stack">
-    <div class="group menuGroup">
-      <div class="row decisionRow choice" data-key="dizzy"><button class="decisionTrigger choiceTrigger" type="button" aria-expanded="false" aria-controls="dizzyOptions"><span class="label">Dizzy</span><span class="decisionValue"><span id="dizzyChoiceText" class="decisionValueText">Weekend</span></span></button><div id="dizzyOptions" class="choiceMenu hidden" role="group" aria-label="Dizzy options"><button class="choiceOption sel" data-v="weekend" type="button" aria-pressed="true">Weekend</button><button class="choiceOption" data-v="friday" type="button" aria-pressed="false">Friday</button><button class="choiceOption" data-v="none" type="button" aria-pressed="false">None</button></div></div>
-      <div class="row"><div id="ticketLabel" class="label">Tickets</div><div id="ticketsValue" class="trailing">$50</div></div>
-    </div>
-    <div class="group"><div class="row"><div class="label">Total</div><div id="prepTotal" class="trailing totalValue">$50</div></div></div>
-  </div>
-</section>
 
 <section class="day" id="wednesday" tabindex="-1">
   <div class="header"><div class="date">Wednesday, Nov 18</div></div>
   <div class="stack flowStack">
+    <div class="group menuGroup">
+      <div class="row decisionRow choice" data-key="dizzy"><button class="decisionTrigger choiceTrigger" type="button" aria-expanded="false" aria-controls="dizzyOptions"><span class="label">Dizzy</span><span class="decisionValue"><span id="dizzyChoiceText" class="decisionValueText">Weekend</span></span></button><div id="dizzyOptions" class="choiceMenu hidden" role="group" aria-label="Dizzy options"><button class="choiceOption sel" data-v="weekend" type="button" aria-pressed="true">Weekend</button><button class="choiceOption" data-v="friday" type="button" aria-pressed="false">Friday</button><button class="choiceOption" data-v="none" type="button" aria-pressed="false">None</button></div></div>
+      <div class="row"><div id="ticketLabel" class="label">Tickets</div><div id="ticketsValue" class="trailing">$50</div></div>
+    </div>
 <div id="tacoClosingWarning" class="group statusGroup hidden"><div class="row red" role="status">Pickup may miss closing</div></div>
 <div class="group supportGroup"><div class="row"><div class="label">Lunch</div><div class="trailing">12:00 PM</div></div>
 <div class="row"><div class="label">Fuel</div><label class="trailing blue editable"><span id="prepFuelText">$45</span><input id="prepFuel" type="number" min="0" value="45"></label></div>
@@ -252,7 +225,7 @@
 </div></section>
 
 <div id="resetBar" class="resetBar hidden"><button id="resetTimings" type="button" title="Restore arrival and departure estimates without changing durations or costs" aria-label="Reset edited arrival and departure clocks">Reset clocks</button></div>
-<div class="buildVersion" aria-label="Babel Trip version">v1.7.8</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.7.9</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
@@ -436,7 +409,6 @@
     });
     $('#ticketLabel').textContent=state.ticketCount===1?'Ticket':'Tickets';
     $('#ticketsValue').textContent='$'+(state.ticketCount===1?25:50);
-    $('#prepTotal').textContent='$'+(state.ticketCount===1?25:50).toFixed(0);
 
 
     // Wednesday · AZ travel to Cousin's (PT), then grab Tacos Nogales.
