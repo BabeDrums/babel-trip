@@ -125,7 +125,7 @@
 <div class="row"><div class="label">Target</div><div id="dinnerReservation" class="trailing">7:30 PM</div></div>
 <div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span><span class="stopRole">Stay</span></div><div id="rosalieStay" class="trailing">1 hr</div></div>
 <div class="row decisionRow choice" data-key="momPaid"><button class="decisionTrigger choiceTrigger" type="button" aria-expanded="false" aria-controls="momPaidOptions"><span class="label">Pays</span><span class="decisionValue"><span id="momPaidChoiceText" class="decisionValueText">Mom</span></span></button><div id="momPaidOptions" class="choiceMenu hidden" role="group" aria-label="Pays options"><button class="choiceOption sel" data-v="yes" type="button" aria-pressed="true">Mom</button><button class="choiceOption" data-v="no" type="button" aria-pressed="false">Me</button></div></div>
-<div class="row"><div class="label">Total</div><label class="trailing blue editable"><span id="restaurantCostText">$50</span><input id="restaurantCost" type="number" step="0.01" inputmode="decimal" min="0" value="50" aria-label="Restaurant bill amount"></label></div>
+<div id="restaurantCostRow" class="row hidden"><div class="label">Total</div><label class="trailing blue editable"><span id="restaurantCostText">$50</span><input id="restaurantCost" type="number" step="0.01" inputmode="decimal" min="0" value="50" aria-label="Restaurant bill amount"></label></div>
 <div class="row roleRow departureRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span><span class="stopRole">Leave</span></div><div class="trailing timeControl"><button id="dinnerDepartDirectReset" class="timeReset hidden" type="button" aria-label="Reset dinnerDepartDirect to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="dinnerDepartDirect">8:30 PM</span><input id="dinnerDepartDirectInput" type="time" value="20:30" aria-label="Adjust dinner Depart Direct, California time"></label></div></div></div>
 <div class="travelLeg"><div class="row infoRow"><div class="infoLeft">1.0 mi · my car</div><div class="infoRight">5 min</div></div></div>
 <div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Mom's</div><div class="trailing timeControl"><button id="momArrivalDirectReset" class="timeReset hidden" type="button" aria-label="Reset momArrivalDirect to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="momArrivalDirect">8:35 PM</span><input id="momArrivalDirectInput" type="time" value="20:35" aria-label="Adjust mom Arrival Direct, California time"></label></div></div>
@@ -242,7 +242,7 @@
 
 
 <div id="resetBar" class="resetBar hidden"><button id="resetTimings" type="button" title="Restore arrival and departure estimates without changing durations or costs" aria-label="Reset edited arrival and departure clocks">Reset clocks</button></div>
-<div class="buildVersion" aria-label="Babel Trip version">v1.7.23</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.7.24</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
@@ -527,7 +527,7 @@
     $('#rudeDuration').textContent=formatDuration(rudeD-rudeA);
     $('#dinnerReservation').textContent=fmt(dinner);
     paid('restaurantCost');
-    $('#restaurantCostText').classList.toggle('coveredPrice',state.momPaid==='yes');
+    $('#restaurantCostRow').classList.toggle('hidden',state.momPaid==='yes');
     $('#dinnerArrival').classList.toggle('red',da>dinner||da<md);
     $('#rudeArrivalWalk').classList.toggle('red',rudeA>1290||rudeA<momDep);
     $('#travelTotal').textContent=money((breakfastCost+lunchCost+rudeCost+(state.momPaid==='yes'?0:paid('restaurantCost'))));

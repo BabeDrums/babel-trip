@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.23.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.24.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -477,3 +477,6 @@ Expenses sums the five visible categories. Food includes snacks. Entertainment c
 
 ## v1.7.23
 Trip budget lists the five categories first, followed by a single summary group for Expenses, Buffer and Total.
+
+## v1.7.24
+Rosalie’s editable Total row appears only when Me is selected under Pays. Switching the payer preserves the entered amount.
