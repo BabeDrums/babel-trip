@@ -24,6 +24,8 @@
 #babel-trip-current .travelSegmentGroup>.row:last-child .placeLabel,
 #babel-trip-current .departureRow .placeLabel{font-weight:600}
 #babel-trip-current .travelActivityFirst:before{display:none!important}
+/* If a same-stop activity continues in a second merged group, keep the seam between rows. */
+#babel-trip-current .stopGroup:not(.travelVacated) + .stopGroup:not(.travelVacated)>.row.travelActivityFirst:before{content:'';display:block!important;position:absolute;left:16px;right:0;top:0;height:1px;background:var(--separator)}
 #babel-trip-current .travelVacated{display:none!important}
 #babel-trip-current .stopGroup>.row:first-child:not(.roleRow) .placeLabel{font-weight:600}
 #babel-trip-current .statusGroup>.row{height:44px}
@@ -247,7 +249,7 @@
 
 
 <div id="resetBar" class="resetBar hidden"><button id="resetTimings" type="button" title="Restore arrival and departure estimates without changing durations or costs" aria-label="Reset edited arrival and departure clocks">Reset clocks</button></div>
-<div class="buildVersion" aria-label="Babel Trip version">v1.7.36</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.7.37</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
