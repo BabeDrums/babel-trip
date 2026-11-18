@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.38.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.39.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -587,3 +587,9 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - Examples: **Home → Ehrenberg**, then **Ehrenberg → Cousin’s**.
 - Conditional routes rebuild from the active visible itinerary, so origin labels remain correct when Dizzy/return choices change.
 - No route distances, timing math, fuel math, budget math, or decision semantics changed.
+
+
+## November 18 — Bold Stay labels (v1.7.39)
+- All visible **Stay** row labels are now semibold to match the stronger structural hierarchy used for travel/place rows.
+- Stay duration values remain unchanged; only the label weight changes.
+- Pack, Pickup, Parking, and other role rows are unaffected.
