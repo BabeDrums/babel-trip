@@ -16,7 +16,7 @@
 #babel-trip-current .travelLeg{padding:0;margin-top:-12px;background:var(--group);border-radius:0 0 14px 14px;overflow:hidden}
 #babel-trip-current .journeyBranch:has(> .travelLeg:first-child){margin-top:-12px}
 #babel-trip-current .journeyBranch > .travelLeg:first-child{margin-top:0}
-#babel-trip-current .travelLeg .row{height:42px;min-height:42px;padding:0 16px;gap:12px;background:var(--group)}
+#babel-trip-current .travelLeg .row{height:56px;min-height:56px;padding:0 16px;gap:12px;background:var(--group)}
 #babel-trip-current .travelLeg .row:before{content:'';position:absolute;left:16px;right:0;top:0;height:1px;background:var(--separator);display:block}
 #babel-trip-current .travelLeg .infoLeft{white-space:normal}
 #babel-trip-current .stopGroup>.row:first-child:not(.roleRow) .placeLabel,
@@ -242,7 +242,7 @@
 
 
 <div id="resetBar" class="resetBar hidden"><button id="resetTimings" type="button" title="Restore arrival and departure estimates without changing durations or costs" aria-label="Reset edited arrival and departure clocks">Reset clocks</button></div>
-<div class="buildVersion" aria-label="Babel Trip version">v1.7.32</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.7.33</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';

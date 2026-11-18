@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.32.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.33.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -537,3 +537,8 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - Conditional journey branches preserve the same behavior; hidden branches do not flatten or attach to the preceding card.
 - The two standalone **300 miles left** strips are removed because the first outbound route after each fuel reset already shows the current planning range.
 - Route semantics, mileage, times, fuel logic, and branch behavior are unchanged.
+
+
+## November 18 — Route-row sizing (v1.7.33)
+- Attached outbound route rows now use the same **56 px** row height as standard itinerary rows.
+- Grouping, separators, mileage/range text, timing, and branch behavior are unchanged.
