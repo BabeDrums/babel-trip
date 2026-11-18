@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.40.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.41.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -602,3 +602,12 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - Existing activity rows such as Fuel, Snacks, Breakfast, Dinner, Spend, Pays, and Overnight retain their relative order after Stay.
 - **Pack** is now semibold like Stay; Pickup, Parking, and other role rows remain normal weight.
 - Row values, timing math, travel cards, mileage/range, fuel math, budget math, and decision semantics are unchanged.
+
+
+## November 18 — Stay divider + Checklist interaction fix (v1.7.41)
+- After activity-row reordering, recalculate each stop group’s actual first visible row so the separator suppression follows the new order instead of stale pre-reorder state.
+- This restores the standard divider immediately after a moved **Stay** row, including Ehrenberg’s **Stay → Fuel → Snacks** layout.
+- Replace Checklist’s native `border-block` treatment with the same top separator geometry used by itinerary rows, removing the stray bottom-edge artifact when collapsed.
+- Suppress Safari’s native tap-highlight/active paint on the Checklist summary and checklist labels; keep a controlled keyboard `:focus-visible` outline.
+- When Checklist is expanded, add a deliberate separator beneath the summary and between checklist items.
+- No itinerary timing, travel, mileage/range, fuel, budget, or decision logic changes.
