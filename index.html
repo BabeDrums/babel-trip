@@ -37,7 +37,7 @@
 </style>
 
 <details class="tripJump">
-<summary>Jump to</summary>
+<summary>Jump</summary>
 <nav class="tripDays" aria-label="Jump to a trip day or budget">
   <a href="#tuesday">Tue 17</a>
   <a href="#wednesday">Wed 18</a>
@@ -53,11 +53,10 @@
   <div class="header"><div class="date">Tuesday, Nov 17</div></div>
   <div class="stack">
     <div class="group menuGroup">
-      <div class="row"><div class="label">Haircut</div><div class="trailing">$35</div></div>
       <div class="row decisionRow choice" data-key="dizzy"><button class="decisionTrigger choiceTrigger" type="button" aria-expanded="false" aria-controls="dizzyOptions"><span class="label">Dizzy</span><span class="decisionValue"><span id="dizzyChoiceText" class="decisionValueText">Weekend</span></span></button><div id="dizzyOptions" class="choiceMenu hidden" role="group" aria-label="Dizzy options"><button class="choiceOption sel" data-v="weekend" type="button" aria-pressed="true">Weekend</button><button class="choiceOption" data-v="friday" type="button" aria-pressed="false">Friday</button><button class="choiceOption" data-v="none" type="button" aria-pressed="false">None</button></div></div>
       <div class="row"><div id="ticketLabel" class="label">Tickets</div><div id="ticketsValue" class="trailing">$50</div></div>
     </div>
-    <div class="group"><div class="row"><div class="label">Total</div><div id="prepTotal" class="trailing totalValue">$85</div></div></div>
+    <div class="group"><div class="row"><div class="label">Total</div><div id="prepTotal" class="trailing totalValue">$50</div></div></div>
   </div>
 </section>
 
@@ -245,16 +244,15 @@
 
 <section class="day" id="budget" tabindex="-1"><div class="header"><div class="date">Trip budget</div></div><div class="stack">
 <div class="group"><div class="row"><div class="label">Trip expenses</div><div id="tripExpenses" class="trailing">$660</div></div>
-<div class="row"><div class="label">Haircut · prep</div><div id="budgetHaircut" class="trailing">$35</div></div>
 <div class="row"><div class="label">Contingency</div><label class="trailing blue editable"><span id="tripBufferText">$50</span><input id="tripBuffer" type="number" min="0" value="50" aria-label="Contingency amount"></label></div></div>
-<div class="group"><div class="row"><div class="label">Grand total</div><div id="grandTotal" class="trailing">$745</div></div></div>
+<div class="group"><div class="row"><div class="label">Grand total</div><div id="grandTotal" class="trailing">$710</div></div></div>
 <div class="group"><div class="row"><div class="label">Fuel included</div><div id="budgetFuel" class="trailing">$200</div></div>
 <div class="row"><div class="label">Tickets included</div><div id="budgetTickets" class="trailing">$50</div></div>
 <div class="row"><div class="label">Planned lodging</div><div id="budgetLodging" class="trailing">$0</div></div></div>
 </div></section>
 
 <div id="resetBar" class="resetBar hidden"><button id="resetTimings" type="button" title="Restore arrival and departure estimates without changing durations or costs" aria-label="Reset edited arrival and departure clocks">Reset clocks</button></div>
-<div class="buildVersion" aria-label="Babel Trip version">v1.7.6</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.7.7</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
@@ -438,7 +436,7 @@
     });
     $('#ticketLabel').textContent=state.ticketCount===1?'Ticket':'Tickets';
     $('#ticketsValue').textContent='$'+(state.ticketCount===1?25:50);
-    $('#prepTotal').textContent='$'+(35+(state.ticketCount===1?25:50)).toFixed(0);
+    $('#prepTotal').textContent='$'+(state.ticketCount===1?25:50).toFixed(0);
 
 
     // Wednesday · AZ travel to Cousin's (PT), then grab Tacos Nogales.
@@ -690,13 +688,13 @@
     put('sundayTotal','$'+sunTotal.toFixed(0));
 
     // Totals use each transaction once. Fuel/tickets are breakdown values.
-    var ticketCost=state.ticketCount===1?25:50,prep=35+ticketCost;
+    var ticketCost=state.ticketCount===1?25:50;
     var wed=fuel+topoff+snacks+tacoCost;
     var thu=breakfastCost+lunchCost+rudeCost+(state.momPaid==='yes'?0:50);
-    var trip=prep-35+wed+thu+friTotal+satTotal+sunTotal;
+    var trip=ticketCost+wed+thu+friTotal+satTotal+sunTotal;
     var contingency=paid('tripBuffer');
-    put('tripExpenses','$'+trip.toFixed(0));put('budgetHaircut','$35');
-    put('grandTotal','$'+(trip+35+contingency).toFixed(0));
+    put('tripExpenses','$'+trip.toFixed(0));
+    put('grandTotal','$'+(trip+contingency).toFixed(0));
     put('budgetFuel','$'+(fuel+topoff+friFuel+sunFuel).toFixed(0));
     put('budgetTickets','$'+ticketCost.toFixed(0));
     show('resetBar',hasTimeOverrides());
