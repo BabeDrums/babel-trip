@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.30.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.31.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -521,3 +521,10 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - Those references caused `render()` to throw before `updateDriveRanges()` could paint the running `mi left` text introduced in v1.7.29.
 - Wednesday totals now exclude the completed fuel transaction correctly, and `renderRest()` no longer receives the deleted variable.
 - No route, mileage, timing, budget semantics, or range-reset logic changed in this fix.
+
+
+## November 18 — Carmelo stay controls (v1.7.31)
+- Rename the breakfast stop from **Caramelo Café** to **Carmelo** everywhere in the live itinerary.
+- Thursday Carmelo **Stay** is now editable with a **30 min** default instead of a derived 1-hour display.
+- Sunday Carmelo **Stay** remains editable and now also defaults to **30 min**.
+- Editing Thursday Stay updates the recommended Leave time; manually editing Leave updates the displayed Stay duration, matching the existing duration/clock behavior used elsewhere.
