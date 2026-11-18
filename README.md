@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.25.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.26.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -480,3 +480,13 @@ Trip budget lists the five categories first, followed by a single summary group 
 
 ## v1.7.24
 Rosalie’s editable Total row appears only when Me is selected under Pays. Switching the payer preserves the entered amount.
+
+
+## November 18 — Remaining fuel-stop model (v1.7.26)
+- Planning basis: 2026 Nissan Sentra S/SV EPA **33 combined MPG** and **12.41-gallon** tank; the itinerary continues to use the user's conservative **300-mile preferred refill interval** rather than the theoretical full-tank distance.
+- Price basis captured November 18, 2026: AAA regular gasoline averages **$5.5249/gal California** and **$3.9934/gal Arizona**. Fuel defaults are planning estimates rounded **up to the next $5** and remain user-editable.
+- Existing Wednesday values remain unchanged: **$45** pre-trip fuel and **$20** Ehrenberg top-off.
+- Current default `Dizzy = Weekend` route: Friday Temecula **$50** after about **295.7 miles** since the Wednesday Ehrenberg fill; Saturday Temecula **$30** after about **170 miles**; Sunday Ehrenberg **$35** after about **278.8 miles**.
+- If `Dizzy = Friday`, Saturday refueling moves to Grandpa's at **$45** after about **244 miles** since Friday's Temecula fill. If `Dizzy = None`, the Friday Temecula fuel transaction disappears and Saturday Grandpa's becomes **$50** after about **281.7 miles** since Wednesday's Ehrenberg fill.
+- Sunday Ehrenberg remains **$35** for every current Dizzy branch, keeping the final **144-mile** Arizona leg comfortably inside the refill interval.
+- Only the active branch's fuel transaction contributes to Saturday and trip totals. Manual edits to the Saturday fuel amounts are preserved while switching choices during the current page session.
