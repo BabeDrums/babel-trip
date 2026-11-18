@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.39.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.40.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -593,3 +593,12 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - All visible **Stay** row labels are now semibold to match the stronger structural hierarchy used for travel/place rows.
 - Stay duration values remain unchanged; only the label weight changes.
 - Pack, Pickup, Parking, and other role rows are unaffected.
+
+
+## November 18 — Activity row hierarchy (v1.7.40)
+- Normalize visible activity sections after travel-card regrouping to a predictable order: **Target → Stay → remaining activity/cost rows**.
+- This applies across adjacent same-stop groups, so split stops such as Ehrenberg render as **Stay → Fuel → Snacks** rather than leaving Stay in an arbitrary legacy position.
+- Sections without a Target place Stay first.
+- Existing activity rows such as Fuel, Snacks, Breakfast, Dinner, Spend, Pays, and Overnight retain their relative order after Stay.
+- **Pack** is now semibold like Stay; Pickup, Parking, and other role rows remain normal weight.
+- Row values, timing math, travel cards, mileage/range, fuel math, budget math, and decision semantics are unchanged.
