@@ -26,13 +26,18 @@
 #babel-trip-current .resetBar{display:flex;justify-content:center;padding-top:12px}
 #babel-trip-current .resetBar button{font:inherit;font-weight:400;color:var(--secondary);background:transparent;border:0;min-height:44px;padding:0 16px;cursor:pointer}
 #babel-trip-current .resetBar button:focus-visible{outline:2px solid var(--blue);border-radius:8px}
-#babel-trip-current .tripDays{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin:0 0 24px}
+#babel-trip-current .tripJump{margin:0 0 24px}
+#babel-trip-current .tripJump summary{display:list-item;list-style-position:inside;min-height:44px;padding:11px 14px;border-radius:14px;background:var(--group);cursor:pointer}
+#babel-trip-current .tripJump summary:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
+#babel-trip-current .tripDays{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin:4px 0 0}
 #babel-trip-current .tripDays a{display:grid;place-items:center;min-height:44px;padding:4px;background:var(--group);color:var(--text);border-radius:10px;text-decoration:none;font-weight:600}
 #babel-trip-current .tripDays a:last-child{grid-column:span 2}
 #babel-trip-current .tripDays a:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
 #babel-trip-current .day[id]{scroll-margin-top:12px}
 </style>
 
+<details class="tripJump">
+<summary>Jump to</summary>
 <nav class="tripDays" aria-label="Jump to a trip day or budget">
   <a href="#tuesday">Tue 17</a>
   <a href="#wednesday">Wed 18</a>
@@ -42,6 +47,7 @@
   <a href="#sunday">Sun 22</a>
   <a href="#budget">Budget</a>
 </nav>
+</details>
 
 <section class="day" id="tuesday" tabindex="-1">
   <div class="header"><div class="date">Tuesday, Nov 17</div></div>
@@ -58,7 +64,7 @@
 <section class="day" id="wednesday" tabindex="-1">
   <div class="header"><div class="date">Wednesday, Nov 18</div></div>
   <div class="stack flowStack">
-<div class="group statusGroup"><div class="row"><div class="label">Status</div><div id="statusValue" class="trailing good">-170 min</div></div></div>
+<div id="tacoClosingWarning" class="group statusGroup hidden"><div class="row red" role="status">Pickup may miss closing</div></div>
 <div class="group supportGroup"><div class="row"><div class="label">Lunch</div><div class="trailing">12:00 PM</div></div>
 <div class="row"><div class="label">Fuel</div><label class="trailing blue editable"><span id="prepFuelText">$45</span><input id="prepFuel" type="number" min="0" value="45"></label></div>
 <div class="row infoRow"><div class="infoLeft">Full tank</div><div class="infoRight">300 mi left</div></div></div>
@@ -248,7 +254,7 @@
 </div></section>
 
 <div id="resetBar" class="resetBar hidden"><button id="resetTimings" type="button" title="Restore arrival and departure estimates without changing durations or costs" aria-label="Reset edited arrival and departure clocks">Reset clocks</button></div>
-<div class="buildVersion" aria-label="Babel Trip version">v1.7.4</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.7.6</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
@@ -491,9 +497,7 @@
     if(Object.prototype.hasOwnProperty.call(clockOverrides,'tacoDepart'))tp.value=String(pickupDur);
     $('#tacoEat').textContent='25 min';
     $('#wednesdayTotal').textContent='$'+(fuel+topoff+snacks+tacoCost).toFixed(0);
-    $('#statusValue').textContent=closeMargin>0?'-'+closeMargin+' min':closeMargin<0?'+'+(-closeMargin)+' min':'GOOD';
-    $('#statusValue').classList.toggle('good',closeMargin>0);
-    $('#statusValue').classList.toggle('red',closeMargin<0);
+    show('tacoClosingWarning',closeMargin<=0);
     $('#tacoArrival').classList.toggle('red',tacoArr<tacoDriveOut||tacoArr>=1440);
     $('#tacoDepart').classList.toggle('red',tacoLeave<tacoArr||tacoLeave>1440);
 
