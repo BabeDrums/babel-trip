@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.13.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.14.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -445,3 +445,7 @@ Both range rows use the travel connector outside the fuel card, immediately foll
 ## November 18 — Consistent itinerary icons (v1.7.13)
 
 Arrival, stay, and departure symbols share the same secondary gray and opacity.
+
+## November 18 — Home to Ehrenberg mileage (v1.7.14)
+
+The editable 144-mile default uses the Glendale-to-Ehrenberg city estimate from Travelmath. Remaining miles to the planned refill equal 300 minus the 7.1-mile commute minus the entered leg distance, rounded for display. The 2 hr 11 min time allowance is independent.
