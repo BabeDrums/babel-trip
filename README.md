@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.27.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.28.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -498,3 +498,10 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - Dashboard immediately after filling showed **360 mi** estimated distance-to-empty, superseding the earlier observed **340 mi** full-tank estimate for current-trip evidence.
 - Keep the user’s conservative **300-mile preferred refill target**. With the current 360-mile dashboard estimate, that corresponds to about a **60-mile displayed reserve** at the preferred refill point; DTE remains adaptive and is not guaranteed range.
 - Pre-trip safety observation from the same dashboard photo: **TPMS low-pressure warning active**; displayed tire pressures include one tire at **21 psi** and the others shown around **27 psi**. Inflate/check tires against the driver-door-jamb cold-pressure specification before highway travel; do not encode 35 psi as the required value without checking the placard.
+
+
+## November 18 — Completed fuel leaves the active itinerary (v1.7.28)
+- The **$24.43 / 6.677 gal** Wednesday pre-trip fill is complete, so its visible Fuel row is removed from the live itinerary.
+- That completed transaction is also excluded from the active Trip budget totals. The active Fuel category now reflects only **future planned fuel spending**.
+- The actual fill evidence, 360-mile dashboard DTE, 300-mile refill target, and TPMS observation remain preserved in this README/history.
+- The visible **300 miles left** starting-range planning row remains because it still affects the upcoming drive.
