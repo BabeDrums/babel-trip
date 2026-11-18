@@ -39,7 +39,17 @@
 #babel-trip-current .resetBar button{font:inherit;font-weight:400;color:var(--secondary);background:transparent;border:0;min-height:44px;padding:0 16px;cursor:pointer}
 #babel-trip-current .resetBar button:focus-visible{outline:2px solid var(--blue);border-radius:8px}
 #babel-trip-current .day[id]{scroll-margin-top:12px}
-#homePacking{border-block:1px solid var(--separator);padding-inline:16px}#homePacking summary{display:flex;align-items:center;justify-content:space-between;min-height:56px;list-style:none;cursor:pointer}#homePacking summary::-webkit-details-marker{display:none}#homePacking label{display:flex;align-items:center;gap:10px;min-height:44px;cursor:pointer}#homePacking input{accent-color:var(--blue)}
+#homePacking{position:relative;border:0;padding-inline:16px}
+#homePacking:before{content:'';position:absolute;left:16px;right:0;top:0;height:1px;background:var(--separator)}
+#homePacking summary{display:flex;align-items:center;justify-content:space-between;min-height:56px;list-style:none;cursor:pointer;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;touch-action:manipulation;background:transparent;outline:none}
+#homePacking summary::-webkit-details-marker{display:none}
+#homePacking summary:active{background:transparent}
+#homePacking summary:focus{outline:none}
+#homePacking summary:focus-visible{outline:2px solid var(--blue);outline-offset:-2px;border-radius:10px}
+#homePacking[open] summary:after{content:'';position:absolute;left:16px;right:0;top:56px;height:1px;background:var(--separator)}
+#homePacking label{display:flex;align-items:center;gap:10px;min-height:44px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#homePacking label+label{border-top:1px solid var(--separator)}
+#homePacking input{accent-color:var(--blue)}
 #restaurantCostText.coveredPrice{color:inherit}
 </style>
 
@@ -251,7 +261,7 @@
 
 
 <div id="resetBar" class="resetBar hidden"><button id="resetTimings" type="button" title="Restore arrival and departure estimates without changing durations or costs" aria-label="Reset edited arrival and departure clocks">Reset clocks</button></div>
-<div class="buildVersion" aria-label="Babel Trip version">v1.7.40</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.7.41</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
@@ -462,6 +472,16 @@
     var label=row&&row.querySelector('.label');
     return label?label.textContent.replace(/\s+/g,' ').trim():'';
   }
+  function refreshActivityFirstRows(){
+    allNodes('.travelActivityFirst').forEach(function(row){row.classList.remove('travelActivityFirst')});
+    allNodes('.stopGroup:not(.travelVacated)').forEach(function(group){
+      if(!isRouteVisible(group))return;
+      var first=Array.from(group.children).find(function(child){
+        return child.classList.contains('row')&&!child.classList.contains('hidden');
+      });
+      if(first)first.classList.add('travelActivityFirst');
+    });
+  }
   function normalizeActivityOrder(){
     allNodes('.flowStack,.journeyBranch').forEach(function(parent){
       if(!isRouteVisible(parent))return;
@@ -506,6 +526,7 @@
         i=j;
       }
     });
+    refreshActivityFirstRows();
   }
   function buildTravelCards(){
     var legs=allNodes('.travelLeg[data-car-miles]').filter(isRouteVisible);
