@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.17.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.18.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -459,3 +459,6 @@ Wednesday starts with lunch at 11:00 AM, followed by Dizzy and Tickets.
 
 ## v1.7.17
 Wednesday’s Home stop includes packing time and a collapsible checklist. Checked items are saved on this browser.
+
+## v1.7.18
+The Checklist row uses the blue packed count to expand or collapse the items.
