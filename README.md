@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.34.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.35.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -551,3 +551,14 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - **Departure remains inside its place**, and the outbound mileage/range/duration row remains the final secondary row attached to that place.
 - A real gap appears only when the next destination begins.
 - Row height remains the standard **56 px**. No timing, mileage, range, fuel, budget, or decision logic changes.
+
+
+## November 18 — Travel segment cards (v1.7.35)
+- Replace the place-ended route-row model with a dedicated **travel segment** model: **Departure → route info → Arrival**.
+- The route’s mileage, remaining refill-target range, and duration now sit directly between the departure and arrival times they explain.
+- Departure rows are visually detached from the stop/activity card above; arrival rows are visually detached from the destination activity card below.
+- Stop/activity content such as Target, Stay, Breakfast, Fuel, Pickup, Family time, etc. remains grouped separately between travel segments.
+- Existing conditional Friday/Saturday branches are handled dynamically: before each render, moved rows restore to their source groups; after branch visibility and timing update, only the active route is regrouped.
+- Shared departure rows therefore remain compatible with Dizzy and return-route choices.
+- Existing same-stop activity blocks can still merge visually when they belong to one physical stop, but vacated arrival/departure-only groups no longer collapse the intended gap.
+- Row height remains **56 px**. No route distances, timing math, fuel math, budget math, or decision semantics changed.
