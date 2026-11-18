@@ -11,9 +11,13 @@
 
 #babel-trip-current .flowStack{gap:12px}
 #babel-trip-current .journeyBranch{display:flex;flex-direction:column;gap:12px}
-#babel-trip-current .travelLeg{padding:0 2px;margin:-5px 0}
-#babel-trip-current .travelLeg .row{height:auto;min-height:26px;padding:0 14px;gap:12px;background:transparent}
-#babel-trip-current .travelLeg .row:before{display:none}
+#babel-trip-current .group:has(+ .travelLeg),
+#babel-trip-current .group:has(+ .journeyBranch > .travelLeg:first-child){border-radius:14px 14px 0 0}
+#babel-trip-current .travelLeg{padding:0;margin-top:-12px;background:var(--group);border-radius:0 0 14px 14px;overflow:hidden}
+#babel-trip-current .journeyBranch:has(> .travelLeg:first-child){margin-top:-12px}
+#babel-trip-current .journeyBranch > .travelLeg:first-child{margin-top:0}
+#babel-trip-current .travelLeg .row{height:42px;min-height:42px;padding:0 16px;gap:12px;background:var(--group)}
+#babel-trip-current .travelLeg .row:before{content:'';position:absolute;left:16px;right:0;top:0;height:1px;background:var(--separator);display:block}
 #babel-trip-current .travelLeg .infoLeft{white-space:normal}
 #babel-trip-current .stopGroup>.row:first-child:not(.roleRow) .placeLabel,
 #babel-trip-current .departureRow .placeLabel{font-weight:600}
@@ -49,7 +53,6 @@
       <div class="row"><div id="ticketLabel" class="label">Tickets</div><label class="trailing blue editable"><span id="ticketAmountText">$50</span><input id="ticketAmount" type="number" step="0.01" inputmode="decimal" min="0" value="50" aria-label="Tickets amount"></label></div>
     </div>
 <div id="tacoClosingWarning" class="group statusGroup hidden"><div class="row red" role="status">Pickup may miss closing</div></div>
-<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">300 miles left</div></div></div>
 <div class="group stopGroup"><div class="row departureRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6"></path><path d="M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Work</div><div class="trailing timeControl"><button id="departureReset" class="timeReset hidden" type="button" aria-label="Reset departure to recommended time" title="Use estimated time">↺</button><label class="blue editable"><span id="departureText">3:15 PM</span><input id="departure" type="time" value="15:15"></label></div></div></div>
 <div class="travelLeg" data-car-miles="7.1"><div class="row infoRow"><div class="infoLeft">7.1 mi</div><div class="infoRight">16 min</div></div></div>
 <div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Home</div><div class="trailing timeControl"><button id="homeArrivalReset" class="timeReset hidden" type="button" aria-label="Reset homeArrival to estimated time" title="Use estimated time">↺</button><label class="blue editable"><span id="homeArrival">3:31 PM</span><input id="homeArrivalInput" type="time" value="15:31" aria-label="Adjust home Arrival, California time"></label></div></div>
@@ -68,7 +71,6 @@
 <div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6"></path><path d="M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Ehrenberg</div><div class="trailing timeControl"><button id="quartzArrivalReset" class="timeReset hidden" type="button" aria-label="Reset Ehrenberg arrival to estimate" title="Use estimated arrival">↺</button><label class="blue editable"><span id="quartzArrival">6:11 PM</span><input id="quartzArrivalInput" type="time" value="18:11" aria-label="Adjust Ehrenberg arrival time, Arizona time"></label></div></div>
 <div class="row" data-range-reset-input="qsFuel"><div class="label">Fuel</div><label class="trailing blue editable"><span id="qsFuelText">$20</span><input id="qsFuel" type="number" step="0.01" inputmode="decimal" min="0" value="20"></label></div>
 </div>
-<div class="travelLeg"><div class="row infoRow"><div class="infoLeft">300 miles left</div></div></div>
 <div class="group stopGroup">
 <div class="row"><div class="label">Snacks</div><label class="trailing blue editable"><span id="snacksText">$10</span><input id="snacks" type="number" step="0.01" inputmode="decimal" min="0" value="10"></label></div>
 <div class="row roleRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4"></path><path d="M12.4 6.8v6.4"></path></svg></span>Stay</div><label class="trailing blue editable"><span id="stopText">15 min</span><input id="stopMinutes" type="number" min="0" step="1" value="15"></label></div>
@@ -240,7 +242,7 @@
 
 
 <div id="resetBar" class="resetBar hidden"><button id="resetTimings" type="button" title="Restore arrival and departure estimates without changing durations or costs" aria-label="Reset edited arrival and departure clocks">Reset clocks</button></div>
-<div class="buildVersion" aria-label="Babel Trip version">v1.7.31</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.7.32</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
