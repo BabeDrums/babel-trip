@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.36.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.37.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -570,3 +570,10 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - The destination name is derived dynamically from the active arrival row, so Dizzy/return branch changes rename departure rows automatically.
 - Original labels are restored before each render and rebuilt from the active route, preventing stale destination names after state changes.
 - Arrival labels, route mileage/range/duration, times, and all underlying itinerary logic are unchanged.
+
+
+## November 18 — Merged activity divider fix (v1.7.37)
+- Fix a visual regression introduced by travel-segment regrouping where the first row of a continued same-stop activity block could lose its top separator.
+- Example: Ehrenberg `Fuel` and `Snacks` now remain in one continuous activity card **with the standard divider between rows**.
+- Standalone activity cards still suppress an unnecessary top divider.
+- No travel-card structure, timing, mileage, range, fuel, budget, or decision logic changed.
