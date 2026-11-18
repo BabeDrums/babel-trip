@@ -23,6 +23,7 @@
 #babel-trip-current .travelSegmentGroup>.row:first-child .placeLabel,
 #babel-trip-current .travelSegmentGroup>.row:last-child .placeLabel,
 #babel-trip-current .departureRow .placeLabel{font-weight:600}
+#babel-trip-current .travelActivityFirst:before{display:none!important}
 #babel-trip-current .travelVacated{display:none!important}
 #babel-trip-current .stopGroup>.row:first-child:not(.roleRow) .placeLabel{font-weight:600}
 #babel-trip-current .statusGroup>.row{height:44px}
@@ -430,6 +431,7 @@
     travelMoves=[];
     allNodes('.travelSegmentGroup').forEach(function(leg){leg.classList.remove('travelSegmentGroup')});
     allNodes('.travelVacated').forEach(function(group){group.classList.remove('travelVacated')});
+    allNodes('.travelActivityFirst').forEach(function(row){row.classList.remove('travelActivityFirst')});
   }
   function moveIntoTravel(node,leg,before){
     var mark=document.createComment('babel-trip-travel');
@@ -462,8 +464,13 @@
       moving.forEach(function(node){moveIntoTravel(node,leg,routeRow)});
       moveIntoTravel(arr,leg,null);
       leg.classList.add('travelSegmentGroup');
-      if(origin&&origin.children.length===0)origin.classList.add('travelVacated');
-      if(destination&&destination.children.length===0)destination.classList.add('travelVacated');
+      [origin,destination].forEach(function(group){
+        if(!group)return;
+        var visibleChildren=Array.from(group.children).filter(function(child){return !child.classList.contains('hidden')});
+        if(visibleChildren.length===0){group.classList.add('travelVacated');return}
+        var firstVisibleRow=visibleChildren.find(function(child){return child.classList.contains('row')});
+        if(firstVisibleRow)firstVisibleRow.classList.add('travelActivityFirst');
+      });
     });
   }
   function updateDriveRanges(){
