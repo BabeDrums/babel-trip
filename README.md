@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.4.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.6.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -412,3 +412,8 @@ At the existing **8:36 PM PT** Cousin arrival, 15 minutes yields departure **8:5
 
 - Restored the exact v1.7.4 runtime after the user reported that v1.7.5 appeared to load an older plan. The restored page neither reads nor writes the v1.7.5 browser snapshot. Existing snapshots are left in place.
 - Keep autosave paused until the user explicitly reopens the work. The precise cause of the reported older plan was not verified on the user's device.
+
+## November 18 — Quieter top controls and Wednesday status (v1.7.6)
+
+- Physical iPhone review narrowed the issue to the large date shortcut grid and Wednesday's unexplained signed status. Date and budget links now sit inside one collapsed Jump to control. Wednesday only shows a pickup warning when projected pickup ends at or after midnight.
+- The approved typography, itinerary cards, calculations, and paused autosave remain in place.
