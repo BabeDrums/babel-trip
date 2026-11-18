@@ -34,8 +34,11 @@
 <div class="group"><div class="row"><div class="label">Expenses</div><div id="tripExpenses" class="trailing">$660</div></div>
 <div class="row"><div class="label">Buffer</div><label class="trailing blue editable"><span id="tripBufferText">$50</span><input id="tripBuffer" type="number" step="0.01" inputmode="decimal" min="0" value="50" aria-label="Buffer amount"></label></div></div>
 <div class="group"><div class="row"><div class="label">Total</div><div id="grandTotal" class="trailing">$710</div></div></div>
-<div class="group"><div class="row"><div class="label">Fuel</div><div id="budgetFuel" class="trailing">$200</div></div>
+<div class="group"><div class="row"><div class="label">Food</div><div id="budgetFood" class="trailing">$360</div></div>
+<div class="row"><div class="label">Fuel</div><div id="budgetFuel" class="trailing">$200</div></div>
 <div class="row"><div class="label">Tickets</div><div id="budgetTickets" class="trailing">$50</div></div>
+<div class="row"><div class="label">Parking</div><div id="budgetParking" class="trailing">$30</div></div>
+<div class="row"><div class="label">Entertainment</div><div id="budgetEntertainment" class="trailing">$20</div></div>
 </div>
 </div></section>
 <section class="day" id="wednesday" tabindex="-1">
@@ -240,7 +243,7 @@
 
 
 <div id="resetBar" class="resetBar hidden"><button id="resetTimings" type="button" title="Restore arrival and departure estimates without changing durations or costs" aria-label="Reset edited arrival and departure clocks">Reset clocks</button></div>
-<div class="buildVersion" aria-label="Babel Trip version">v1.7.21</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.7.22</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
@@ -683,14 +686,23 @@
 
     // Totals use each transaction once. Fuel/tickets are breakdown values.
     var ticketCost=paid('ticketAmount');
-    var wed=fuel+topoff+snacks+tacoCost;
-    var thu=breakfastCost+lunchCost+rudeCost+(state.momPaid==='yes'?0:paid('restaurantCost'));
-    var trip=ticketCost+wed+thu+friTotal+satTotal+sunTotal;
+    var categories={
+      Food: snacks+tacoCost+breakfastCost+lunchCost+(state.momPaid==='yes'?0:paid('restaurantCost'))+friSushi+lunchSat+dinnerSat+sunBreakfast+sunSnacks,
+      Fuel: fuel+topoff+friFuel+sunFuel,
+      Tickets: ticketCost,
+      Parking: friParking,
+      Entertainment: rudeCost+friEvent+karaokeSat
+    };
+    var tripCents=0;
+    Object.entries(categories).forEach(function(entry){
+      var cents=Math.round(entry[1]*100);
+      tripCents+=cents;
+      put('budget'+entry[0],money(cents/100));
+    });
+    var trip=tripCents/100;
     var contingency=paid('tripBuffer');
     put('tripExpenses',money(trip));
     put('grandTotal',money((trip+contingency)));
-    put('budgetFuel',money((fuel+topoff+friFuel+sunFuel)));
-    put('budgetTickets',money(ticketCost));
     show('resetBar',hasTimeOverrides());
   }
 })();
