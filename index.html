@@ -249,7 +249,7 @@
 
 
 <div id="resetBar" class="resetBar hidden"><button id="resetTimings" type="button" title="Restore arrival and departure estimates without changing durations or costs" aria-label="Reset edited arrival and departure clocks">Reset clocks</button></div>
-<div class="buildVersion" aria-label="Babel Trip version">v1.7.37</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.7.38</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
@@ -449,38 +449,46 @@
     var arrivals=allNodes('.stopGroup > .row').filter(function(row){
       return isRouteVisible(row)&&!row.classList.contains('departureRow')&&!!row.querySelector('.placeLabel');
     });
+    var placeRows=allNodes('.stopGroup > .row').filter(function(row){
+      return isRouteVisible(row)&&!row.classList.contains('roleRow')&&!row.classList.contains('departureRow')&&!!row.querySelector('.placeLabel');
+    });
     var plans=legs.map(function(leg){
-      var dep=null,arr=null;
+      var dep=null,arr=null,originRow=null;
       departures.forEach(function(row){
         if(row.compareDocumentPosition(leg)&Node.DOCUMENT_POSITION_FOLLOWING)dep=row;
       });
       for(var i=0;i<arrivals.length;i++){
         if(leg.compareDocumentPosition(arrivals[i])&Node.DOCUMENT_POSITION_FOLLOWING){arr=arrivals[i];break}
       }
-      return {leg:leg,dep:dep,arr:arr};
+      if(dep){
+        placeRows.forEach(function(row){
+          if(row.compareDocumentPosition(dep)&Node.DOCUMENT_POSITION_FOLLOWING)originRow=row;
+        });
+      }
+      return {leg:leg,dep:dep,arr:arr,originRow:originRow};
     }).filter(function(plan){return plan.dep&&plan.arr});
     plans.forEach(function(plan){
-      var leg=plan.leg,dep=plan.dep,arr=plan.arr,routeRow=leg.querySelector('.row');
+      var leg=plan.leg,dep=plan.dep,arr=plan.arr,originRow=plan.originRow,routeRow=leg.querySelector('.row');
       if(!routeRow)return;
       var origin=dep.parentElement,destination=arr.parentElement;
       var moving=[],cursor=dep;
       while(cursor){moving.push(cursor);cursor=cursor.nextElementSibling}
       moving.forEach(function(node){moveIntoTravel(node,leg,routeRow)});
       moveIntoTravel(arr,leg,null);
-      var depLabel=dep.querySelector('.placeLabel'),arrLabel=arr.querySelector('.placeLabel');
-      if(depLabel&&arrLabel){
-        var destClone=arrLabel.cloneNode(true),destIcon=destClone.querySelector('.miniIcon');
-        if(destIcon)destIcon.remove();
-        var destName=destClone.textContent.replace(/\s+/g,' ').trim();
-        if(destName){
+      var depLabel=dep.querySelector('.placeLabel'),originLabel=originRow&&originRow.querySelector('.placeLabel');
+      if(depLabel&&originLabel){
+        var originClone=originLabel.cloneNode(true),originIcon=originClone.querySelector('.miniIcon');
+        if(originIcon)originIcon.remove();
+        var originName=originClone.textContent.replace(/\s+/g,' ').trim();
+        if(originName){
           travelLabelMoves.push({label:depLabel,html:depLabel.innerHTML});
           var depIcon=depLabel.querySelector('.miniIcon');
           var iconHtml=depIcon?depIcon.outerHTML:'';
           depLabel.innerHTML=iconHtml;
-          var destinationText=document.createElement('span');
-          destinationText.className='travelDestinationName';
-          destinationText.textContent=destName;
-          depLabel.appendChild(destinationText);
+          var originText=document.createElement('span');
+          originText.className='travelOriginName';
+          originText.textContent=originName;
+          depLabel.appendChild(originText);
         }
       }
       leg.classList.add('travelSegmentGroup');
