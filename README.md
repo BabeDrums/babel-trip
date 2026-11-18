@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.35.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.36.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -562,3 +562,11 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - Shared departure rows therefore remain compatible with Dizzy and return-route choices.
 - Existing same-stop activity blocks can still merge visually when they belong to one physical stop, but vacated arrival/departure-only groups no longer collapse the intended gap.
 - Row height remains **56 px**. No route distances, timing math, fuel math, budget math, or decision semantics changed.
+
+
+## November 18 — Destination-named departures (v1.7.36)
+- In each travel segment card, the **departure row text now uses the destination name** rather than generic `Leave` text or the origin name.
+- The departure icon continues to communicate the action/direction, so the label can carry the more useful place information.
+- The destination name is derived dynamically from the active arrival row, so Dizzy/return branch changes rename departure rows automatically.
+- Original labels are restored before each render and rebuilt from the active route, preventing stale destination names after state changes.
+- Arrival labels, route mileage/range/duration, times, and all underlying itinerary logic are unchanged.
