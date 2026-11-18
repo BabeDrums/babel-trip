@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.28.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.29.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -505,3 +505,12 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - That completed transaction is also excluded from the active Trip budget totals. The active Fuel category now reflects only **future planned fuel spending**.
 - The actual fill evidence, 360-mile dashboard DTE, 300-mile refill target, and TPMS observation remain preserved in this README/history.
 - The visible **300 miles left** starting-range planning row remains because it still affects the upcoming drive.
+
+
+## November 18 — Running miles-left counters (v1.7.29)
+- Every **driving** connector now renders `<leg miles> · <miles left> mi left` against the user’s conservative **300-mile refill target**.
+- Walking connectors remain unchanged and do not consume vehicle range.
+- Range is calculated in active itinerary order rather than hardcoded per row, so hidden/visible Dizzy and return branches are respected.
+- An active planned fuel stop resets the planning range to **300 miles** only when that fuel amount is greater than zero.
+- Current reset points: outbound Ehrenberg, Friday Temecula when that branch is active, Saturday Grandpa’s or Saturday Temecula depending the active Dizzy branch, and Sunday Ehrenberg.
+- This is **planning range to the next refill target**, not the Sentra’s live dashboard DTE. The observed **360-mile** full-tank DTE remains preserved separately as real-world evidence.
