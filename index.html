@@ -11,20 +11,21 @@
 
 #babel-trip-current .flowStack{gap:12px}
 #babel-trip-current .journeyBranch{display:flex;flex-direction:column;gap:12px}
-#babel-trip-current .group:has(+ .travelLeg),
-#babel-trip-current .group:has(+ .journeyBranch:not(.hidden) > .travelLeg:first-child){border-radius:14px 14px 0 0}
-/* Apple-style semantic grouping: adjacent stopGroup blocks are one physical stop, not separate cards. */
-#babel-trip-current .stopGroup:has(+ .stopGroup){border-bottom-left-radius:0;border-bottom-right-radius:0}
-#babel-trip-current .stopGroup + .stopGroup{margin-top:-12px;border-top-left-radius:0;border-top-right-radius:0}
-#babel-trip-current .stopGroup + .stopGroup>.row:first-child:before{content:'';position:absolute;left:16px;right:0;top:0;height:1px;background:var(--separator);display:block}
-#babel-trip-current .travelLeg{padding:0;margin-top:-12px;background:var(--group);border-radius:0 0 14px 14px;overflow:hidden}
-#babel-trip-current .journeyBranch:has(> .travelLeg:first-child){margin-top:-12px}
-#babel-trip-current .journeyBranch > .travelLeg:first-child{margin-top:0}
+/* Adjacent stopGroup blocks at one place still read as one activity card. */
+#babel-trip-current .stopGroup:not(.travelVacated):has(+ .stopGroup:not(.travelVacated)){border-bottom-left-radius:0;border-bottom-right-radius:0}
+#babel-trip-current .stopGroup:not(.travelVacated) + .stopGroup:not(.travelVacated){margin-top:-12px;border-top-left-radius:0;border-top-right-radius:0}
+#babel-trip-current .stopGroup:not(.travelVacated) + .stopGroup:not(.travelVacated)>.row:first-child:before{content:'';position:absolute;left:16px;right:0;top:0;height:1px;background:var(--separator);display:block}
+/* Travel becomes a true segment card: departure → route info → arrival. */
+#babel-trip-current .travelLeg{padding:0;background:var(--group);border-radius:14px;overflow:hidden}
 #babel-trip-current .travelLeg .row{height:56px;min-height:56px;padding:0 16px;gap:12px;background:var(--group)}
-#babel-trip-current .travelLeg .row:before{content:'';position:absolute;left:16px;right:0;top:0;height:1px;background:var(--separator);display:block}
+#babel-trip-current .travelLeg .row+.row:before{content:'';position:absolute;left:16px;right:0;top:0;height:1px;background:var(--separator);display:block}
 #babel-trip-current .travelLeg .infoLeft{white-space:normal}
-#babel-trip-current .stopGroup>.row:first-child:not(.roleRow) .placeLabel,
+#babel-trip-current .travelSegmentGroup>.row:first-child .placeLabel,
+#babel-trip-current .travelSegmentGroup>.row:last-child .placeLabel,
 #babel-trip-current .departureRow .placeLabel{font-weight:600}
+#babel-trip-current .travelActivityFirst:before{display:none!important}
+#babel-trip-current .travelVacated{display:none!important}
+#babel-trip-current .stopGroup>.row:first-child:not(.roleRow) .placeLabel{font-weight:600}
 #babel-trip-current .statusGroup>.row{height:44px}
 #babel-trip-current .previewHint{color:var(--secondary);text-align:center;padding:0 4px 16px}
 
@@ -246,7 +247,7 @@
 
 
 <div id="resetBar" class="resetBar hidden"><button id="resetTimings" type="button" title="Restore arrival and departure estimates without changing durations or costs" aria-label="Reset edited arrival and departure clocks">Reset clocks</button></div>
-<div class="buildVersion" aria-label="Babel Trip version">v1.7.34</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.7.35</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
@@ -419,6 +420,59 @@
     $('#sundayBreakfastDeparture').value='09:50';
     render();
   });
+  var travelMoves=[];
+  function isRouteVisible(node){return !node.closest('.hidden')}
+  function restoreTravelCards(){
+    for(var i=travelMoves.length-1;i>=0;i--){
+      var rec=travelMoves[i],mark=rec.mark;
+      if(mark.parentNode)mark.parentNode.insertBefore(rec.node,mark.nextSibling);
+      if(mark.parentNode)mark.parentNode.removeChild(mark);
+    }
+    travelMoves=[];
+    allNodes('.travelSegmentGroup').forEach(function(leg){leg.classList.remove('travelSegmentGroup')});
+    allNodes('.travelVacated').forEach(function(group){group.classList.remove('travelVacated')});
+    allNodes('.travelActivityFirst').forEach(function(row){row.classList.remove('travelActivityFirst')});
+  }
+  function moveIntoTravel(node,leg,before){
+    var mark=document.createComment('babel-trip-travel');
+    node.parentNode.insertBefore(mark,node);
+    travelMoves.push({node:node,mark:mark});
+    leg.insertBefore(node,before||null);
+  }
+  function buildTravelCards(){
+    var legs=allNodes('.travelLeg[data-car-miles]').filter(isRouteVisible);
+    var departures=allNodes('.departureRow').filter(isRouteVisible);
+    var arrivals=allNodes('.stopGroup > .row').filter(function(row){
+      return isRouteVisible(row)&&!row.classList.contains('departureRow')&&!!row.querySelector('.placeLabel');
+    });
+    var plans=legs.map(function(leg){
+      var dep=null,arr=null;
+      departures.forEach(function(row){
+        if(row.compareDocumentPosition(leg)&Node.DOCUMENT_POSITION_FOLLOWING)dep=row;
+      });
+      for(var i=0;i<arrivals.length;i++){
+        if(leg.compareDocumentPosition(arrivals[i])&Node.DOCUMENT_POSITION_FOLLOWING){arr=arrivals[i];break}
+      }
+      return {leg:leg,dep:dep,arr:arr};
+    }).filter(function(plan){return plan.dep&&plan.arr});
+    plans.forEach(function(plan){
+      var leg=plan.leg,dep=plan.dep,arr=plan.arr,routeRow=leg.querySelector('.row');
+      if(!routeRow)return;
+      var origin=dep.parentElement,destination=arr.parentElement;
+      var moving=[],cursor=dep;
+      while(cursor){moving.push(cursor);cursor=cursor.nextElementSibling}
+      moving.forEach(function(node){moveIntoTravel(node,leg,routeRow)});
+      moveIntoTravel(arr,leg,null);
+      leg.classList.add('travelSegmentGroup');
+      [origin,destination].forEach(function(group){
+        if(!group)return;
+        var visibleChildren=Array.from(group.children).filter(function(child){return !child.classList.contains('hidden')});
+        if(visibleChildren.length===0){group.classList.add('travelVacated');return}
+        var firstVisibleRow=visibleChildren.find(function(child){return child.classList.contains('row')});
+        if(firstVisibleRow)firstVisibleRow.classList.add('travelActivityFirst');
+      });
+    });
+  }
   function updateDriveRanges(){
     var remaining=300;
     allNodes('[data-range-reset-input],.travelLeg[data-car-miles]').forEach(function(node){
@@ -436,6 +490,7 @@
     });
   }
   function render(){
+    restoreTravelCards();
     var topoff=amount(qf,'qsFuel'),snacks=amount(sn,'snacks'),
         tacoCost=amount(ts,'tacoSpend'),breakfastCost=amount(bs,'breakfastSpend'),
         lunchCost=amount(ls,'lunchSpend'),rudeCost=amount(rs,'rudeSpend');
@@ -733,6 +788,7 @@
     put('grandTotal',money((trip+contingency)));
     updateDriveRanges();
     show('resetBar',hasTimeOverrides());
+    buildTravelCards();
   }
 })();
 (function () {
