@@ -29,6 +29,7 @@
 #babel-trip-current .travelVacated{display:none!important}
 #babel-trip-current .stopGroup>.row:first-child:not(.roleRow) .placeLabel{font-weight:600}
 #babel-trip-current .stayRow .label{font-weight:600}
+#babel-trip-current .row:has(#homeStopText) .label{font-weight:600}
 #babel-trip-current .statusGroup>.row{height:44px}
 #babel-trip-current .previewHint{color:var(--secondary);text-align:center;padding:0 4px 16px}
 
@@ -250,7 +251,7 @@
 
 
 <div id="resetBar" class="resetBar hidden"><button id="resetTimings" type="button" title="Restore arrival and departure estimates without changing durations or costs" aria-label="Reset edited arrival and departure clocks">Reset clocks</button></div>
-<div class="buildVersion" aria-label="Babel Trip version">v1.7.39</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.7.40</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
@@ -423,9 +424,15 @@
     $('#sundayBreakfastDeparture').value='09:50';
     render();
   });
-  var travelMoves=[],travelLabelMoves=[];
+  var travelMoves=[],travelLabelMoves=[],activityMoves=[];
   function isRouteVisible(node){return !node.closest('.hidden')}
   function restoreTravelCards(){
+    for(var a=activityMoves.length-1;a>=0;a--){
+      var activityRec=activityMoves[a],activityMark=activityRec.mark;
+      if(activityMark.parentNode)activityMark.parentNode.insertBefore(activityRec.node,activityMark.nextSibling);
+      if(activityMark.parentNode)activityMark.parentNode.removeChild(activityMark);
+    }
+    activityMoves=[];
     for(var i=travelMoves.length-1;i>=0;i--){
       var rec=travelMoves[i],mark=rec.mark;
       if(mark.parentNode)mark.parentNode.insertBefore(rec.node,mark.nextSibling);
@@ -443,6 +450,62 @@
     node.parentNode.insertBefore(mark,node);
     travelMoves.push({node:node,mark:mark});
     leg.insertBefore(node,before||null);
+  }
+  function moveActivityRow(node,target,before){
+    if(node.parentNode===target&&node===before)return;
+    var mark=document.createComment('babel-trip-activity');
+    node.parentNode.insertBefore(mark,node);
+    activityMoves.push({node:node,mark:mark});
+    target.insertBefore(node,before||null);
+  }
+  function activityLabel(row){
+    var label=row&&row.querySelector('.label');
+    return label?label.textContent.replace(/\s+/g,' ').trim():'';
+  }
+  function normalizeActivityOrder(){
+    allNodes('.flowStack,.journeyBranch').forEach(function(parent){
+      if(!isRouteVisible(parent))return;
+      var children=Array.from(parent.children),i=0;
+      while(i<children.length){
+        var first=children[i];
+        if(!first.classList.contains('stopGroup')||first.classList.contains('hidden')||first.classList.contains('travelVacated')){i++;continue}
+        var chain=[first],j=i+1;
+        while(j<children.length){
+          var next=children[j];
+          if(next.classList.contains('stopGroup')&&!next.classList.contains('hidden')&&!next.classList.contains('travelVacated')){chain.push(next);j++;continue}
+          break;
+        }
+        var rows=[];
+        chain.forEach(function(group){
+          Array.from(group.children).forEach(function(child){
+            if(child.classList.contains('row')&&!child.classList.contains('hidden'))rows.push(child);
+          });
+        });
+        var stay=rows.find(function(row){return row.classList.contains('stayRow')});
+        if(stay){
+          var targetRow=rows.find(function(row){return activityLabel(row)==='Target'});
+          var targetGroup=targetRow?targetRow.parentElement:chain[0];
+          var before=null;
+          if(targetRow){
+            before=targetRow.nextSibling;
+          }else{
+            before=Array.from(targetGroup.children).find(function(child){
+              return child.classList.contains('row')&&!child.classList.contains('hidden');
+            })||null;
+          }
+          var alreadyCorrect=stay.parentElement===targetGroup&&((targetRow&&stay.previousElementSibling===targetRow)||(!targetRow&&stay===before));
+          if(!alreadyCorrect){
+            var source=stay.parentElement;
+            moveActivityRow(stay,targetGroup,before);
+            var sourceVisible=Array.from(source.children).some(function(child){
+              return child.classList.contains('row')&&!child.classList.contains('hidden');
+            });
+            if(!sourceVisible)source.classList.add('travelVacated');
+          }
+        }
+        i=j;
+      }
+    });
   }
   function buildTravelCards(){
     var legs=allNodes('.travelLeg[data-car-miles]').filter(isRouteVisible);
@@ -818,6 +881,7 @@
     updateDriveRanges();
     show('resetBar',hasTimeOverrides());
     buildTravelCards();
+    normalizeActivityOrder();
   }
 })();
 (function () {
