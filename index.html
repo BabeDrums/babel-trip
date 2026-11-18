@@ -12,7 +12,7 @@
 #babel-trip-current .flowStack{gap:12px}
 #babel-trip-current .journeyBranch{display:flex;flex-direction:column;gap:12px}
 #babel-trip-current .group:has(+ .travelLeg),
-#babel-trip-current .group:has(+ .journeyBranch > .travelLeg:first-child){border-radius:14px 14px 0 0}
+#babel-trip-current .group:has(+ .journeyBranch:not(.hidden) > .travelLeg:first-child){border-radius:14px 14px 0 0}
 #babel-trip-current .travelLeg{padding:0;margin-top:-12px;background:var(--group);border-radius:0 0 14px 14px;overflow:hidden}
 #babel-trip-current .journeyBranch:has(> .travelLeg:first-child){margin-top:-12px}
 #babel-trip-current .journeyBranch > .travelLeg:first-child{margin-top:0}
