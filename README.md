@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.33.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.34.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -542,3 +542,12 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 ## November 18 — Route-row sizing (v1.7.33)
 - Attached outbound route rows now use the same **56 px** row height as standard itinerary rows.
 - Grouping, separators, mileage/range text, timing, and branch behavior are unchanged.
+
+
+## November 18 — Semantic stop grouping (v1.7.34)
+- Apply the place-based grouping rule consistently: **one physical stop = one continuous grouped card**.
+- Adjacent `stopGroup` blocks now visually merge with standard row separators instead of creating a 12 px card gap.
+- This specifically resolves split stops such as **Ehrenberg**, where Arrival/Fuel and Snacks/Stay/Leave belong to the same place.
+- **Departure remains inside its place**, and the outbound mileage/range/duration row remains the final secondary row attached to that place.
+- A real gap appears only when the next destination begins.
+- Row height remains the standard **56 px**. No timing, mileage, range, fuel, budget, or decision logic changes.
