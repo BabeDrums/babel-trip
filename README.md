@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.26.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.27.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -485,8 +485,16 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 ## November 18 — Remaining fuel-stop model (v1.7.26)
 - Planning basis: 2026 Nissan Sentra S/SV EPA **33 combined MPG** and **12.41-gallon** tank; the itinerary continues to use the user's conservative **300-mile preferred refill interval** rather than the theoretical full-tank distance.
 - Price basis captured November 18, 2026: AAA regular gasoline averages **$5.5249/gal California** and **$3.9934/gal Arizona**. Fuel defaults are planning estimates rounded **up to the next $5** and remain user-editable.
-- Existing Wednesday values remain unchanged: **$45** pre-trip fuel and **$20** Ehrenberg top-off.
+- Wednesday pre-trip fuel is now **actual**, not estimated: **$24.43 for 6.677 gal** (about **$3.659/gal**), filled to full on November 18. The dashboard showed **360 mi** distance-to-empty immediately after the fill. The **$20** Ehrenberg top-off remains an editable planning estimate.
 - Current default `Dizzy = Weekend` route: Friday Temecula **$50** after about **295.7 miles** since the Wednesday Ehrenberg fill; Saturday Temecula **$30** after about **170 miles**; Sunday Ehrenberg **$35** after about **278.8 miles**.
 - If `Dizzy = Friday`, Saturday refueling moves to Grandpa's at **$45** after about **244 miles** since Friday's Temecula fill. If `Dizzy = None`, the Friday Temecula fuel transaction disappears and Saturday Grandpa's becomes **$50** after about **281.7 miles** since Wednesday's Ehrenberg fill.
 - Sunday Ehrenberg remains **$35** for every current Dizzy branch, keeping the final **144-mile** Arizona leg comfortably inside the refill interval.
 - Only the active branch's fuel transaction contributes to Saturday and trip totals. Manual edits to the Saturday fuel amounts are preserved while switching choices during the current page session.
+
+
+## November 18 — Actual pre-trip fill (v1.7.27)
+- User-confirmed pump result: **$24.43**, **6.677 gallons**, full tank.
+- Implied pump price from the receipt values: **$3.659/gal**.
+- Dashboard immediately after filling showed **360 mi** estimated distance-to-empty, superseding the earlier observed **340 mi** full-tank estimate for current-trip evidence.
+- Keep the user’s conservative **300-mile preferred refill target**. With the current 360-mile dashboard estimate, that corresponds to about a **60-mile displayed reserve** at the preferred refill point; DTE remains adaptive and is not guaranteed range.
+- Pre-trip safety observation from the same dashboard photo: **TPMS low-pressure warning active**; displayed tire pressures include one tire at **21 psi** and the others shown around **27 psi**. Inflate/check tires against the driver-door-jamb cold-pressure specification before highway travel; do not encode 35 psi as the required value without checking the placard.
