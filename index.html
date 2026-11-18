@@ -32,11 +32,12 @@
   <div class="header"><div class="date">Wednesday, Nov 18</div></div>
   <div class="stack flowStack">
     <div class="group menuGroup">
+      <div class="row"><div class="label">Lunch</div><div class="trailing">11:00 AM</div></div>
       <div class="row decisionRow choice" data-key="dizzy"><button class="decisionTrigger choiceTrigger" type="button" aria-expanded="false" aria-controls="dizzyOptions"><span class="label">Dizzy</span><span class="decisionValue"><span id="dizzyChoiceText" class="decisionValueText">Weekend</span></span></button><div id="dizzyOptions" class="choiceMenu hidden" role="group" aria-label="Dizzy options"><button class="choiceOption sel" data-v="weekend" type="button" aria-pressed="true">Weekend</button><button class="choiceOption" data-v="friday" type="button" aria-pressed="false">Friday</button><button class="choiceOption" data-v="none" type="button" aria-pressed="false">None</button></div></div>
       <div class="row"><div id="ticketLabel" class="label">Tickets</div><div id="ticketsValue" class="trailing">$50</div></div>
     </div>
 <div id="tacoClosingWarning" class="group statusGroup hidden"><div class="row red" role="status">Pickup may miss closing</div></div>
-<div class="group supportGroup"><div class="row"><div class="label">Lunch</div><div class="trailing">12:00 PM</div></div>
+<div class="group supportGroup">
 <div class="row"><div class="label">Fuel</div><label class="trailing blue editable"><span id="prepFuelText">$45</span><input id="prepFuel" type="number" min="0" value="45"></label></div>
 </div>
 <div class="travelLeg"><div class="row infoRow"><div class="infoLeft">300 miles left</div></div></div>
@@ -227,7 +228,7 @@
 </div></section>
 
 <div id="resetBar" class="resetBar hidden"><button id="resetTimings" type="button" title="Restore arrival and departure estimates without changing durations or costs" aria-label="Reset edited arrival and departure clocks">Reset clocks</button></div>
-<div class="buildVersion" aria-label="Babel Trip version">v1.7.15</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.7.16</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
