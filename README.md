@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.5.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.4.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -403,7 +403,12 @@ At the existing **8:36 PM PT** Cousin arrival, 15 minutes yields departure **8:5
 
 - Physical iPhone feedback identified too many competing text treatments. Use 22px semibold for day headings and 16px for itinerary text. Reserve semibold within rows for stop names, totals, and selected navigation or decisions. Use existing color to distinguish editable values and secondary details. Card structure, controls, timing, and budget logic are unchanged.
 
-## November 18 — On-device autosave (v1.7.5)
+## November 18 — On-device autosave (v1.7.5; rolled back)
 
 - Times, durations, costs, choices, and clock reset state survive reloading and reopening in the same browser. The stable, trip-specific storage key is independent of release numbers. The base itinerary still opens with defaults when browser storage is unavailable or the stored JSON cannot be read.
 - Autosave is local to the browser. It does not sync devices or make the page available offline. The itinerary layout and schedule and budget calculations are unchanged.
+
+## November 18 — Restore approved itinerary and pause autosave
+
+- Restored the exact v1.7.4 runtime after the user reported that v1.7.5 appeared to load an older plan. The restored page neither reads nor writes the v1.7.5 browser snapshot. Existing snapshots are left in place.
+- Keep autosave paused until the user explicitly reopens the work. The precise cause of the reported older plan was not verified on the user's device.
