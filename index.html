@@ -30,6 +30,14 @@
 #restaurantCostText.coveredPrice{color:inherit}
 </style>
 
+<section class="day" id="budget" tabindex="-1"><div class="header"><div class="date">Trip budget</div></div><div class="stack">
+<div class="group"><div class="row"><div class="label">Expenses</div><div id="tripExpenses" class="trailing">$660</div></div>
+<div class="row"><div class="label">Buffer</div><label class="trailing blue editable"><span id="tripBufferText">$50</span><input id="tripBuffer" type="number" step="0.01" inputmode="decimal" min="0" value="50" aria-label="Buffer amount"></label></div></div>
+<div class="group"><div class="row"><div class="label">Total</div><div id="grandTotal" class="trailing">$710</div></div></div>
+<div class="group"><div class="row"><div class="label">Fuel</div><div id="budgetFuel" class="trailing">$200</div></div>
+<div class="row"><div class="label">Tickets</div><div id="budgetTickets" class="trailing">$50</div></div>
+<div class="row"><div class="label">Lodging</div><label class="trailing blue editable"><span id="lodgingText">$0</span><input id="lodging" type="number" step="0.01" inputmode="decimal" min="0" value="0" aria-label="Lodging amount"></label></div></div>
+</div></section>
 <section class="day" id="wednesday" tabindex="-1">
   <div class="header"><div class="date">Wednesday, Nov 18</div></div>
   <div class="stack flowStack">
@@ -229,17 +237,10 @@
 <div class="group totalGroup"><div class="row"><div class="label">Total</div><div id="sundayTotal" class="trailing">$140</div></div></div>
 </div></section>
 
-<section class="day" id="budget" tabindex="-1"><div class="header"><div class="date">Trip budget</div></div><div class="stack">
-<div class="group"><div class="row"><div class="label">Trip expenses</div><div id="tripExpenses" class="trailing">$660</div></div>
-<div class="row"><div class="label">Contingency</div><label class="trailing blue editable"><span id="tripBufferText">$50</span><input id="tripBuffer" type="number" step="0.01" inputmode="decimal" min="0" value="50" aria-label="Contingency amount"></label></div></div>
-<div class="group"><div class="row"><div class="label">Grand total</div><div id="grandTotal" class="trailing">$710</div></div></div>
-<div class="group"><div class="row"><div class="label">Fuel included</div><div id="budgetFuel" class="trailing">$200</div></div>
-<div class="row"><div class="label">Tickets included</div><div id="budgetTickets" class="trailing">$50</div></div>
-<div class="row"><div class="label">Planned lodging</div><label class="trailing blue editable"><span id="lodgingText">$0</span><input id="lodging" type="number" step="0.01" inputmode="decimal" min="0" value="0" aria-label="Planned lodging amount"></label></div></div>
-</div></section>
+
 
 <div id="resetBar" class="resetBar hidden"><button id="resetTimings" type="button" title="Restore arrival and departure estimates without changing durations or costs" aria-label="Reset edited arrival and departure clocks">Reset clocks</button></div>
-<div class="buildVersion" aria-label="Babel Trip version">v1.7.19</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.7.20</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
