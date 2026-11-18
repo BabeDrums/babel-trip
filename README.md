@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.18.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.19.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -462,3 +462,6 @@ Wednesday’s Home stop includes packing time and a collapsible checklist. Check
 
 ## v1.7.18
 The Checklist row uses the blue packed count to expand or collapse the items.
+
+## v1.7.19
+Individual costs accept dollars and cents, including tickets, the restaurant bill and lodging. Budget breakdowns and totals use the entered amounts. A covered restaurant bill contributes zero to personal spending.
