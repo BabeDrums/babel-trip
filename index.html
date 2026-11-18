@@ -248,7 +248,7 @@
 </div></section>
 
 <div id="resetBar" class="resetBar hidden"><button id="resetTimings" type="button" title="Restore arrival and departure estimates without changing durations or costs" aria-label="Reset edited arrival and departure clocks">Reset clocks</button></div>
-<div class="buildVersion" aria-label="Babel Trip version">v1.7.5</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.7.4</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
@@ -282,7 +282,7 @@
         state[key]=key==='dinner'?Number(button.dataset.v):button.dataset.v;
         if(key==='dizzy')state.ticketCount=state.dizzy==='none'?1:2;
         closeChoices();
-        renderAndSave();
+        render();
         trigger.focus();
       });
     });
@@ -300,27 +300,27 @@
   // Automatic timing is a planning preference, not a restriction on actual stop length.
   // Editing Home stay holds duration; editing Leave Home holds departure clock time.
   var homeMode='auto',homeDepartureManual=null;
-  [pf,qf,sn,ts,bs,ls,rs].forEach(function(x){x.addEventListener('input',renderAndSave)});
+  [pf,qf,sn,ts,bs,ls,rs].forEach(function(x){x.addEventListener('input',render)});
   var workEdited=false,sundayEdited=false;
-  dep.addEventListener('input',function(){workEdited=true;renderAndSave()});
-  stop.addEventListener('input',function(){delete clockOverrides.quartzDepart;delete savedStopBeforeOverride.quartzDepart;renderAndSave()});
-  tp.addEventListener('input',function(){delete clockOverrides.tacoDepart;delete savedStopBeforeOverride.tacoDepart;renderAndSave()});
+  dep.addEventListener('input',function(){workEdited=true;render()});
+  stop.addEventListener('input',function(){delete clockOverrides.quartzDepart;delete savedStopBeforeOverride.quartzDepart;render()});
+  tp.addEventListener('input',function(){delete clockOverrides.tacoDepart;delete savedStopBeforeOverride.tacoDepart;render()});
   cs.addEventListener('input',function(){
     // Last edit wins: an explicit stay changes the recommended departure.
     delete clockOverrides.tacoStartDrive;
     delete savedStopBeforeOverride.tacoStartDrive;
-    renderAndSave();
+    render();
   });
-  hs.addEventListener('input',function(){homeMode='stay';renderAndSave()});
+  hs.addEventListener('input',function(){homeMode='stay';render()});
   hd.addEventListener('change',function(){
     var n=timeMinutes(hd.value);
     if(n===null)return;
-    homeDepartureManual=n;homeMode='depart';renderAndSave();
+    homeDepartureManual=n;homeMode='depart';render();
   });
-  $('#homeDepartReset').addEventListener('click',function(){homeMode='auto';homeDepartureManual=null;renderAndSave()});
+  $('#homeDepartReset').addEventListener('click',function(){homeMode='auto';homeDepartureManual=null;render()});
   var fridayDepartEdited=false,saturdayDepartEdited=false,customAmounts={};
   var newControlIds=['fridayDeparture','fridayPickupMinutes','fridayFuel','fridaySushiMinutes','fridaySushiSpend','fridayParking','fridayEventMinutes','fridayEventSpend','fridayDropMinutes','saturdayDeparture','saturdayLunch','saturdayDinnerSpend','saturdayDinnerTime','saturdayDinnerMinutes','saturdayKaraokeMinutes','saturdayKaraokeSpend','saturdayDropMinutes','sundayBreakfastDeparture','sundayBreakfastMinutes','sundayBreakfastSpend','sundayPackMinutes','sundayStopMinutes','sundayFuel','sundaySnacks','tripBuffer'];
-  newControlIds.forEach(function(id){$('#'+id).addEventListener('input',function(){if(id==='fridayDeparture')fridayDepartEdited=true;if(id==='saturdayDeparture')saturdayDepartEdited=true;if(id==='sundayBreakfastDeparture')sundayEdited=true;if(['fridayFuel','fridaySushiSpend','fridayEventSpend','saturdayLunch','saturdayDinnerSpend','saturdayKaraokeSpend'].indexOf(id)>=0)customAmounts[id]=true;if(pauseDependencies[id]){delete savedStopBeforeOverride[pauseDependencies[id]];delete clockOverrides[pauseDependencies[id]]}renderAndSave()})});
+  newControlIds.forEach(function(id){$('#'+id).addEventListener('input',function(){if(id==='fridayDeparture')fridayDepartEdited=true;if(id==='saturdayDeparture')saturdayDepartEdited=true;if(id==='sundayBreakfastDeparture')sundayEdited=true;if(['fridayFuel','fridaySushiSpend','fridayEventSpend','saturdayLunch','saturdayDinnerSpend','saturdayKaraokeSpend'].indexOf(id)>=0)customAmounts[id]=true;if(pauseDependencies[id]){delete savedStopBeforeOverride[pauseDependencies[id]];delete clockOverrides[pauseDependencies[id]]}render()})});
 
   var pauseDependencies={
     fridayPickupMinutes:'fridayPickupDeparture',
@@ -341,7 +341,7 @@
       var value=timeMinutes(field.value);
       if(value===null)return;
       if(!Object.prototype.hasOwnProperty.call(clockOverrides,id)&&departurePauseInputs[id])savedStopBeforeOverride[id]=$('#'+departurePauseInputs[id]).value;
-      clockOverrides[id]=value;renderAndSave();
+      clockOverrides[id]=value;render();
     });
     reset.addEventListener('click',function(){
       delete clockOverrides[id];
@@ -349,21 +349,21 @@
         $('#'+departurePauseInputs[id]).value=savedStopBeforeOverride[id];
         delete savedStopBeforeOverride[id];
       }
-      renderAndSave();
+      render();
     });
   });
-  $('#departureReset').addEventListener('click',function(){workEdited=false;dep.value='15:15';renderAndSave()});
-  $('#fridayDepartureReset').addEventListener('click',function(){fridayDepartEdited=false;renderAndSave()});
-  $('#saturdayDepartureReset').addEventListener('click',function(){saturdayDepartEdited=false;renderAndSave()});
-  $('#sundayBreakfastDepartureReset').addEventListener('click',function(){sundayEdited=false;$('#sundayBreakfastDeparture').value='09:50';renderAndSave()});
+  $('#departureReset').addEventListener('click',function(){workEdited=false;dep.value='15:15';render()});
+  $('#fridayDepartureReset').addEventListener('click',function(){fridayDepartEdited=false;render()});
+  $('#saturdayDepartureReset').addEventListener('click',function(){saturdayDepartEdited=false;render()});
+  $('#sundayBreakfastDepartureReset').addEventListener('click',function(){sundayEdited=false;$('#sundayBreakfastDeparture').value='09:50';render()});
   function timeMinutes(value){if(!/^\d\d:\d\d$/.test(value))return null;var a=value.split(':').map(Number);return a[0]*60+a[1]}
   function timeInput(n){n=((n%1440)+1440)%1440;return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')}
   // Place a clock-only adjustment on the nearest plausible day, including just past midnight.
   function nearClock(n,estimate){if(n===null)return estimate;return [n-1440,n,n+1440].reduce(function(best,v){return Math.abs(v-estimate)<Math.abs(best-estimate)?v:best},n)}
-  ea.addEventListener('change',function(){arrivalOverrides.ehrenberg=timeMinutes(ea.value);renderAndSave()});
-  caInput.addEventListener('change',function(){arrivalOverrides.cousin=timeMinutes(caInput.value);renderAndSave()});
-  $('#quartzArrivalReset').addEventListener('click',function(){arrivalOverrides.ehrenberg=null;renderAndSave()});
-  $('#cousinArrivalReset').addEventListener('click',function(){arrivalOverrides.cousin=null;renderAndSave()});
+  ea.addEventListener('change',function(){arrivalOverrides.ehrenberg=timeMinutes(ea.value);render()});
+  caInput.addEventListener('change',function(){arrivalOverrides.cousin=timeMinutes(caInput.value);render()});
+  $('#quartzArrivalReset').addEventListener('click',function(){arrivalOverrides.ehrenberg=null;render()});
+  $('#cousinArrivalReset').addEventListener('click',function(){arrivalOverrides.cousin=null;render()});
   function amount(input,id){
     var v=Math.max(0,Number(input.value)||0);
     $('#'+id+'Text').textContent='$'+v.toFixed(0);
@@ -414,7 +414,7 @@
     workEdited=false;fridayDepartEdited=false;saturdayDepartEdited=false;sundayEdited=false;
     dep.value='15:15';
     $('#sundayBreakfastDeparture').value='09:50';
-    renderAndSave();
+    render();
   });
   function render(){
     var fuel=amount(pf,'prepFuel'),topoff=amount(qf,'qsFuel'),snacks=amount(sn,'snacks'),
@@ -535,71 +535,6 @@
     $('#travelTotal').textContent='$'+(breakfastCost+lunchCost+rudeCost+(state.momPaid==='yes'?0:50)).toFixed(0);
     renderRest(fuel,topoff,snacks,tacoCost,breakfastCost,lunchCost,rudeCost);
   }
-  // Keep this key stable across releases of this itinerary.
-  var storageKey='babel-trip:2026-11-18:plan:v1';
-  var savedFields=['prepFuel','qsFuel','snacks','stopMinutes','departure',
-    'homeStopMinutes','tacoSpend','tacoPickupMinutes','cousinSettleMinutes',
-    'breakfastSpend','lunchSpend','rudeSpend'].concat(newControlIds);
-
-  function renderAndSave(){
-    render();
-    var inputs={};
-    savedFields.forEach(function(id){inputs[id]=$('#'+id).value});
-    try{
-      localStorage.setItem(storageKey,JSON.stringify({
-        inputs:inputs,state:state,arrivalOverrides:arrivalOverrides,
-        clockOverrides:clockOverrides,savedStopBeforeOverride:savedStopBeforeOverride,
-        homeMode:homeMode,homeDepartureManual:homeDepartureManual,
-        workEdited:workEdited,fridayDepartEdited:fridayDepartEdited,
-        saturdayDepartEdited:saturdayDepartEdited,sundayEdited:sundayEdited,
-        customAmounts:customAmounts
-      }));
-    }catch(error){/* The itinerary also works when storage is unavailable. */}
-  }
-
-  function restorePlan(){
-    var saved;
-    try{saved=JSON.parse(localStorage.getItem(storageKey))}
-    catch(error){return}
-    if(!saved||!saved.inputs||!saved.state)return;
-
-    savedFields.forEach(function(id){
-      if(typeof saved.inputs[id]==='string')$('#'+id).value=saved.inputs[id];
-    });
-    allNodes('.choice').forEach(function(choice){
-      var key=choice.dataset.key;
-      var options=Array.from(choice.querySelectorAll('.choiceOption'));
-      var selected=options.find(function(option){return option.dataset.v===String(saved.state[key])});
-      if(selected)state[key]=key==='dinner'?Number(selected.dataset.v):selected.dataset.v;
-    });
-    state.ticketCount=state.dizzy==='none'?1:2;
-    function validClock(value){return Number.isInteger(value)&&value>=0&&value<1440}
-    Object.keys(arrivalOverrides).forEach(function(key){
-      var value=(saved.arrivalOverrides||{})[key];
-      if(validClock(value))arrivalOverrides[key]=value;
-    });
-    checkpointIds.forEach(function(id){
-      var value=(saved.clockOverrides||{})[id];
-      if(!validClock(value))return;
-      clockOverrides[id]=value;
-      var pause=(saved.savedStopBeforeOverride||{})[id];
-      if(departurePauseInputs[id]&&typeof pause==='string')savedStopBeforeOverride[id]=pause;
-    });
-    if(saved.homeMode==='stay')homeMode='stay';
-    if(saved.homeMode==='depart'&&validClock(saved.homeDepartureManual)){
-      homeMode='depart';
-      homeDepartureManual=saved.homeDepartureManual;
-    }
-    workEdited=saved.workEdited===true;
-    fridayDepartEdited=saved.fridayDepartEdited===true;
-    saturdayDepartEdited=saved.saturdayDepartEdited===true;
-    sundayEdited=saved.sundayEdited===true;
-    newControlIds.forEach(function(id){
-      if((saved.customAmounts||{})[id]===true)customAmounts[id]=true;
-    });
-  }
-
-  restorePlan();
   render();
   function renderRest(fuel,topoff,snacks,tacoCost,breakfastCost,lunchCost,rudeCost){
 
