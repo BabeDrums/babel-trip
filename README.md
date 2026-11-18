@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.6.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.7.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -417,3 +417,7 @@ At the existing **8:36 PM PT** Cousin arrival, 15 minutes yields departure **8:5
 
 - Physical iPhone review narrowed the issue to the large date shortcut grid and Wednesday's unexplained signed status. Date and budget links now sit inside one collapsed Jump to control. Wednesday only shows a pickup warning when projected pickup ends at or after midnight.
 - The approved typography, itinerary cards, calculations, and paused autosave remain in place.
+
+## November 18 — Remove completed haircut and shorten Jump (v1.7.7)
+
+- Remove the completed haircut from Tuesday and the trip budget. The Tuesday subtotal now covers tickets, and the default grand total is $710 including contingency. The date and budget menu is labeled Jump.
