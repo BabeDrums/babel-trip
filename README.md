@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.46.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.47.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -651,3 +651,14 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - Preserved known-good features include: Budget + weekday-only headers, Departure → route → Arrival travel cards, origin-named departures, activity ordering with Stay near the top, bold Stay/Pack labels, Checklist interaction fixes, 56 px checklist rhythm, and Wallet/Keys/Charger/Clothes/Underwear/Toiletries/Snacks labels.
 - Numeric editing returns temporarily to the pre-v1.7.44 behavior until it can be redesigned without touching structural render behavior.
 - v1.7.44 and v1.7.45 are superseded and should not be used as implementation references for numeric editing.
+
+
+## November 19 — Confirmed Thursday + Dizzy plan (v1.7.47)
+- Thursday is intentionally cleared until the evening. The active visible plan begins at **Cousin's → Mom's → Rosalie 7:30 PM dinner → Mom's overnight**.
+- Carmelo breakfast, Jim's lunch, cousin daytime scheduling, and Rude Dogs are removed from the active Thursday itinerary and from active trip-cost calculations.
+- Mom remains the confirmed dinner payer; the old Pays decision control is no longer part of the active UI.
+- Dizzy is confirmed for Friday and is staying overnight. The old Dizzy Weekend / Friday / None decision control is retired from the active UI; the confirmed route uses the former Weekend path.
+- Friday pickup is **5:45 PM in Temecula**. Default departure from Mom's is **4:15 PM**, pickup/fuel stop is **10 minutes**, and the route then goes directly to GardenWalk for an approximately **7:15 PM** arrival ahead of the **8:00 PM Olivia Rodrigo Night**.
+- Hanagi is removed from the active Friday plan.
+- Tickets are confirmed at **$28 each / $56 total**. The editable ticket-choice row is retired, while the $56 expense remains represented in the trip budget.
+- Existing Saturday behavior for the confirmed overnight Dizzy path remains active unless later plans change.
