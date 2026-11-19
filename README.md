@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.47.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.48.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -662,3 +662,10 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - Hanagi is removed from the active Friday plan.
 - Tickets are confirmed at **$28 each / $56 total**. The editable ticket-choice row is retired, while the $56 expense remains represented in the trip budget.
 - Existing Saturday behavior for the confirmed overnight Dizzy path remains active unless later plans change.
+
+
+## November 19 — Collapsible days + first-row separator fix (v1.7.48)
+- Wednesday through Sunday headers are now tappable, keyboard-accessible collapse controls with a compact chevron. Budget intentionally remains always open.
+- Each day's expanded/collapsed state persists locally on the device using per-day localStorage keys.
+- Collapse is presentation-only: itinerary calculations and route state remain intact while a day is hidden.
+- Fixed the thin separator artifact that could appear above the first visible row when hidden legacy rows preceded it in the same card. The shared row-separator rule now suppresses that false first-row divider.
