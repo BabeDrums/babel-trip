@@ -170,12 +170,7 @@
 </section>
 
 <section class="day" id="friday" tabindex="-1"><div class="header"><div class="date">Friday</div></div><div class="stack flowStack">
-<div class="group menuGroup"><div class="row decisionRow choice" data-key="fridayStart"><button class="decisionTrigger choiceTrigger" type="button" aria-expanded="false" aria-controls="fridayStartOptions"><span class="label">Start</span><span class="decisionValue"><span id="fridayStartChoiceText" class="decisionValueText">Mom's</span></span></button><div id="fridayStartOptions" class="choiceMenu hidden" role="group" aria-label="Friday start options"><button class="choiceOption sel" data-v="mom" type="button" aria-pressed="true">Mom's</button><button class="choiceOption" data-v="cousin" type="button" aria-pressed="false">Cousin's</button></div></div></div>
 <div class="group statusGroup"><div class="row"><div class="label">Status</div><div id="fridayStatus" class="trailing">-10 min</div></div></div>
-<div class="journeyBranch" id="fridayStartMomBlock">
-<div class="group stopGroup"><div class="row departureRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Mom's</div><div class="trailing">1:10 PM</div></div></div>
-<div class="travelLeg" data-car-miles="5.5"><div class="row infoRow"><div class="infoLeft">5.5 mi</div><div class="infoRight">20 min</div></div></div>
-</div>
 <div class="group stopGroup"><div class="row"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M10 5.9v7.6 M6.7 10.8 10 14.1l3.3-3.3"></path></svg></span>Cousin's</div><div class="trailing">1:30 PM</div></div>
 <div class="row roleRow stayRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M7.6 6.8v6.4 M12.4 6.8v6.4"></path></svg></span>Stay</div><div class="trailing">1 hr</div></div>
 <div class="row departureRow"><div class="label placeLabel"><span class="miniIcon" aria-hidden="true"><svg viewBox="0 0 20 20" focusable="false"><circle cx="10" cy="10" r="8.25"></circle><path d="M5.9 10h7.6 M10.8 6.7 14.1 10l-3.3 3.3"></path></svg></span>Cousin's</div><div class="trailing">2:30 PM</div></div></div>
@@ -276,7 +271,7 @@
 
 
 <div id="resetBar" class="resetBar hidden"><button id="resetTimings" type="button" title="Restore arrival and departure estimates without changing durations or costs" aria-label="Reset edited arrival and departure clocks">Reset clocks</button></div>
-<div class="buildVersion" aria-label="Babel Trip version">v1.7.49</div>
+<div class="buildVersion" aria-label="Babel Trip version">v1.7.50</div>
 <script>
 (function(){
   var r=document.getElementById('babel-trip-current'); if(!r||r.dataset.ready)return; r.dataset.ready='1';
@@ -308,7 +303,7 @@
   }
   initDayCollapse();
   var $=function(s){return r.querySelector(s)}, allNodes=function(s){return Array.from(r.querySelectorAll(s))};
-  var state={dizzy:'weekend',momPaid:'yes',ticketCount:2,fridayStart:'mom',satDinner:'hangout',satKaraoke:'no'};
+  var state={dizzy:'weekend',momPaid:'yes',ticketCount:2,satDinner:'hangout',satKaraoke:'no'};
   var arrivalOverrides={ehrenberg:null,cousin:null};
   var clockOverrides={},savedStopBeforeOverride={};
   var checkpointIds=["homeArrival","quartzDepart","tacoStartDrive","tacoArrival","tacoDepart","tacoReturn","breakfastDepart","breakfastArrival","breakfastLeave","breakfastReturn","lunchDepart","lunchArrival","lunchLeave","lunchReturn","cousinDepart","momArrival1","momDepartDinner","dinnerArrival","dinnerDepartDirect","momArrivalDirect","momWalkDepart","rudeArrivalWalk","rudeDepartWalk","momReturnWalk","fridayPickupArrival","fridayPickupDeparture","fridayHanagiArrivalPickup","fridayHanagiArrivalSolo","fridayHanagiDeparture","fridayGardenArrival","fridayEventDeparture","fridayGrandpaArrival","fridayDropArrival","fridayDropDeparture","fridayReturnArrival","saturdayGrandpaArrival","saturdayGrandpaStart","saturdayHangoutLeave","saturdayHangoutArrival","saturdayKaraokeLeave","saturdayKaraokeArrival","saturdayKaraokeDeparture","saturdayTemeculaArrival","saturdayTemeculaDepart","saturdayCousinArrivalWithDizzy","saturdayCousinArrivalSolo","sundayBreakfastArrival","sundayBreakfastEnd","sundayCousinReturn","sundayLeaveCalifornia","sundayEhrenbergArrival","sundayEhrenbergDeparture","sundayHomeArrival"];
@@ -770,11 +765,10 @@
   function renderRest(topoff,snacks,tacoCost,breakfastCost,lunchCost,rudeCost){
 
     // Friday · optional Mom's start, Cousin's ready block, Dizzy, sushi, event and overnight.
-    var withDizzy=true,weekend=true,startAtMom=state.fridayStart==='mom';
+    var withDizzy=true,weekend=true;
     defaultAmount('saturdayGrandpaFuel',45);
     defaultAmount('saturdayTemeculaFuel',30);
     show('saturdayGrandpaFuelRow',false);
-    show('fridayStartMomBlock',startAtMom);
     if(!fridayDepartEdited)$('#fridayDeparture').value='14:30';
     defaultAmount('fridaySushiSpend',110);
     defaultAmount('fridayEventSpend',20);
