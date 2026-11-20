@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.50.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.51.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -688,3 +688,14 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - Remove the temporary **Mom's / Cousin's Start** switch and the Mom's → Cousin's pre-leg.
 - Friday now begins directly at **Cousin's 1:30 PM → Stay 1 hr → leave 2:30 PM**, then continues to Dizzy, Hanagi sushi, GardenWalk, Olivia Rodrigo Night, and Grandpa's.
 - No shared styling, day-collapse behavior, card geometry, separators, budget formulas, or downstream Friday timing logic changed.
+
+
+## November 20 — Actual Nissan fuel/range continuity (v1.7.51)
+- Replace the old generic 300-mile Friday range assumption with the observed **420-mile DTE baseline from the Ehrenberg top-off**.
+- User confirmed the Nissan drove **Ehrenberg → Cousin's and then did not move again before Friday**.
+- Wednesday local 4.3-mile legs after Cousin's and all Thursday travel legs are excluded from Nissan range calculations because those were not driven in the Nissan.
+- Friday no longer plans a Temecula fuel top-off; its fuel row is hidden and contributes $0.
+- Saturday fuel is moved to the **Grandpa's** section and remains editable.
+- Range engine now supports per-fill reset targets and explicit non-Nissan travel exclusions without changing visible route mileage.
+- Expected Friday range progression from the 420 baseline is approximately: **210 mi at Cousin's → 144 after Cousin's→Temecula → 83 after Temecula→Anaheim → ~57 at Grandpa's** before Saturday refueling.
+- No shared CSS, card geometry, collapse behavior, timing logic, or visual hierarchy changes.
