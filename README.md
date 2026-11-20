@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.49.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.50.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -681,3 +681,10 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - Hanagi → GardenWalk is restored as **2.0 mi / 20 min**, targeting **7:20 PM** arrival before the fixed **8:00 PM Olivia Rodrigo Night**.
 - Friday remains on the confirmed Dizzy weekend/overnight path to Grandpa's after the event.
 - The Friday switch/timing change does **not** alter shared CSS, day-collapse behavior, card geometry, separators, or the current visual system.
+
+
+## November 20 — Friday starts at Cousin's (v1.7.50)
+- Friday is now confirmed to start at **Cousin's**.
+- Remove the temporary **Mom's / Cousin's Start** switch and the Mom's → Cousin's pre-leg.
+- Friday now begins directly at **Cousin's 1:30 PM → Stay 1 hr → leave 2:30 PM**, then continues to Dizzy, Hanagi sushi, GardenWalk, Olivia Rodrigo Night, and Grandpa's.
+- No shared styling, day-collapse behavior, card geometry, separators, budget formulas, or downstream Friday timing logic changed.
