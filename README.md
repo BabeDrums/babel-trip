@@ -2,7 +2,7 @@
 
 This repository owns the **Babel Trip website, its current UI/runtime, and deployment**. The website entry point is `index.html`.
 
-**Current active release: v1.7.48.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
+**Current active release: v1.7.49.** The sole user-facing itinerary is **https://babedrums.github.io/babel-trip/**. The previous `layout-review.html` preview has been retired to eliminate competing versions. Historical notes below describe previous releases and do not supersede the latest runtime contract in this file and index.html.
 
 Expected GitHub Pages URL: https://babedrums.github.io/babel-trip/ (confirm published deployment before asserting it is live).
 
@@ -669,3 +669,15 @@ Rosalie’s editable Total row appears only when Me is selected under Pays. Swit
 - Each day's expanded/collapsed state persists locally on the device using per-day localStorage keys.
 - Collapse is presentation-only: itinerary calculations and route state remain intact while a day is hidden.
 - Fixed the thin separator artifact that could appear above the first visible row when hidden legacy rows preceded it in the same card. The shared row-separator rule now suppresses that false first-row divider.
+
+
+## November 19 — Friday start switch + sushi timeline (v1.7.49)
+- Friday now has a top-level **Start** switch with two options: **Mom's** and **Cousin's**.
+- Default is **Mom's**. That branch depicts **Mom's 1:10 PM departure → Cousin's 1:30 PM** using the same 5.5 mi / 20 min family leg already established on Thursday.
+- Both Friday start options converge at Cousin's: **1:30 PM → Stay 1 hr → leave 2:30 PM**. If starting at Cousin's, the Mom's leg is simply hidden.
+- Cousin's → Dizzy is planned as **66 mi / 1 hr 30 min**, arriving **4:00 PM**. Pickup/fuel remains **10 min**, leaving Temecula **4:10 PM**.
+- Restore **Hanagi Japanese Restaurant** as the active sushi dinner stop: Temecula → Hanagi uses a conservative **1 hr 40 min** Friday-traffic planning duration, arriving about **5:50 PM**.
+- Hanagi dinner target is **6:00 PM**, planned **60 min**, with the existing editable **$110** sushi budget restored to active Friday/trip totals.
+- Hanagi → GardenWalk is restored as **2.0 mi / 20 min**, targeting **7:20 PM** arrival before the fixed **8:00 PM Olivia Rodrigo Night**.
+- Friday remains on the confirmed Dizzy weekend/overnight path to Grandpa's after the event.
+- The Friday switch/timing change does **not** alter shared CSS, day-collapse behavior, card geometry, separators, or the current visual system.
